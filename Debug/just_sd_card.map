@@ -21401,7 +21401,7 @@ END GROUP
  .debug_abbrev  0x0000461b      0x1ea ./src/init.o
  .debug_abbrev  0x00004805      0x203 ./src/main.o
 
-.debug_line     0x00000000    0x207ae
+.debug_line     0x00000000    0x207af
  *(.debug_line)
  .debug_line    0x00000000      0xba1 ./system/src/stm32f4-hal/stm32f4xx_hal.o
  .debug_line    0x00000ba1      0xc84 ./system/src/stm32f4-hal/stm32f4xx_hal_cortex.o
@@ -21443,7 +21443,7 @@ END GROUP
  .debug_line    0x0001db57      0xa99 ./src/Timer.o
  .debug_line    0x0001e5f0      0xa3e ./src/_initialize_hardware.o
  .debug_line    0x0001f02e      0xba9 ./src/init.o
- .debug_line    0x0001fbd7      0xbd7 ./src/main.o
+ .debug_line    0x0001fbd7      0xbd8 ./src/main.o
 
 .debug_frame    0x00000000     0x4c74
  *(.debug_frame)

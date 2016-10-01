@@ -42,7 +42,7 @@ void initSD() {
 		 TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
 		 char fileName[50];
 		 sprintf(fileName,"SD:/%u-%u.txt",timeBuffer.Month,timeBuffer.Day);
-		 if (f_open(&fil, fileName, FA_OPEN_EXISTING|FA_READ | FA_WRITE)) {
+		 if (f_open(&fil, fileName, FA_OPEN_EXISTING|FA_READ | FA_WRITE) == FR_OK) {
 			 //try to open existing file
 		 } else
 			 //has to create file

@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
 		//TODO: add exception handling for init section; e.g. try to mount SD card until sucessful
 		while(1) {}
 	};
-	stopExecution=0;
+	stopExecution=1;
     logRequired=0;
 
 	  while(!stopExecution){
