@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "diag/Trace.h"
 
-#include "Timer.h"
+#include "init.h"
 #include "BlinkLed.h"
 
 
@@ -17,7 +17,6 @@
 #include "TM_lib/tm_stm32_delay.h"
 #include "TM_lib/tm_stm32_fatfs.h"
 #include "TM_lib/tm_stm32_rtc.h"
-#include "TM_lib/tm_stm32_i2c.h"
 #include "TM_lib/tm_stm32_mpu6050.h"
 
 // ----- main() ---------------------------------------------------------------
@@ -34,8 +33,6 @@ FATFS FS;
 FIL fil;
 FRESULT fres;
 
-/* Size structure for FATFS */
-TM_FATFS_Size_t CardSize;
 
 /* Buffer variable */
 char buffer[100];
@@ -44,80 +41,76 @@ char buffer[100];
 TM_RTC_t datetime;
 
 //MPU stuff
-TM_MPU6050_t MPU6050_Data0;
-TM_MPU6050_t MPU6050_Data1;
+TM_MPU6050_t mpu_buffer;
+
+//status variables
+char blinkStatus;
+char initStatus;
+char logRequired;
+char stopExecution;
+
+//measurement variables
 
 int main(int argc, char* argv[]) {
-  // Send a greeting to the trace device (skipped on Release).
-  trace_puts("Hello ARM World!");
-  // At this stage the system clock should have already been configured
-  // at high speed.
-  trace_printf("System clock: %u Hz\n", SystemCoreClock);
-  timer_start();
-  blink_led_init();
-  TM_MPU6050_Result_t result;
-  MPU6050_Data0.Address=0x69;
-  result=TM_MPU6050_Init(&MPU6050_Data0, TM_MPU6050_Device_0, TM_MPU6050_Accelerometer_2G, TM_MPU6050_Gyroscope_250s);
-  trace_printf("%u",result);
-  if (result==TM_MPU6050_Result_Ok)
-  {
-	  while(1){
-          // Display message to user
-         TM_MPU6050_ReadAll(&MPU6050_Data0);
+	initSystem();
+	//if something happened during init, stop execution
+	if (initStatus) {
+		//TODO: add exception handling for init section; e.g. try to mount SD card until sucessful
+		while(1) {}
+	};
+	stopExecution=0;
+    logRequired=0;
+
+	  while(!stopExecution){
+		  if (logRequired) {
+			  //TODO: needs to write to file
+			  //TODO: sanity check, whether file pointer is valid
+
+			  logRequired=0;
+		  }
+
+		  //do measurements, store in temp variables
+		  //TODO: MPU MAX_HOLD
+         TM_MPU6050_ReadAll(&mpu_buffer);
          trace_printf( "1. Accelerometer X:%d- Y:%d- Z:%d Gyroscope- X:%d- Y:%d- Z:%d\n",
-                             MPU6050_Data0.Accelerometer_X,
-                             MPU6050_Data0.Accelerometer_Y,
-                             MPU6050_Data0.Accelerometer_Z,
-                             MPU6050_Data0.Gyroscope_X,
-                             MPU6050_Data0.Gyroscope_Y,
-                             MPU6050_Data0.Gyroscope_Z
+                             mpu_buffer.Accelerometer_X,
+                             mpu_buffer.Accelerometer_Y,
+                             mpu_buffer.Accelerometer_Z,
+                             mpu_buffer.Gyroscope_X,
+                             mpu_buffer.Gyroscope_Y,
+                             mpu_buffer.Gyroscope_Z
                      );
-	  	  }
-      }
+
+         //TODO: vibration sensor
+
+	  }
 
 
-  /*
-  if (!TM_RTC_Init(TM_RTC_ClockSource_External)) {
-  		//RTC was first time initialized
-  		//Do your stuf here
-  		//eg. set default time
-	  TM_RTC_SetDateTimeString("01.10.16.6;13:00:00");
-  	}
 
-  if (f_mount(&FS, "SD:", 1) == FR_OK) {
-	  	TM_FATFS_GetDriveSize("SD:", &CardSize);
-	  	trace_printf("Total card size: %u kBytes\n", CardSize.Total);
-		trace_printf("Free card size:  %u kBytes\n", CardSize.Free);
 
-  		// WRITE STRING
-  		if ((fres = f_open(&fil, "SD:/second.txt",FA_CREATE_ALWAYS|FA_READ | FA_WRITE)) == FR_OK) {
-  			// Read SDCARD size
-  			f_puts("Hello world\n",&fil);
-  			// Close file
-  			f_close(&fil);
 
-  		}
-
-  		//READ IT BACK
-  		if ((fres = f_open(&fil, "SD:/second.txt",FA_OPEN_ALWAYS |FA_READ | FA_WRITE)) == FR_OK) {
-  		  			// Read SDCARD size
-  					f_gets(buffer,50,&fil);
-  		  			trace_printf("%s",buffer);
-  		  			// Close file
-  		  			f_close(&fil);
-
-  		  		}
-  		//unmount SD card!
+  		f_close(&fil);
   		f_mount(NULL, "SD:", 1);
-  	}
-
-  while (1) {
-	  TM_RTC_GetDateTime(&datetime,TM_RTC_Format_BIN);
-	  trace_printf("Time is: %u:%u:%u\n",datetime.Hours,datetime.Minutes,datetime.Seconds);
-  }
-  */
-
 }
+
+void TM_RTC_WakeupHandler(void) {
+	//toggle LED-s, if init failed
+	if (initStatus) {
+		if (blinkStatus) {
+			//was On
+			blink_led_off();
+			blinkStatus=0;
+
+		} else {
+			//was Off
+			blink_led_on();
+			blinkStatus=1;
+		}
+	}
+
+	logRequired=1;
+}
+
 
 #pragma GCC diagnostic pop
 

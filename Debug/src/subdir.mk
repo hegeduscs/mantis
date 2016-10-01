@@ -8,21 +8,27 @@ C_SRCS += \
 ../src/Timer.c \
 ../src/_initialize_hardware.c \
 ../src/_write.c \
-../src/main.c 
+../src/init.c \
+../src/main.c \
+../src/measurements.c 
 
 OBJS += \
 ./src/BlinkLed.o \
 ./src/Timer.o \
 ./src/_initialize_hardware.o \
 ./src/_write.o \
-./src/main.o 
+./src/init.o \
+./src/main.o \
+./src/measurements.o 
 
 C_DEPS += \
 ./src/BlinkLed.d \
 ./src/Timer.d \
 ./src/_initialize_hardware.d \
 ./src/_write.d \
-./src/main.d 
+./src/init.d \
+./src/main.d \
+./src/measurements.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

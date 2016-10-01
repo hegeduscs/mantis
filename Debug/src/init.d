@@ -1,4 +1,4 @@
-src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
+src/init.o: ../src/init.c ../src/init.h \
  ../system/include/cmsis/stm32f4xx.h \
  ../system/include/cmsis/stm32f407xx.h ../system/include/cmsis/core_cm4.h \
  ../system/include/cmsis/core_cmInstr.h \
@@ -77,9 +77,7 @@ src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
  ../src/TM_lib/../fatfs/ff.h ../src/TM_lib/../fatfs/integer.h \
  ../src/TM_lib/../fatfs/ffconf.h ../src/TM_lib/../fatfs/diskio.h \
  ../src/TM_lib/tm_stm32_rtc.h ../src/TM_lib/tm_stm32_mpu6050.h \
- ../src/TM_lib/tm_stm32_i2c.h ../system/include/cmsis/stm32f407xx.h
-
-../system/include/diag/Trace.h:
+ ../src/TM_lib/tm_stm32_i2c.h
 
 ../src/init.h:
 
@@ -256,5 +254,3 @@ src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
 ../src/TM_lib/tm_stm32_mpu6050.h:
 
 ../src/TM_lib/tm_stm32_i2c.h:
-
-../system/include/cmsis/stm32f407xx.h:
