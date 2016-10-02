@@ -21,5 +21,6 @@ void initSystem();
 void initRTC();
 void initSD();
 void initMPU();
+void initADC();
 
 #endif

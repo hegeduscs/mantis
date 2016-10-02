@@ -6,8 +6,6 @@ void initSystem () {
 	initRTC();
 	initSD();
 	initMPU();
-
-
 }
 
 void initRTC() {
@@ -44,6 +42,10 @@ void initSD() {
 		 sprintf(fileName,"SD:/%u-%u.txt",timeBuffer.Month,timeBuffer.Day);
 		 if (f_open(&fil, fileName, FA_OPEN_EXISTING|FA_READ | FA_WRITE) == FR_OK) {
 			 //try to open existing file
+			 //however we need to append to it!
+			 f_close(&fil);
+			 //open as append
+			 f_open(&fil,fileName,FA_OPEN_APPEND|FA_READ|FA_WRITE);
 		 } else
 			 //has to create file
 			 if ( f_open(&fil, fileName, FA_CREATE_NEW|FA_READ | FA_WRITE) == FR_OK) {
@@ -69,3 +71,4 @@ void initMPU() {
 		//TODO: need calibration or something
 	}
 }
+
