@@ -43,6 +43,9 @@ TM_RTC_t datetime;
 //readout buffers
 TM_MPU6050_t mpu_buffer;
 
+//Button object
+TM_BUTTON_t* userButton;
+
 //status variables
 char blinkStatus;
 char initStatus;
@@ -66,13 +69,17 @@ int main(int argc, char* argv[]) {
     max_value.Accelerometer_X=0;
     max_value.Gyroscope_X=0;
 
-	  while(!stopExecution){
+    uint8_t runs=0;
+
+	  while(!stopExecution&&runs<10){
 		  if (logRequired) {
 			  //TODO: needs to write to file
 			  //TODO: sanity check, whether file pointer is valid
 			  TM_RTC_GetDateTime(&datetime,TM_RTC_Format_BIN);
 			  //TODO: add ADC measurement
+			  trace_printf("%u:%u:%u;;%d;%d\n",datetime.Hours,datetime.Minutes,datetime.Seconds,max_value.Accelerometer_X,max_value.Gyroscope_X);
 			  f_printf(&fil,"%u:%u:%u;;%d;%d\n",datetime.Hours,datetime.Minutes,datetime.Seconds,max_value.Accelerometer_X,max_value.Gyroscope_X);
+			  f_sync(&fil);
 			  max_value.Accelerometer_X=0;
 			  max_value.Gyroscope_X=0;
 			  logRequired=0;
@@ -80,8 +87,8 @@ int main(int argc, char* argv[]) {
 
 		  //do measurements, store in temp variables
 		  //TODO: MPU MAX_HOLD
-         TM_MPU6050_ReadAll(&mpu_buffer);
-        /* trace_printf( "1. Accelerometer X:%d- Y:%d- Z:%d Gyroscope- X:%d- Y:%d- Z:%d\n",
+         TM_MPU6050_ReadAllNorm(&mpu_buffer);
+        trace_printf( "1. Accelerometer X:%d - Y:%d- Z:%d Gyroscope- X:%d- Y:%d- Z:%d\n",
                              mpu_buffer.Accelerometer_X,
                              mpu_buffer.Accelerometer_Y,
                              mpu_buffer.Accelerometer_Z,
@@ -89,7 +96,7 @@ int main(int argc, char* argv[]) {
                              mpu_buffer.Gyroscope_Y,
                              mpu_buffer.Gyroscope_Z
                      );
-		 */
+
          if (abs(mpu_buffer.Accelerometer_X)>abs(max_value.Accelerometer_X)) max_value.Accelerometer_X=mpu_buffer.Accelerometer_X;
          if (abs(mpu_buffer.Accelerometer_Y)>abs(max_value.Accelerometer_X)) max_value.Accelerometer_X=mpu_buffer.Accelerometer_Y;
          if (abs(mpu_buffer.Accelerometer_Z)>abs(max_value.Accelerometer_X)) max_value.Accelerometer_X=mpu_buffer.Accelerometer_Z;
@@ -97,14 +104,17 @@ int main(int argc, char* argv[]) {
          if (abs(mpu_buffer.Gyroscope_X)>abs(max_value.Gyroscope_X)) max_value.Gyroscope_X=mpu_buffer.Gyroscope_X;
          if (abs(mpu_buffer.Gyroscope_Y)>abs(max_value.Gyroscope_X)) max_value.Gyroscope_X=mpu_buffer.Gyroscope_Y;
          if (abs(mpu_buffer.Gyroscope_Z)>abs(max_value.Gyroscope_X)) max_value.Gyroscope_X=mpu_buffer.Gyroscope_Z;
-
+         //trace_printf("Max acc: %d, gyro: %d\n",max_value.Accelerometer_X,max_value.Gyroscope_X);
          //TODO: vibration sensor
+
+ 		TM_BUTTON_Update();
+ 		runs++;
 	  }
 
 
 
 
-
+	  	trace_printf("BYE\n");
   		f_close(&fil);
   		f_mount(NULL, "SD:", 1);
 }

@@ -72,8 +72,7 @@ extern "C" {
  - defines.h
 \endverbatim
  */
-#include "stm32fxxx_hal.h"
-#include "defines.h"
+#include "stm32f4xx_hal.h"
 
 /**
  * @defgroup TM_GPIO_Macros

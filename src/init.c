@@ -6,6 +6,7 @@ void initSystem () {
 	initRTC();
 	initSD();
 	initMPU();
+	initButtons();
 }
 
 void initRTC() {
@@ -71,4 +72,21 @@ void initMPU() {
 		//TODO: need calibration or something
 	}
 }
+void initButtons() {
+	userButton = TM_BUTTON_Init(GPIOA,GPIO_Pin_0 ,1, BUTTON_Callback);
+	TM_BUTTON_SetPressTime(userButton, 30, 1000);
+}
 
+static void BUTTON_Callback(TM_BUTTON_t* ButtonPtr, TM_BUTTON_PressType_t PressType) {
+	/* Normal press detected */
+	if (PressType == TM_BUTTON_PressType_Normal) {
+		/* Set LEDS ON */
+		blink_led_on();
+		trace_printf("BUTTON_ON");
+	} else if (PressType == TM_BUTTON_PressType_Long) {
+		/* Set LEDS OFF */
+		blink_led_off();
+		trace_printf("BUTTON_OFF");
+
+	}
+}

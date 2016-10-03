@@ -77,7 +77,8 @@ src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
  ../src/TM_lib/../fatfs/ff.h ../src/TM_lib/../fatfs/integer.h \
  ../src/TM_lib/../fatfs/ffconf.h ../src/TM_lib/../fatfs/diskio.h \
  ../src/TM_lib/tm_stm32_rtc.h ../src/TM_lib/tm_stm32_mpu6050.h \
- ../src/TM_lib/tm_stm32_i2c.h ../system/include/cmsis/stm32f407xx.h
+ ../src/TM_lib/tm_stm32_i2c.h ../src/TM_lib/tm_stm32_button.h \
+ ../src/TM_lib/tm_stm32_delay.h ../system/include/cmsis/stm32f407xx.h
 
 ../system/include/diag/Trace.h:
 
@@ -256,5 +257,9 @@ src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
 ../src/TM_lib/tm_stm32_mpu6050.h:
 
 ../src/TM_lib/tm_stm32_i2c.h:
+
+../src/TM_lib/tm_stm32_button.h:
+
+../src/TM_lib/tm_stm32_delay.h:
 
 ../system/include/cmsis/stm32f407xx.h:

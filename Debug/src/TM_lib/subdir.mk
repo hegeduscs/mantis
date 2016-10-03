@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/TM_lib/stm32f4xx_hal_msp.c \
+../src/TM_lib/tm_stm32_button.c \
 ../src/TM_lib/tm_stm32_delay.c \
 ../src/TM_lib/tm_stm32_fatfs.c \
 ../src/TM_lib/tm_stm32_gpio.c \
@@ -15,6 +16,7 @@ C_SRCS += \
 
 OBJS += \
 ./src/TM_lib/stm32f4xx_hal_msp.o \
+./src/TM_lib/tm_stm32_button.o \
 ./src/TM_lib/tm_stm32_delay.o \
 ./src/TM_lib/tm_stm32_fatfs.o \
 ./src/TM_lib/tm_stm32_gpio.o \
@@ -25,6 +27,7 @@ OBJS += \
 
 C_DEPS += \
 ./src/TM_lib/stm32f4xx_hal_msp.d \
+./src/TM_lib/tm_stm32_button.d \
 ./src/TM_lib/tm_stm32_delay.d \
 ./src/TM_lib/tm_stm32_fatfs.d \
 ./src/TM_lib/tm_stm32_gpio.d \
@@ -38,14 +41,14 @@ C_DEPS += \
 src/TM_lib/stm32f4xx_hal_msp.o: ../src/TM_lib/stm32f4xx_hal_msp.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross ARM C Compiler'
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_SEMIHOSTING_DEBUG -DSTM32F407xx -DUSE_HAL_DRIVER -DHSE_VALUE=8000000 -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f4-hal" -std=gnu11 -Wno-missing-prototypes -Wno-missing-declarations -MMD -MP -MF"$(@:%.o=%.d)" -MT"src/TM_lib/stm32f4xx_hal_msp.d" -c -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_SEMIHOSTING_DEBUG -DSTM32F407xx -DUSE_HAL_DRIVER -DHSE_VALUE=8000000 -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f4-hal" -std=gnu11 -Wno-missing-prototypes -Wno-missing-declarations -MMD -MP -MF"$(@:%.o=%.d)" -MT"src/TM_lib/stm32f4xx_hal_msp.d" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/TM_lib/%.o: ../src/TM_lib/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross ARM C Compiler'
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_SEMIHOSTING_DEBUG -DSTM32F407xx -DUSE_HAL_DRIVER -DHSE_VALUE=8000000 -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f4-hal" -std=gnu11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_SEMIHOSTING_DEBUG -DSTM32F407xx -DUSE_HAL_DRIVER -DHSE_VALUE=8000000 -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f4-hal" -std=gnu11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

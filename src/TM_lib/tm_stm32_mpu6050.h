@@ -334,6 +334,13 @@ TM_MPU6050_Result_t TM_MPU6050_ReadAccelerometer(TM_MPU6050_t* DataStruct);
  *            - TM_MPU6050_Result_Ok: everything is OK
  *            - Other: in other cases
  */
+
+/**
+ * Read normalizied paramteres
+ */
+
+void TM_MPU6050_ReadAllNorm(TM_MPU6050_t* Datastruct);
+
 TM_MPU6050_Result_t TM_MPU6050_ReadGyroscope(TM_MPU6050_t* DataStruct);
 
 /**

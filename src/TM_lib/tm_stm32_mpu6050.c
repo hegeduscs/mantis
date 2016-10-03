@@ -246,6 +246,25 @@ TM_MPU6050_Result_t TM_MPU6050_ReadAccelerometer(TM_MPU6050_t* DataStruct) {
 	return TM_MPU6050_Result_Ok;
 }
 
+void TM_MPU6050_ReadAllNorm(TM_MPU6050_t* DataStruct)
+{
+	TM_MPU6050_t* TempStruct;
+	float range;
+
+	/* Raw reading */
+	TM_MPU6050_ReadAll(DataStruct);
+
+	/* Normalizing */
+	TempStruct = DataStruct;
+	range = TempStruct->Acce_Mult;
+	DataStruct->Accelerometer_X = TempStruct->Accelerometer_X * range * 9.80665f;
+	DataStruct->Accelerometer_Y = TempStruct->Accelerometer_Y * range *9.80665f;
+	DataStruct->Accelerometer_Z = TempStruct->Accelerometer_Z * range * 9.80665f;
+	DataStruct->Gyroscope_X = TempStruct->Gyroscope_X * range * 9.80665f;
+	DataStruct->Gyroscope_Y = TempStruct->Gyroscope_Y * range * 9.80665f;
+	DataStruct->Gyroscope_Z = TempStruct->Gyroscope_Z * range * 9.80665f;
+}
+
 TM_MPU6050_Result_t TM_MPU6050_ReadGyroscope(TM_MPU6050_t* DataStruct) {
 	uint8_t data[6];
 	
