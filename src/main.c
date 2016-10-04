@@ -11,7 +11,7 @@
 
 #include "init.h"
 #include "BlinkLed.h"
-
+#include "utils.h"
 
 #include "stm32f407xx.h"
 #include "TM_lib/tm_stm32_delay.h"
@@ -62,6 +62,9 @@ int main(int argc, char* argv[]) {
 	if (initStatus) {
 		//TODO: add exception handling for init section; e.g. try to mount SD card until sucessful
 		trace_printf("Init error code:%u\n",initStatus);
+		TM_RTC_Interrupts(TM_RTC_Int_Disable);
+		blink_led_on();
+
 		while(1) {}
 	};
 	stopExecution=0;
@@ -71,15 +74,14 @@ int main(int argc, char* argv[]) {
 
     uint8_t runs=0;
 
-	  while(!stopExecution&&runs<10){
+	  while(!stopExecution){
 		  if (logRequired) {
 			  //TODO: needs to write to file
 			  //TODO: sanity check, whether file pointer is valid
 			  TM_RTC_GetDateTime(&datetime,TM_RTC_Format_BIN);
 			  //TODO: add ADC measurement
-			  trace_printf("%u:%u:%u;;%d;%d\n",datetime.Hours,datetime.Minutes,datetime.Seconds,max_value.Accelerometer_X,max_value.Gyroscope_X);
-			  f_printf(&fil,"%u:%u:%u;;%d;%d\n",datetime.Hours,datetime.Minutes,datetime.Seconds,max_value.Accelerometer_X,max_value.Gyroscope_X);
-			  f_sync(&fil);
+			  //write into file
+			  writeLogEntry(&fil, datetime, max_value, 0);
 			  max_value.Accelerometer_X=0;
 			  max_value.Gyroscope_X=0;
 			  logRequired=0;
@@ -108,7 +110,9 @@ int main(int argc, char* argv[]) {
          //TODO: vibration sensor
 
  		TM_BUTTON_Update();
- 		runs++;
+ 		//runs++;
+ 		Delay(2000);
+ 		//if (runs>20) stopExecution=1;
 	  }
 
 
@@ -120,8 +124,8 @@ int main(int argc, char* argv[]) {
 }
 
 void TM_RTC_WakeupHandler(void) {
-	//toggle LED-s, if init failed
-	if (initStatus) {
+	//toggle LED-s, if init didn't fail
+	if (!stopExecution) {
 		if (blinkStatus) {
 			//was On
 			blink_led_off();

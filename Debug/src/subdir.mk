@@ -10,7 +10,8 @@ C_SRCS += \
 ../src/_write.c \
 ../src/init.c \
 ../src/main.c \
-../src/measurements.c 
+../src/measurements.c \
+../src/utils.c 
 
 OBJS += \
 ./src/BlinkLed.o \
@@ -19,7 +20,8 @@ OBJS += \
 ./src/_write.o \
 ./src/init.o \
 ./src/main.o \
-./src/measurements.o 
+./src/measurements.o \
+./src/utils.o 
 
 C_DEPS += \
 ./src/BlinkLed.d \
@@ -28,7 +30,8 @@ C_DEPS += \
 ./src/_write.d \
 ./src/init.d \
 ./src/main.d \
-./src/measurements.d 
+./src/measurements.d \
+./src/utils.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

@@ -41,18 +41,20 @@ void initSD() {
 		 TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
 		 char fileName[50];
 		 sprintf(fileName,"SD:/%u-%u.txt",timeBuffer.Month,timeBuffer.Day);
-		 if (f_open(&fil, fileName, FA_OPEN_EXISTING|FA_READ | FA_WRITE) == FR_OK) {
+		 if (f_open(&fil, fileName, FA_OPEN_EXISTING |FA_READ | FA_WRITE) == FR_OK) {
 			 //try to open existing file
 			 //however we need to append to it!
-			 f_close(&fil);
+			 //f_close(&fil);
 			 //open as append
-			 f_open(&fil,fileName,FA_OPEN_APPEND|FA_READ|FA_WRITE);
+			 //f_open(&fil,fileName,FA_OPEN_APPEND|FA_READ|FA_WRITE);
+			 f_lseek(&fil, f_size(&fil));
 		 } else
 			 //has to create file
-			 if ( f_open(&fil, fileName, FA_CREATE_NEW|FA_READ | FA_WRITE) == FR_OK) {
+			 if ( f_open(&fil, fileName, FA_CREATE_ALWAYS|FA_READ | FA_WRITE) == FR_OK) {
 				 //add header
-				 f_printf(&fil,"System init at: %u-%u-%u %u:%u:%u ",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds);
-				 f_puts("TIMESTAMP;VIBRATION_AVG;MAX_ACC;MAX_GYRO",&fil);
+				 f_printf(&fil,"System init at: %u-%u-%u %u:%u:%u\n",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds);
+				 f_puts("TIMESTAMP;VIBRATION_AVG;MAX_ACC;MAX_GYRO\n",&fil);
+				 f_sync(&fil);
 			 } else {
 				 initStatus=3; //can't open/create file
 			 }
@@ -73,8 +75,8 @@ void initMPU() {
 	}
 }
 void initButtons() {
-	userButton = TM_BUTTON_Init(GPIOA,GPIO_Pin_0 ,1, BUTTON_Callback);
-	TM_BUTTON_SetPressTime(userButton, 30, 1000);
+	userButton = TM_BUTTON_Init(GPIOA,GPIO_Pin_0 ,0, BUTTON_Callback);
+	TM_BUTTON_SetPressTime(userButton, 30, 2000);
 }
 
 static void BUTTON_Callback(TM_BUTTON_t* ButtonPtr, TM_BUTTON_PressType_t PressType) {
