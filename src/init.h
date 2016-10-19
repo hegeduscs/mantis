@@ -4,12 +4,15 @@
 #include "stm32f4xx.h"
 #include "stm32f4xx_hal.h"
 
+#include "diag/Trace.h"
+
 #include "BlinkLed.h"
 #include "TM_lib/tm_stm32_delay.h"
 #include "TM_lib/tm_stm32_fatfs.h"
 #include "TM_lib/tm_stm32_rtc.h"
 #include "TM_lib/tm_stm32_mpu6050.h"
 #include "TM_lib/tm_stm32_button.h"
+#include "TM_lib/tm_stm32_adc.h"
 
 extern FATFS FS;
 extern FIL fil;

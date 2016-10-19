@@ -1,16 +1,18 @@
 #include "init.h"
 
 void initSystem () {
+	HAL_Init();
 	initStatus=0;
 	blink_led_init();
 	initRTC();
 	initSD();
 	initMPU();
+	TM_ADC_Init(ADC1, TM_ADC_Channel_1);
 	initButtons();
 }
 
 void initRTC() {
-	if (!TM_RTC_Init(TM_RTC_ClockSource_Internal)) {
+	if (!TM_RTC_Init(TM_RTC_ClockSource_External)) {
 	  		//RTC was first time initialized!
 		  //TODO: RTC needs sync from somewhere
 		  initStatus=1;
@@ -44,15 +46,13 @@ void initSD() {
 		 if (f_open(&fil, fileName, FA_OPEN_EXISTING |FA_READ | FA_WRITE) == FR_OK) {
 			 //try to open existing file
 			 //however we need to append to it!
-			 //f_close(&fil);
-			 //open as append
-			 //f_open(&fil,fileName,FA_OPEN_APPEND|FA_READ|FA_WRITE);
 			 f_lseek(&fil, f_size(&fil));
 		 } else
 			 //has to create file
 			 if ( f_open(&fil, fileName, FA_CREATE_ALWAYS|FA_READ | FA_WRITE) == FR_OK) {
 				 //add header
 				 f_printf(&fil,"System init at: %u-%u-%u %u:%u:%u\n",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds);
+				 //TODO: custom header
 				 f_puts("TIMESTAMP;VIBRATION_AVG;MAX_ACC;MAX_GYRO\n",&fil);
 				 f_sync(&fil);
 			 } else {
@@ -75,20 +75,19 @@ void initMPU() {
 	}
 }
 void initButtons() {
-	userButton = TM_BUTTON_Init(GPIOA,GPIO_Pin_0 ,0, BUTTON_Callback);
-	TM_BUTTON_SetPressTime(userButton, 30, 2000);
+	userButton = TM_BUTTON_Init(GPIOA,GPIO_Pin_0 ,1, BUTTON_Callback);
+	TM_BUTTON_SetPressTime(userButton, 5, 50);
 }
 
 static void BUTTON_Callback(TM_BUTTON_t* ButtonPtr, TM_BUTTON_PressType_t PressType) {
 	/* Normal press detected */
 	if (PressType == TM_BUTTON_PressType_Normal) {
 		/* Set LEDS ON */
-		blink_led_on();
-		trace_printf("BUTTON_ON");
+		trace_printf("button short\n");
+
 	} else if (PressType == TM_BUTTON_PressType_Long) {
 		/* Set LEDS OFF */
-		blink_led_off();
-		trace_printf("BUTTON_OFF");
+		trace_printf("button long\n");
 
 	}
 }

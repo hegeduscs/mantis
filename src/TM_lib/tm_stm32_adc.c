@@ -99,13 +99,6 @@ void TM_ADC_InitADC(ADC_TypeDef* ADCx) {
 	__HAL_RCC_ADC3_CLK_ENABLE();
 #endif
 	
-	GPIO_InitTypeDef gpioInit;
-	gpioInit.Pin = GPIO_PIN_3;
-	gpioInit.Mode = GPIO_MODE_ANALOG;
-	gpioInit.Pull = GPIO_PULLDOWN;
-	HAL_GPIO_Init(GPIOC, &gpioInit);
-	trace_printf("value: %u\n",HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_3));
-
 	/* Configure the ADC peripheral */
 	AdcHandle.Instance = ADCx;
 
@@ -172,7 +165,7 @@ uint16_t TM_ADC_Read(ADC_TypeDef* ADCx, TM_ADC_Channel_t channel) {
 #else
 	/* Poll for end */
 	if (HAL_ADC_PollForConversion(&AdcHandle, 10)==HAL_OK)
-	return HAL_ADC_GetValue(&AdcHandle);
+		return HAL_ADC_GetValue(&AdcHandle);
 	/* Check if the continous conversion of regular channel is finished */
 //	if (HAL_ADC_GetState(&AdcHandle) == HAL_ADC_STATE_EOC_REG) {
 //		/* Get the converted value of regular channel */
@@ -357,5 +350,5 @@ static void TM_ADC_INT_Channel_15_Init(ADC_TypeDef* ADCx) {
 
 static void TM_ADC_INT_InitPin(GPIO_TypeDef* GPIOx, uint16_t PinX) {
 	/* Enable GPIO pin */
-	TM_GPIO_Init(GPIOx, PinX, TM_GPIO_Mode_AN, TM_GPIO_OType_PP, TM_GPIO_PuPd_DOWN, TM_GPIO_Speed_Medium);
+	TM_GPIO_Init(GPIOx, PinX, TM_GPIO_Mode_AN, TM_GPIO_OType_PP, TM_GPIO_PuPd_NOPULL, TM_GPIO_Speed_Medium);
 }
