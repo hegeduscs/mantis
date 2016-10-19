@@ -57,6 +57,8 @@ TM_MPU6050_t max_value;
 
 
 int main(int argc, char* argv[]) {
+	HAL_Init();
+	TM_RCC_InitSystem();
 	initSystem();
 	//if something happened during init, stop execution
 	if (initStatus) {
@@ -111,7 +113,7 @@ int main(int argc, char* argv[]) {
 
  		TM_BUTTON_Update();
  		//runs++;
- 		Delay(2000);
+ 		//Delay(2000);
  		//if (runs>20) stopExecution=1;
 	  }
 

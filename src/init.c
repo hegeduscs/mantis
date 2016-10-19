@@ -10,7 +10,7 @@ void initSystem () {
 }
 
 void initRTC() {
-	if (!TM_RTC_Init(TM_RTC_ClockSource_External)) {
+	if (!TM_RTC_Init(TM_RTC_ClockSource_Internal)) {
 	  		//RTC was first time initialized!
 		  //TODO: RTC needs sync from somewhere
 		  initStatus=1;
