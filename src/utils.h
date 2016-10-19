@@ -17,5 +17,6 @@
 
 
 void writeLogEntry (FIL*, TM_RTC_t, TM_MPU6050_t, uint16_t);
+void writeString(float f,char* target,uint16_t size);
 
 #endif /* UTILS_H_ */

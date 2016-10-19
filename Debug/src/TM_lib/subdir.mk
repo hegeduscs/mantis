@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/TM_lib/stm32f4xx_hal_msp.c \
+../src/TM_lib/tm_stm32_adc.c \
 ../src/TM_lib/tm_stm32_button.c \
 ../src/TM_lib/tm_stm32_delay.c \
 ../src/TM_lib/tm_stm32_fatfs.c \
@@ -16,6 +17,7 @@ C_SRCS += \
 
 OBJS += \
 ./src/TM_lib/stm32f4xx_hal_msp.o \
+./src/TM_lib/tm_stm32_adc.o \
 ./src/TM_lib/tm_stm32_button.o \
 ./src/TM_lib/tm_stm32_delay.o \
 ./src/TM_lib/tm_stm32_fatfs.o \
@@ -27,6 +29,7 @@ OBJS += \
 
 C_DEPS += \
 ./src/TM_lib/stm32f4xx_hal_msp.d \
+./src/TM_lib/tm_stm32_adc.d \
 ./src/TM_lib/tm_stm32_button.d \
 ./src/TM_lib/tm_stm32_delay.d \
 ./src/TM_lib/tm_stm32_fatfs.d \

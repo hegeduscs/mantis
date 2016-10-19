@@ -25,6 +25,19 @@ void writeLogEntry (FIL* fil, TM_RTC_t datetime, TM_MPU6050_t IMU_data, uint16_t
 									  vibration_data,
 									  accStr,gyroStr
 			);
+	//needs to actually write to SD card
 	f_sync(fil);
-
 }
+
+void writeString(double d,char* target,uint16_t size)
+{
+	uint16_t integerValue=abs(d);
+	double fraction = fabs(d);
+	fraction-=(double)integerValue;
+	fraction*= 1000;
+	uint16_t fractionValue= (uint16_t) fraction;
+	trace_printf("Float value: %u.%u\n",integerValue,fractionValue);
+	if (d<0) snprintf(target,size,"-%u.%u",integerValue,fractionValue); else snprintf(target,size,"%u.%u",integerValue,fractionValue);
+}
+
+

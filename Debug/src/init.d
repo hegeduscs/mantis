@@ -70,15 +70,15 @@ src/init.o: ../src/init.c ../src/init.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_fmpi2c.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_spdifrx.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_lptim.h \
- ../include/BlinkLed.h ../src/TM_lib/tm_stm32_delay.h \
- ../src/TM_lib/stm32fxxx_hal.h ../src/TM_lib/defines.h \
- ../src/TM_lib/tm_stm32_rcc.h ../src/TM_lib/tm_stm32_gpio.h \
- ../src/TM_lib/tm_stm32_fatfs.h ../src/TM_lib/attributes.h \
- ../src/TM_lib/../fatfs/ff.h ../src/TM_lib/../fatfs/integer.h \
- ../src/TM_lib/../fatfs/ffconf.h ../src/TM_lib/../fatfs/diskio.h \
- ../src/TM_lib/tm_stm32_rtc.h ../src/TM_lib/tm_stm32_mpu6050.h \
- ../src/TM_lib/tm_stm32_i2c.h ../src/TM_lib/tm_stm32_button.h \
- ../src/TM_lib/tm_stm32_delay.h
+ ../system/include/diag/Trace.h ../include/BlinkLed.h \
+ ../src/TM_lib/tm_stm32_delay.h ../src/TM_lib/stm32fxxx_hal.h \
+ ../src/TM_lib/defines.h ../src/TM_lib/tm_stm32_rcc.h \
+ ../src/TM_lib/tm_stm32_gpio.h ../src/TM_lib/tm_stm32_fatfs.h \
+ ../src/TM_lib/attributes.h ../src/TM_lib/../fatfs/ff.h \
+ ../src/TM_lib/../fatfs/integer.h ../src/TM_lib/../fatfs/ffconf.h \
+ ../src/TM_lib/../fatfs/diskio.h ../src/TM_lib/tm_stm32_rtc.h \
+ ../src/TM_lib/tm_stm32_mpu6050.h ../src/TM_lib/tm_stm32_i2c.h \
+ ../src/TM_lib/tm_stm32_button.h ../src/TM_lib/tm_stm32_delay.h
 
 ../src/init.h:
 
@@ -225,6 +225,8 @@ src/init.o: ../src/init.c ../src/init.h \
 ../system/include/stm32f4-hal/stm32f4xx_hal_spdifrx.h:
 
 ../system/include/stm32f4-hal/stm32f4xx_hal_lptim.h:
+
+../system/include/diag/Trace.h:
 
 ../include/BlinkLed.h:
 

@@ -1,6 +1,7 @@
 #include "init.h"
 
 void initSystem () {
+	HAL_Init();
 	initStatus=0;
 	blink_led_init();
 	initRTC();
@@ -44,9 +45,6 @@ void initSD() {
 		 if (f_open(&fil, fileName, FA_OPEN_EXISTING |FA_READ | FA_WRITE) == FR_OK) {
 			 //try to open existing file
 			 //however we need to append to it!
-			 //f_close(&fil);
-			 //open as append
-			 //f_open(&fil,fileName,FA_OPEN_APPEND|FA_READ|FA_WRITE);
 			 f_lseek(&fil, f_size(&fil));
 		 } else
 			 //has to create file

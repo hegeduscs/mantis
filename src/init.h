@@ -4,6 +4,8 @@
 #include "stm32f4xx.h"
 #include "stm32f4xx_hal.h"
 
+#include "diag/Trace.h"
+
 #include "BlinkLed.h"
 #include "TM_lib/tm_stm32_delay.h"
 #include "TM_lib/tm_stm32_fatfs.h"

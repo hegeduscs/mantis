@@ -79,7 +79,7 @@ src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
  ../src/TM_lib/tm_stm32_rtc.h ../src/TM_lib/tm_stm32_mpu6050.h \
  ../src/TM_lib/tm_stm32_i2c.h ../src/TM_lib/tm_stm32_button.h \
  ../src/TM_lib/tm_stm32_delay.h ../src/utils.h \
- ../system/include/cmsis/stm32f407xx.h
+ ../system/include/cmsis/stm32f407xx.h ../src/TM_lib/tm_stm32_adc.h
 
 ../system/include/diag/Trace.h:
 
@@ -266,3 +266,5 @@ src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
 ../src/utils.h:
 
 ../system/include/cmsis/stm32f407xx.h:
+
+../src/TM_lib/tm_stm32_adc.h:

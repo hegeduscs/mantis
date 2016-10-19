@@ -18,6 +18,7 @@
 #include "TM_lib/tm_stm32_fatfs.h"
 #include "TM_lib/tm_stm32_rtc.h"
 #include "TM_lib/tm_stm32_mpu6050.h"
+#include "TM_lib/tm_stm32_adc.h"
 
 // ----- main() ---------------------------------------------------------------
 
@@ -57,7 +58,16 @@ TM_MPU6050_t max_value;
 
 
 int main(int argc, char* argv[]) {
+		/* Init system clock for maximum system speed */
+		TM_RCC_InitSystem();
+
+		/* Init HAL layer */
+		HAL_Init();
 	initSystem();
+
+	TM_ADC_Init(ADC1, TM_ADC_Channel_1);
+
+
 	//if something happened during init, stop execution
 	if (initStatus) {
 		//TODO: add exception handling for init section; e.g. try to mount SD card until sucessful
@@ -74,6 +84,12 @@ int main(int argc, char* argv[]) {
 
     uint8_t runs=0;
 
+    char testBuffer[20];
+    double d=-3333.2222;
+    writeString(d, testBuffer, 20);
+    trace_printf("%s\n",testBuffer);
+
+    TM_RTC_SetDateTimeString("05.10.16.6;00:01:00");
 	  while(!stopExecution){
 		  if (logRequired) {
 			  //TODO: needs to write to file
@@ -109,9 +125,11 @@ int main(int argc, char* argv[]) {
          //trace_printf("Max acc: %d, gyro: %d\n",max_value.Accelerometer_X,max_value.Gyroscope_X);
          //TODO: vibration sensor
 
- 		TM_BUTTON_Update();
+ 		//TM_BUTTON_Update();
  		//runs++;
- 		Delay(2000);
+ 		uint16_t result = TM_ADC_Read(ADC1, TM_ADC_Channel_1);
+ 		trace_printf("%u\n",result);
+ 		//Delay(2000);
  		//if (runs>20) stopExecution=1;
 	  }
 
