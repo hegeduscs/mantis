@@ -1,14 +1,13 @@
 #include "init.h"
 
-void initSystem () {
+int initSystem () {
 	HAL_Init();
-	initStatus=0;
 	blink_led_init();
 	initRTC();
 	initSD();
-	initMPU();
-	TM_ADC_Init(ADC1, TM_ADC_Channel_1);
+	mantis_init();
 	initButtons();
+	return 0;
 }
 
 void initRTC() {
@@ -64,16 +63,6 @@ void initSD() {
 	 }
 }
 
-void initMPU() {
-	//needs to set MPU's address to 0x69!
-	mpu_buffer.Address=0x69;
-	if (TM_MPU6050_Init(&mpu_buffer, TM_MPU6050_Device_0, TM_MPU6050_Accelerometer_2G, TM_MPU6050_Gyroscope_250s)!=TM_MPU6050_Result_Ok) {
-		initStatus=5; //can't init MPU
-	} else {
-		//successful init
-		//TODO: need calibration or something
-	}
-}
 void initButtons() {
 	userButton = TM_BUTTON_Init(GPIOA,GPIO_Pin_0 ,1, BUTTON_Callback);
 	TM_BUTTON_SetPressTime(userButton, 5, 50);
