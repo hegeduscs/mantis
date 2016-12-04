@@ -27,9 +27,10 @@ CPP_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-src \
+src/FatFs \
 src/TM_lib \
-src/fatfs \
+src \
+src/sensors \
 system/src/cmsis \
 system/src/cortexm \
 system/src/diag \

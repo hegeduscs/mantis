@@ -1,4 +1,8 @@
-src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
+src/main.o: ../src/main.c ../include/main.h \
+ ../system/include/stm32f4-hal/stm32f4xx_hal.h \
+ ../include/stm32f4xx_hal_conf.h ../include/main.h \
+ ../system/include/stm32f4-hal/stm32f4xx_hal_rcc.h \
+ ../system/include/stm32f4-hal/stm32f4xx_hal_def.h \
  ../system/include/cmsis/stm32f4xx.h \
  ../system/include/cmsis/stm32f407xx.h ../system/include/cmsis/core_cm4.h \
  ../system/include/cmsis/core_cmInstr.h \
@@ -6,10 +10,6 @@ src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
  ../system/include/cmsis/core_cmFunc.h \
  ../system/include/cmsis/core_cmSimd.h \
  ../system/include/cmsis/system_stm32f4xx.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal.h \
- ../include/stm32f4xx_hal_conf.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_rcc.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_def.h \
  ../system/include/stm32f4-hal/Legacy/stm32_hal_legacy.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_rcc_ex.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_gpio.h \
@@ -19,71 +19,42 @@ src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_cortex.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_adc.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_adc_ex.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_can.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_crc.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_cryp.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_dma2d.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_dac.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_dac_ex.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_dcmi.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_dcmi_ex.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_eth.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_flash.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_flash_ex.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_flash_ramfunc.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_sram.h \
- ../system/include/stm32f4-hal/stm32f4xx_ll_fsmc.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_nor.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_nand.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_pccard.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_sdram.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_hash.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_i2c.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_i2c_ex.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_i2s.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_i2s_ex.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_iwdg.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_ltdc.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_pwr.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_pwr_ex.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_rng.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_rtc.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_rtc_ex.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_sai.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_sd.h \
  ../system/include/stm32f4-hal/stm32f4xx_ll_sdmmc.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_spi.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_tim.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_tim_ex.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_uart.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_usart.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_irda.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_smartcard.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_wwdg.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_pcd.h \
- ../system/include/stm32f4-hal/stm32f4xx_ll_usb.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_pcd_ex.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_hcd.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_dsi.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_qspi.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_cec.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_fmpi2c.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_spdifrx.h \
- ../system/include/stm32f4-hal/stm32f4xx_hal_lptim.h \
- ../include/BlinkLed.h ../src/TM_lib/tm_stm32_delay.h \
- ../src/TM_lib/stm32fxxx_hal.h ../src/TM_lib/defines.h \
- ../src/TM_lib/tm_stm32_rcc.h ../src/TM_lib/tm_stm32_gpio.h \
- ../src/TM_lib/tm_stm32_fatfs.h ../src/TM_lib/attributes.h \
- ../src/TM_lib/../fatfs/ff.h ../src/TM_lib/../fatfs/integer.h \
- ../src/TM_lib/../fatfs/ffconf.h ../src/TM_lib/../fatfs/diskio.h \
- ../src/TM_lib/tm_stm32_rtc.h ../src/TM_lib/tm_stm32_mpu6050.h \
- ../src/TM_lib/tm_stm32_i2c.h ../src/TM_lib/tm_stm32_button.h \
- ../src/TM_lib/tm_stm32_delay.h ../src/TM_lib/tm_stm32_adc.h \
- ../src/utils.h ../system/include/cmsis/stm32f407xx.h
+ ../system/include/stm32f4-hal/stm32f4xx_hal_usart.h ../include/fatfs.h \
+ ../include/../src/FatFs/ff.h ../include/../src/FatFs/integer.h \
+ ../include/ffconf.h ../include/bsp_driver_sd.h \
+ ../include/../src/FatFs/ff_gen_drv.h ../include/../src/FatFs/diskio.h \
+ ../include/../src/FatFs/ff.h ../include/../src/FatFs/sd_diskio.h \
+ ../include/init.h ../system/include/diag/Trace.h ../include/fatfs.h \
+ ../include/TM_lib/tm_stm32_rtc.h ../include/utils.h \
+ ../include/TM_lib/tm_stm32_rtc.h ../include/sensors/hih6030.h \
+ ../include/sensors/mpu9250.h ../include/sensors/inv_mpu.h \
+ ../include/sensors/inv_mpu_dmp_motion_driver.h
 
-../system/include/diag/Trace.h:
+../include/main.h:
 
-../src/init.h:
+../system/include/stm32f4-hal/stm32f4xx_hal.h:
+
+../include/stm32f4xx_hal_conf.h:
+
+../include/main.h:
+
+../system/include/stm32f4-hal/stm32f4xx_hal_rcc.h:
+
+../system/include/stm32f4-hal/stm32f4xx_hal_def.h:
 
 ../system/include/cmsis/stm32f4xx.h:
 
@@ -100,14 +71,6 @@ src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
 ../system/include/cmsis/core_cmSimd.h:
 
 ../system/include/cmsis/system_stm32f4xx.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal.h:
-
-../include/stm32f4xx_hal_conf.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_rcc.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_def.h:
 
 ../system/include/stm32f4-hal/Legacy/stm32_hal_legacy.h:
 
@@ -127,73 +90,27 @@ src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
 
 ../system/include/stm32f4-hal/stm32f4xx_hal_adc_ex.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_can.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_crc.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_cryp.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_dma2d.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_dac.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_dac_ex.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_dcmi.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_dcmi_ex.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_eth.h:
-
 ../system/include/stm32f4-hal/stm32f4xx_hal_flash.h:
 
 ../system/include/stm32f4-hal/stm32f4xx_hal_flash_ex.h:
 
 ../system/include/stm32f4-hal/stm32f4xx_hal_flash_ramfunc.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_sram.h:
-
-../system/include/stm32f4-hal/stm32f4xx_ll_fsmc.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_nor.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_nand.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_pccard.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_sdram.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_hash.h:
-
 ../system/include/stm32f4-hal/stm32f4xx_hal_i2c.h:
 
 ../system/include/stm32f4-hal/stm32f4xx_hal_i2c_ex.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_i2s.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_i2s_ex.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_iwdg.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_ltdc.h:
 
 ../system/include/stm32f4-hal/stm32f4xx_hal_pwr.h:
 
 ../system/include/stm32f4-hal/stm32f4xx_hal_pwr_ex.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_rng.h:
-
 ../system/include/stm32f4-hal/stm32f4xx_hal_rtc.h:
 
 ../system/include/stm32f4-hal/stm32f4xx_hal_rtc_ex.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_sai.h:
-
 ../system/include/stm32f4-hal/stm32f4xx_hal_sd.h:
 
 ../system/include/stm32f4-hal/stm32f4xx_ll_sdmmc.h:
-
-../system/include/stm32f4-hal/stm32f4xx_hal_spi.h:
 
 ../system/include/stm32f4-hal/stm32f4xx_hal_tim.h:
 
@@ -203,68 +120,40 @@ src/main.o: ../src/main.c ../system/include/diag/Trace.h ../src/init.h \
 
 ../system/include/stm32f4-hal/stm32f4xx_hal_usart.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_irda.h:
+../include/fatfs.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_smartcard.h:
+../include/../src/FatFs/ff.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_wwdg.h:
+../include/../src/FatFs/integer.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_pcd.h:
+../include/ffconf.h:
 
-../system/include/stm32f4-hal/stm32f4xx_ll_usb.h:
+../include/bsp_driver_sd.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_pcd_ex.h:
+../include/../src/FatFs/ff_gen_drv.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_hcd.h:
+../include/../src/FatFs/diskio.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_dsi.h:
+../include/../src/FatFs/ff.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_qspi.h:
+../include/../src/FatFs/sd_diskio.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_cec.h:
+../include/init.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_fmpi2c.h:
+../system/include/diag/Trace.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_spdifrx.h:
+../include/fatfs.h:
 
-../system/include/stm32f4-hal/stm32f4xx_hal_lptim.h:
+../include/TM_lib/tm_stm32_rtc.h:
 
-../include/BlinkLed.h:
+../include/utils.h:
 
-../src/TM_lib/tm_stm32_delay.h:
+../include/TM_lib/tm_stm32_rtc.h:
 
-../src/TM_lib/stm32fxxx_hal.h:
+../include/sensors/hih6030.h:
 
-../src/TM_lib/defines.h:
+../include/sensors/mpu9250.h:
 
-../src/TM_lib/tm_stm32_rcc.h:
+../include/sensors/inv_mpu.h:
 
-../src/TM_lib/tm_stm32_gpio.h:
-
-../src/TM_lib/tm_stm32_fatfs.h:
-
-../src/TM_lib/attributes.h:
-
-../src/TM_lib/../fatfs/ff.h:
-
-../src/TM_lib/../fatfs/integer.h:
-
-../src/TM_lib/../fatfs/ffconf.h:
-
-../src/TM_lib/../fatfs/diskio.h:
-
-../src/TM_lib/tm_stm32_rtc.h:
-
-../src/TM_lib/tm_stm32_mpu6050.h:
-
-../src/TM_lib/tm_stm32_i2c.h:
-
-../src/TM_lib/tm_stm32_button.h:
-
-../src/TM_lib/tm_stm32_delay.h:
-
-../src/TM_lib/tm_stm32_adc.h:
-
-../src/utils.h:
-
-../system/include/cmsis/stm32f407xx.h:
+../include/sensors/inv_mpu_dmp_motion_driver.h:

@@ -23,7 +23,7 @@
  * | OTHER DEALINGS IN THE SOFTWARE.
  * |----------------------------------------------------------------------
  */
-#include "tm_stm32_rtc.h"
+#include "TM_lib/tm_stm32_rtc.h"
 
 /* Private macros */
 /* Internal status registers for RTC */
