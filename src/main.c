@@ -14,6 +14,7 @@ I2C_HandleTypeDef hi2c2;
 SD_HandleTypeDef hsd;
 HAL_SD_CardInfoTypedef SDCardInfo;
 
+TIM_HandleTypeDef htim1; //blink error on LEDs 1Hz
 TIM_HandleTypeDef htim2; //30 sec periodical timer for meas
 TIM_HandleTypeDef htim3; //10 minute timer for logging
 
@@ -26,11 +27,14 @@ UART_HandleTypeDef huart6;
 
 /*fatFs global variables ------------------*/
 FATFS FS;
-FIL fil;
+FIL log1,log2,log_debug;
 FRESULT fres;
 
 /* operational global variables ----------*/
 char initStatus = INIT_OK;
+char configStatus = INIT_OK;
+char sdStatus = INIT_OK;
+
 char inputBuffer[100];
 char outputBuffer[100];
 
@@ -44,13 +48,20 @@ int main(void)
 
   //if init failed, the status code will be blinked through the error LED
   if (initStatus) {
-	  while (1) {
+	  if (initStatus>3) //SD card mounted and files opened
+	  {
+
+	  }
+	  //blink out the error
+	  for (int runs=0;runs<2;runs++) {
 		  for (int i=0;i<2*initStatus;i++) {
 			  toggleLED(LED_ERROR);
 			  HAL_Delay(250);
 		  }
 		  HAL_Delay(3000);
 	  }
+	  //perform system reset
+	  HAL_NVIC_SystemReset();
   }
 
   //STARTUP
@@ -59,6 +70,7 @@ int main(void)
   //enable debug UART interface
   HAL_UART_Receive_IT(&huart3,inputBuffer,1);
 
+  MPU_init();
   MPU_selftest();
 
   //MAIN LOOP

@@ -11,7 +11,6 @@ void initSystem () {
 	initI2C();
 	initTIMs();
 	initUARTs();
-	MPU_init();
 }
 
 
@@ -26,32 +25,7 @@ void initSD() {
 	hsd.Init.ClockDiv = 0;
 	MX_FATFS_Init();
 
-	//getting timestamp for file
-	TM_RTC_t timeBuffer;
-	TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
-	char fileName[30];
-	sprintf(fileName,"%d-%d-%d.txt\n",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day);
-
-	if (f_mount(&FS, "SD1", 1) == FR_OK) {
-
-	  if (f_open(&fil, fileName, FA_OPEN_EXISTING |FA_READ | FA_WRITE) == FR_OK) {
-		//try to open existing file
-	  	 //however we need to append to it!
-	  	f_lseek(&fil, f_size(&fil));
-		f_sync(&fil);
-	  } else
-	  	 //has to create file
-	  	if ( f_open(&fil, fileName, FA_CREATE_ALWAYS|FA_READ | FA_WRITE) == FR_OK) {
-	  		//add header
-
-		  	f_printf(&fil,"File creation at: %u-%u-%u %u:%u:%u\n",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds);
-		  	//TODO: custom header
-		  	f_puts(MANTIS_MEAS_HEADER,&fil);
-		  	f_sync(&fil);
-		 } else {
-		    initStatus=ERROR_FILE_OPEN; //can't open/create file
-		 }
-	} else {
+	if (f_mount(&FS, "SD1", 1) != FR_OK) {
 		initStatus=ERROR_NO_MOUNT; //can't mount SD card
 	}
 }
@@ -286,15 +260,21 @@ void initRTC() {
 //	        }
 //	    }
 	if (!TM_RTC_Init(TM_RTC_ClockSource_External)) {
-		  		//RTC was first time initialized!
-			  //TODO: RTC needs sync from somewhere
-			  initStatus= ERROR_RTC_NOT_SET;
-			  TM_RTC_SetDateTimeString("04.10.16.6;00:01:00");
+		//RTC was first time initialized!
+		configStatus= ERROR_RTC_NOT_SET;
+		initStatus = ERROR_RTC_NOT_SET;
+		TM_RTC_SetDateTimeString("01.01.15.5;00:00:01");
 	}
 
-	//writing timestamp to trace for debug
+	if (isValidConfig()==0) configStatus= ERROR_RTC_NOT_SET;
+
 	TM_RTC_t timeBuffer;
 	TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
+	if (timeBuffer.Year<2016) configStatus = ERROR_RTC_NOT_SET;
+
+	if (configStatus==ERROR_RTC_NOT_SET) {
+
+	}
 	trace_printf("Current time is:%u-%u-%u %u:%u:%u ",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds);
 
 }
@@ -377,11 +357,13 @@ void MX_NVIC_Init(void)
   HAL_NVIC_EnableIRQ(TIM2_IRQn);
 
   /* TIM3_IRQn interrupt configuration */
-    HAL_NVIC_SetPriority(TIM3_IRQn, 0, 1);
-    HAL_NVIC_EnableIRQ(TIM3_IRQn);
+  HAL_NVIC_SetPriority(TIM3_IRQn, 0, 1);
+  HAL_NVIC_EnableIRQ(TIM3_IRQn);
 
   //UART3 Receive interrupt
   HAL_NVIC_SetPriority(USART3_IRQn, 1, 0);
   HAL_NVIC_EnableIRQ(USART3_IRQn);
 
 }
+
+

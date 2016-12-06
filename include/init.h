@@ -6,12 +6,13 @@
 #include "diag/Trace.h"
 #include "fatfs.h"
 #include "TM_lib/tm_stm32_rtc.h"
+#include "config.h"
 
 //global fatFs variables in main.c
 extern SD_HandleTypeDef hsd;
 extern HAL_SD_CardInfoTypedef SDCardInfo;
 extern FATFS FS;
-extern FIL fil;
+extern FIL log1;
 
 //global HW handlers in main.c
 extern ADC_HandleTypeDef hadc3;
@@ -22,6 +23,7 @@ extern I2C_HandleTypeDef hi2c2;
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern char initStatus;
+extern char configStatus;
 
 void initSystem();
 void initRTC();
@@ -47,6 +49,6 @@ void MX_NVIC_Init(void); //IT enabler
 #define MPU_INIT_FAIL 8
 #define ERROR_ADC_INIT 9
 
-#define MANTIS_MEAS_HEADER "TIMESTAMP;...\n"
+
 
 #endif

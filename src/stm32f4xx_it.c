@@ -48,23 +48,20 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart3;
 
+void TIM1_IRQHandler(void)
+{
+	//started manually to blink LED-s
+	BlinkErrors();
+	//HAL_TIM_IRQHandler(&htim2);
+}
 
 void TIM2_IRQHandler(void)
 {
-	//trace_printf("TIM2_IRQHANLDER\n");
-
-  /* USER CODE BEGIN TIM2_IRQn 0 */
-	//toggleLED(LED_ERROR);
-  /* USER CODE END TIM2_IRQn 0 */
   HAL_TIM_IRQHandler(&htim2);
-  /* USER CODE BEGIN TIM2_IRQn 1 */
-
-  /* USER CODE END TIM2_IRQn 1 */
 }
 
 void TIM3_IRQHandler(void) {
 	  HAL_TIM_IRQHandler(&htim3);
-
 }
 
 

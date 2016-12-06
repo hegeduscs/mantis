@@ -14,19 +14,20 @@
 #include "TM_lib/tm_stm32_rtc.h"
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
-
+extern char initStatus;
+extern char configStatus;
+extern char sdStatus;
+extern TIM_HandleTypeDef htim1;
 
 void toggleLED(int pinNumber);
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 int I2C_ReadMulti(I2C_HandleTypeDef* I2C_handler, uint8_t device_address, uint8_t register_address, uint8_t* data, uint16_t count);
-
+void BlinkErrors();
+void startBlinking();
 
 #define LED_ERROR 0
 #define LED_SD 1
 #define LED_MEAS 2
 #define LED_RTC 3
 
-#define RTC_ID_LOCATION1 RTC_BKP_DR0
-#define RTC_ID_LOCATION2 RTC_BKP_DR1
 
 #endif /* UTILS_H_ */
