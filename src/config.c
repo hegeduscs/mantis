@@ -1,4 +1,6 @@
 #include "config.h"
+#include "TM_lib/tm_stm32_rtc.h"
+
 
 extern UART_HandleTypeDef huart3;
 char inputBuffer[100];
@@ -48,8 +50,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		break;
 
 	case 'I': //retrieve ID
-		int id=isValidConfig();
-		if (id) {
+		id1=isValidConfig();
+		if (id1) {
 			trace_printf("Current ID is:%d",id1);
 			snprintf(outputBuffer,"ID is:%d\n",id1);
 			HAL_UART_Transmit(&huart3,outputBuffer,strlen(outputBuffer),10);

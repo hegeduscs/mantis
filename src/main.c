@@ -4,8 +4,7 @@
 #include "init.h"
 #include "utils.h"
 #include "TM_lib/tm_stm32_rtc.h"
-#include "sensors/hih6030.h"
-#include "sensors/mpu9250.h"
+
 
 /* Hardware handler global variables ---------*/
 
@@ -39,7 +38,7 @@ char inputBuffer[100];
 char outputBuffer[100];
 
 struct int_param_s* stm32mpu;
-MPU_measurement mpuBuffer;
+//MPU_measurement mpuBuffer;
 
 int main(void)
 {
@@ -70,12 +69,15 @@ int main(void)
   //enable debug UART interface
   HAL_UART_Receive_IT(&huart3,inputBuffer,1);
 
-  MPU_init();
-  MPU_selftest();
+  //MPU_init();
+  //MPU_selftest();
+
 
   //MAIN LOOP
   while (1)
   {
+
+	 // trace_printf("%d\n",HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_0));
 	  //toggleLED(LED_ERROR);
 	  //int timerValue =__HAL_TIM_GET_COUNTER(&htim2);
 	  //trace_printf("value:%d\n",timerValue);
@@ -93,11 +95,11 @@ int main(void)
 	  //HAL_UART_Transmit(&huart3,"MAIN\n",5,100);
 	    //  HAL_Delay(1000);
 
-	  HAL_ADC_Start(&hadc3);
-	  if (HAL_ADC_PollForConversion(&hadc3,50)==HAL_OK) {
-		  trace_printf("Value: %d\n",HAL_ADC_GetValue(&hadc3));
-	  }
-	  HAL_ADC_Stop(&hadc3);
+	  //HAL_ADC_Start(&hadc3);
+	  //if (HAL_ADC_PollForConversion(&hadc3,50)==HAL_OK) {
+	//	  trace_printf("Value: %d\n",HAL_ADC_GetValue(&hadc3));
+	  //}
+	  //HAL_ADC_Stop(&hadc3);
   }
 
 }

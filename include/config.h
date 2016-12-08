@@ -10,6 +10,7 @@
 
 #include "stm32f4xx_hal.h"
 
+
 #define RTC_ID_LOCATION1 RTC_BKP_DR0
 #define RTC_ID_LOCATION2 RTC_BKP_DR1
 

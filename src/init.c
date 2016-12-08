@@ -122,6 +122,15 @@ void GPIO_Init() {
 	GPIO_InitStructure_I2C2.Alternate = GPIO_AF4_I2C2;
 	HAL_GPIO_Init(GPIOF, &GPIO_InitStructure_I2C2);
 
+	//PD0 for MPU IT
+	__HAL_RCC_GPIOD_CLK_ENABLE();
+	GPIO_InitTypeDef GPIO_InitStruct_MPU;
+	GPIO_InitStruct_MPU.Pin = GPIO_PIN_0;
+	GPIO_InitStruct_MPU.Mode = GPIO_MODE_IT_RISING;
+	GPIO_InitStruct_MPU.Pull = GPIO_PULLUP;
+	GPIO_InitStruct_MPU.Speed = GPIO_SPEED_FREQ_HIGH;
+	HAL_GPIO_Init(GPIOD, &GPIO_InitStruct_MPU);
+
 	//USART3 GPIO Configuration: command and debug line, PB10-TX, PB11-RX
 	__GPIOB_CLK_ENABLE();
 	GPIO_InitTypeDef GPIO_InitStruct;
@@ -353,17 +362,20 @@ void initTIMs() {
 void MX_NVIC_Init(void)
 {
   /* TIM2_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(TIM2_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(TIM2_IRQn, 1, 0);
   HAL_NVIC_EnableIRQ(TIM2_IRQn);
 
   /* TIM3_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(TIM3_IRQn, 0, 1);
+  HAL_NVIC_SetPriority(TIM3_IRQn, 1, 1);
   HAL_NVIC_EnableIRQ(TIM3_IRQn);
 
   //UART3 Receive interrupt
-  HAL_NVIC_SetPriority(USART3_IRQn, 1, 0);
+  HAL_NVIC_SetPriority(USART3_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(USART3_IRQn);
 
+  /* EXTI15_10_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 1);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 }
 
 

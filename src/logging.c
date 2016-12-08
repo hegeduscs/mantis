@@ -1,4 +1,7 @@
 #include "logging.h"
+#include "TM_lib/tm_stm32_rtc.h"
+#include "fatfs.h"
+#include "init.h"
 
 void openFiles() {
 	//getting timestamp for file
