@@ -7,7 +7,7 @@ still<-read.csv("mergedSTILL.csv",header=TRUE,na.string=c("  ","","NA"))
 #listing how R recognized 
 str(still)
 
-#need to correct fields, remove unused
+#need to correct fields, remove unused, etc
 still$distance<-as.numeric(still$distance)
 still$maxspeed<-as.numeric(still$maxspeed)
 still$numberofdirectionchanges<-as.numeric(still$numberofdirectionchanges)
@@ -20,6 +20,7 @@ still$Filtered.to.at.19.01.12<-NULL
 still$BauJ<-NULL
 still$automaticlogout<-NULL
 still$Ende<-NULL
+still$metamachinerrorcode<-gsub(" ","",still$metamachinerrorcode,fixed=TRUE)
 
 #list the possible error codes
 table(still$metamachinerrorcode)
@@ -49,30 +50,26 @@ faulty.logs<-separate_rows(still.filtered,Concatenate.Material..for, sep = ",")
 
 #renaming the Concatenate field to 'materials'
 names(faulty.logs)[names(faulty.logs)=="Concatenate.Material..for"] <- "materials"
-
-#creating a subframe for only the 3 technical fields
-faulty.logs<-faulty.logs[,c("identifier","metatimestamp","technischer.Hinweis","materials")]
 names(faulty.logs)[names(faulty.logs)=="technischer.Hinweis"] <- "description"
 
-#filtering out all replacements that were not marked as important
-important_replacements<-faulty.logs[which(faulty.logs$materials %in% replacement_parts$Material),]
-merged_important<-merge(faulty.logs,filtered_parts,by.x="materials",by.y="Material")
-str(merged_important)
-table(merged_important$identifier)
+#creating a subframe for only the 3 technical fields
+faulty.logs<-faulty.logs[,c("identifier","metatimestamp","description","materials")]
 
-specific_log$Hinweis<-truck.log[,"technischer.Hinweis"]
-
-#reading in replacement parts
+#reading in replacement parts csv
 replacement_parts<-read.csv("Auftraege_Material.csv",header=TRUE,sep=";",na.strings = "")
 replacement_parts$X<-NULL
-
-#see what's inside
-str(replacement_parts)
 
 #remove uninteresting parts
 filtered_parts<-subset(replacement_parts,replacement_parts$Priority!="Ignore")
 
+#filtering out all replacements that were not marked as important
+important_replacements<-faulty.logs[which(faulty.logs$materials %in% replacement_parts$Material),]
+#right outer join with important parts' list
+important_replacements<-merge(faulty.logs,filtered_parts,by.x="materials",by.y="Material")
+
 #reading in error codes Excel sheet
 error_codes<-read.csv("error_list.csv",header=TRUE,sep=";",na.strings = "")
 filtered_codes<-error_codes[,c("FehlerNr","NAME","BESCHREIBUNG","URSACHE","REAKT.","QUIT","ABHILFE")]
+
+
 

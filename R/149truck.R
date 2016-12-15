@@ -1,5 +1,31 @@
-mcu_truck<-subset(still.filtered,still.filtered$identifier=="517322D00149" & !is.na(still.filtered$metamachinerrorcode))
-table(mcu_truck$metamachinerrorcode)
+##still is the raw csv 
+
+##faulty.logs: still.csv filtered for not empty materials, contains only service logs
+
+##filtered_codes contain the error codes csv with proper fields
+
+##filtered_parts contain only the materials that were marked important or interesting
+##replacement_parts contain all materials
+
+##important_replacements contain all rows from faulty.logs where the replaced part was marked as important or interesting
+
+#sublist of still filtered for the ID
+truck<-subset(still,still$identifier=="517322D00149")
+
+truck_periodic<-subset(truck, !is.na(truck$distance) | !is.na(truck$maxspeed) | !is.na(truck$numberofdirectionchanges))
+truck_errorcloud<-subset(truck, !is.na(truck$metamachinerrorcode))
+truck_reports<-subset(truck, !is.na(truck$Concatenate.Material..for) | !is.na(truck$technischer.Hinweis)) 
+
+errorcodeTime<-truck_errorcloud[,c("metamachinerrorcode","metatimestamp")]
+#errorcodeTime$EndDate<-errorcodeTime$metatimestamp
+names(errorcodeTime)[names(errorcodeTime)=="metatimestamp"] <- "Date"
+names(errorcodeTime)[names(errorcodeTime)=="metamachinerrorcode"] <- "Event"
+
+
+ggplot(errorcodeTime,aes(x=metatimestamp,y=metamachinerrorcode))
+
+
+table(truck_errorcloud$metamachinerrorcode) 
 
 #filtering this list for specific truck ID-s
 #only the parts that were marked important
