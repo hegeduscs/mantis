@@ -12,32 +12,36 @@
 #sublist of still filtered for the ID
 truck<-subset(still,still$identifier=="517322D00149")
 
+#separating different types of entries
 truck_periodic<-subset(truck, !is.na(truck$distance) | !is.na(truck$maxspeed) | !is.na(truck$numberofdirectionchanges))
+truck_periodic<-truck_periodic[,c("identifier","metatimestamp","distance","maxspeed","numberofdirectionchanges","drivetime","liftanddrivetime","lifttime","consumedamount")]
+
 truck_errorcloud<-subset(truck, !is.na(truck$metamachinerrorcode))
-truck_reports<-subset(truck, !is.na(truck$Concatenate.Material..for) | !is.na(truck$technischer.Hinweis)) 
+truck_errorcloud<-truck_errorcloud[,c("identifier","metatimestamp","metamachinerrorcode","coolanttemperaturemaximal","driveconverter1temperature","driveconverter2temperature","drivemotor1temperature",
+                                        "driveconverter2temperature","drivemotor1temperature","drivemotor2temperature","fuellevel","hydraulicconverter1temperature",
+                                        "hydraulicdrivestate","hydraulicmotor1temperature","maincontactorstate","tractionbatterycharge","tractionbatterycharge","tractiondrivestate")]
 
-errorcodeTime<-truck_errorcloud[,c("metamachinerrorcode","metatimestamp")]
-#errorcodeTime$EndDate<-errorcodeTime$metatimestamp
-names(errorcodeTime)[names(errorcodeTime)=="metatimestamp"] <- "Date"
-names(errorcodeTime)[names(errorcodeTime)=="metamachinerrorcode"] <- "Event"
+truck_reports<-subset(faulty.logs,faulty.logs$identifier=="517322D00149")
+truck_reports$metatimestamp<-as.Date(truck_reports$metatimestamp)
 
+#merging errors to description
+truck_errorcloud_merged<-merge(truck_errorcloud,filtered_codes,by.x="metamachinerrorcode",by.y="FehlerNr")
+truck_errorcloud_merged<-truck_errorcloud_merged[,c("metatimestamp","metamachinerrorcode","BESCHREIBUNG","URSACHE")]
 
-ggplot(errorcodeTime,aes(x=metatimestamp,y=metamachinerrorcode))
+#creating events and periods
+timeline<-truck_errorcloud_merged
+names(timeline)[names(timeline)=="metatimestamp"] <- "start"
+names(timeline)[names(timeline)=="metamachinerrorcode"] <- "content"
+timeline$title<-timeline$metamachinerrorcode
+timeline$group<-timeline$content
+timeline$BESCHREIBUNG<-as.character(timeline$BESCHREIBUNG)
+timeline$content<-as.factor(timeline$content)
+timeline$start<-as.Date(timeline$start)
+timeline$group<-as.factor(timeline$group)
+codes<-data.frame(unique(as.vector(as.factor(timeline$content))))
+names(codes)[1] <- "content"
 
+  for (i in 1:nrow(codes)) {
+    codes$id[i]=i
+  }
 
-table(truck_errorcloud$metamachinerrorcode) 
-
-#filtering this list for specific truck ID-s
-#only the parts that were marked important
-truck.service.log <-subset(merged_important,merged_important$identifier=="517322D00149")
-
-#fetching all logs for that truck
-truck.full.log <-subset(still,still$identifier=="517322D00149")
-table(truck.full.log$metamachinerrorcode)
-
-truck.full.log<-subset(truck.full.log,!is.na(truck.full.log$technischer.Hinweis))
-truck.full.log<-truck.full.log[,c("identifier","metatimestamp","description","materials")]
-truck.full.log<-merge(truck.full.log,replacement_parts,by.x="materials",by.y="Material")
-
-#TODO: join-olni az errorcode táblát ide
-#TODO: gantt timeline építése

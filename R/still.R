@@ -26,8 +26,7 @@ still$metamachinerrorcode<-gsub(" ","",still$metamachinerrorcode,fixed=TRUE)
 table(still$metamachinerrorcode)
 
 #creating subset: removing empty errorcode 
-#still.filtered<-subset(still,!is.na(still$metamachinerrorcode))
-still.filtered<-subset(still,!is.na(still$Concatenate.Material..for))
+faulty.logs<-subset(still,!is.na(still$Concatenate.Material..for)|!is.na(still$technischer.Hinweis))
 
 #need to load ggplot2 package
 library("ggplot2", lib.loc="C:/Program Files/R/R-3.3.2/library")
@@ -46,7 +45,7 @@ table(still.filtered$identifier)
 #need to install tidyr 0.5.0 or above
 install.packages("tidyr")
 library(tidyr)
-faulty.logs<-separate_rows(still.filtered,Concatenate.Material..for, sep = ",")
+faulty.logs<-separate_rows(faulty.logs,Concatenate.Material..for, sep = ",")
 
 #renaming the Concatenate field to 'materials'
 names(faulty.logs)[names(faulty.logs)=="Concatenate.Material..for"] <- "materials"
