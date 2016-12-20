@@ -32,16 +32,33 @@ truck_errorcloud_merged<-truck_errorcloud_merged[,c("metatimestamp","metamachine
 timeline<-truck_errorcloud_merged
 names(timeline)[names(timeline)=="metatimestamp"] <- "start"
 names(timeline)[names(timeline)=="metamachinerrorcode"] <- "content"
-timeline$title<-timeline$metamachinerrorcode
-timeline$group<-timeline$content
+timeline$URSACHE<-NULL
 timeline$BESCHREIBUNG<-as.character(timeline$BESCHREIBUNG)
-timeline$content<-as.factor(timeline$content)
+timeline$content<-as.character(timeline$content)
 timeline$start<-as.Date(timeline$start)
-timeline$group<-as.factor(timeline$group)
-codes<-data.frame(unique(as.vector(as.factor(timeline$content))))
-names(codes)[1] <- "content"
+timeline$group<-"error"
+timeline$subgroup<-as.character(timeline$content)
+timeline$type<-"point"
+names(timeline)[names(timeline)=="BESCHREIBUNG"] <- "title"
+timeline$style<-as.character("color:blue;")
 
-  for (i in 1:nrow(codes)) {
-    codes$id[i]=i
-  }
+#removing two too frequent error codes related to DFU communication failure
+timeline<-subset(timeline,timeline$content!="A3977" & timeline$content!="A3979")
 
+#adding service log events
+unique_reports<-unique(truck_reports[,c("metatimestamp","description")])
+unique_reports$metatimestamp<-as.Date(unique_reports$metatimestamp)
+for (i in 1:nrow(unique_reports)) {
+  newrow<-c(as.character(unique_reports[i,"metatimestamp"]),"Service Log",unique_reports[i,"description"],"log","","point",as.character("color:red;"))
+  timeline[nrow(timeline)+1,]<-newrow
+}
+
+#creating groups
+id<-c(1,2)
+content<-c("log","error")
+groups<-data.frame(id,content)
+  
+#loading timeline lib
+library(timevis)
+
+timevis(timeline,fit=FALSE)

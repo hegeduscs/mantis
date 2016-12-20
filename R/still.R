@@ -31,6 +31,9 @@ faulty.logs<-subset(still,!is.na(still$Concatenate.Material..for)|!is.na(still$t
 #need to load ggplot2 package
 library("ggplot2", lib.loc="C:/Program Files/R/R-3.3.2/library")
 
+#filtering for error events
+still.filtered<-subset(still,!is.na(still$metamachinerrorcode))
+
 #plot distribution of error codes per truck
 ggplot(still.filtered,aes(x=still.filtered$identifier, fill=factor(still.filtered$metamachinerrorcode))) + 
 geom_bar() +
