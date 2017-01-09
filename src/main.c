@@ -3,11 +3,12 @@
 #include "fatfs.h"
 #include "init.h"
 #include "utils.h"
+#include "logging.h"
 #include "TM_lib/tm_stm32_rtc.h"
-
+#include "sensors/mpu9250.h"
+#include "sensors/hih6030.h"
 
 /* Hardware handler global variables ---------*/
-
 I2C_HandleTypeDef hi2c2;
 
 SD_HandleTypeDef hsd;
@@ -26,8 +27,10 @@ UART_HandleTypeDef huart6;
 
 /*fatFs global variables ------------------*/
 FATFS FS;
-FIL log1,log2,log_debug;
+FIL log1,log_mpu,log_debug;
 FRESULT fres;
+
+char currentFileName[100];
 
 /* operational global variables ----------*/
 char initStatus = INIT_OK;
@@ -38,7 +41,7 @@ char inputBuffer[100];
 char outputBuffer[100];
 
 struct int_param_s* stm32mpu;
-//MPU_measurement mpuBuffer;
+MPU_measurement mpuBuffer;
 
 int main(void)
 {
@@ -47,10 +50,6 @@ int main(void)
 
   //if init failed, the status code will be blinked through the error LED
   if (initStatus) {
-	  if (initStatus>3) //SD card mounted and files opened
-	  {
-
-	  }
 	  //blink out the error
 	  for (int runs=0;runs<2;runs++) {
 		  for (int i=0;i<2*initStatus;i++) {
@@ -63,21 +62,32 @@ int main(void)
 	  HAL_NVIC_SystemReset();
   }
 
+  openLogFile();
+  openDebugFile();
+
   //STARTUP
   //enable interrupts for UART3, TIM2,TIM3,
   MX_NVIC_Init();
   //enable debug UART interface
-  HAL_UART_Receive_IT(&huart3,inputBuffer,1);
+  //HAL_UART_Receive_IT(&huart3,inputBuffer,1);
 
-  //MPU_init();
-  //MPU_selftest();
+  MPU_init();
+  MPU_selftest();
 
-
+  HIH_init();
   //MAIN LOOP
+  for (uint8_t i=0;i<127;i++) {
+	  toggleLED(LED_ERROR);
+	  toggleLED(LED_SD);
+	  toggleLED(LED_MEAS);
+	  toggleLED(LED_RTC);
+	  HAL_Delay(300);
+  }
+
   while (1)
   {
 
-	 // trace_printf("%d\n",HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_0));
+	  trace_printf("%d\n",HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_0));
 	  //toggleLED(LED_ERROR);
 	  //int timerValue =__HAL_TIM_GET_COUNTER(&htim2);
 	  //trace_printf("value:%d\n",timerValue);
@@ -85,13 +95,17 @@ int main(void)
 	  //trace_printf("UART RECEIVE\n");
 	  //HAL_UART_Receive(&huart2,inputBuffer,100,1000);
 	  //trace_printf("%s\n",inputBuffer);
-	 // HIH_readout hbuf;
-	  //if (HIH_read(&hbuf)==HIH_OK) {}
-	  //if (MPU_read(&mpuBuffer)==0) {
-		//  trace_printf("%u,%u,%u\n",mpuBuffer.accel[0],mpuBuffer.accel[1],mpuBuffer.accel[2]);
-	  //} else {
-	//	  trace_printf("NO_FIFO\n");
-	 // }
+	 HIH_readout hbuf;
+	 if (HIH_read(&hbuf)==HIH_OK) {
+	  char output[100];
+	  snprintf(output,100,"Temp:%f, %f \n",hbuf.temperature, hbuf.humidity);
+	  trace_printf("%s",output);
+	}
+	  if (MPU_read(&mpuBuffer)==0) {
+		  trace_printf("%u,%u,%u\n",mpuBuffer.accel[0],mpuBuffer.accel[1],mpuBuffer.accel[2]);
+	} else {
+		  trace_printf("NO_FIFO\n");
+	}
 	  //HAL_UART_Transmit(&huart3,"MAIN\n",5,100);
 	    //  HAL_Delay(1000);
 

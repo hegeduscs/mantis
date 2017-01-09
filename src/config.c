@@ -1,7 +1,6 @@
 #include "config.h"
 #include "TM_lib/tm_stm32_rtc.h"
-
-
+#include "diag/Trace.h"
 extern UART_HandleTypeDef huart3;
 char inputBuffer[100];
 char outputBuffer[100];
@@ -14,17 +13,17 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	switch (inputBuffer[0]) {
 
 	case '?': //help mode
-		strcpy(outputBuffer,"T:update time, C:get time, M:runtime in millis, I:get ID, S: set ID,REBOOT: reboots\n");
+		strcpy(outputBuffer,"T:update time, C:get time, M:runtime in millis, I:get ID, S: set ID, REBOOT: reboots\n");
 		HAL_UART_Transmit(&huart3,outputBuffer,strlen(outputBuffer),10);
 		break;
 
 	case 'T': //time and date is being written
 		HAL_UART_Receive(&huart3,inputBuffer,100,10);
-		trace_printf("Time to set:%s\n",inputBuffer);
 		if (sscanf(inputBuffer,"%d-%d-%d %d:%d:%d",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds) == 6){
 			if (TM_RTC_SetDateTime(&inputBuffer,TM_RTC_Format_BIN) ==TM_RTC_Result_Ok) {
 				strcpy(outputBuffer,"Time set.\n");
 				HAL_UART_Transmit(&huart3,outputBuffer,strlen(outputBuffer),10);
+				trace_printf("Time was set:%s\n",inputBuffer);
 			} else //failed to set RTC time
 			{
 				strcpy(outputBuffer,"Wrong input. Format: YY-MM-DD hh:mm:ss\n");
@@ -65,7 +64,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		HAL_UART_Receive(&huart3,inputBuffer,100,10);
 		char temp=0;
 		if (sscanf(inputBuffer,"%d",&temp)) {
-			snprintf(outputBuffer,100,"ID to be set:%d\n",temp);
+			snprintf(outputBuffer,100,"ID was set:%d\n",temp);
 			trace_printf(outputBuffer);
 			HAL_UART_Transmit(&huart3,outputBuffer,strlen(outputBuffer),10);
 			writeConfig(temp);

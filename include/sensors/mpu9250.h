@@ -13,7 +13,7 @@
 #include "inv_mpu_dmp_motion_driver.h"
 
 
-//#define AK89xx_SECONDARY - Az MPU6050 ilyet nem tud, a 9250-ben xx=63, a 9150-ben xx=75
+#define AK89xx_SECONDARY // - Az MPU6050 ilyet nem tud, a 9250-ben xx=63, a 9150-ben xx=75
 #define MPU_SAMPLING_RATE 100
 
 typedef struct MPU_measurement

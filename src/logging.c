@@ -3,37 +3,67 @@
 #include "fatfs.h"
 #include "init.h"
 
-void openFiles() {
+extern currentFileName[];
+
+void openLogFile() {
 	//getting timestamp for file
 	TM_RTC_t timeBuffer;
 	TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
 
+	sprintf(currentFileName,"%d-%d-%d.txt\n",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day);
 
-
-	char fileName[30];
-	sprintf(fileName,"%d-%d-%d.txt\n",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day);
-
-	 if (f_open(&log1, fileName, FA_OPEN_EXISTING |FA_READ | FA_WRITE) == FR_OK) {
+	 if (f_open(&log1, currentFileName, FA_OPEN_EXISTING |FA_READ | FA_WRITE) == FR_OK) {
 			//try to open existing file
 		  	 //however we need to append to it!
 		  	f_lseek(&log1, f_size(&log1));
 			f_sync(&log1);
 		  } else
 		  	 //has to create file
-		  	if ( initStatus!=ERROR_RTC_NOT_SET && f_open(&log1, fileName, FA_CREATE_ALWAYS|FA_READ | FA_WRITE) == FR_OK) {
-		  		//add header
-
-			  	f_printf(&log1,"File creation at: %u-%u-%u %u:%u:%u\n",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds);
-			  	//TODO: custom header
-			  	f_puts(MANTIS_MEAS_HEADER,&log1);
-			  	f_sync(&log1);
-			 } else {
-				 if (initStatus!=ERROR_RTC_NOT_SET) initStatus=ERROR_FILE_OPEN; //can't open/create file
+		  	if ( initStatus!=ERROR_RTC_NOT_SET) {
+		  		if (f_open(&log1, currentFileName, FA_CREATE_ALWAYS|FA_READ | FA_WRITE) == FR_OK) {
+		  				//add header
+		  				f_printf(&log1,"File creation at: %u-%u-%u %u:%u:%u\n",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds);
+		  				f_puts(MANTIS_MEAS_HEADER,&log1);
+		  				f_sync(&log1);
+		  		}
+			 } else { //ERROR_RTC_NOT_SET
+				 f_open(&log1, "default.txt", FA_CREATE_ALWAYS|FA_READ | FA_WRITE);
 			 }
 }
 
-void createFile(int type) {
+void openDebugFile() {
+	 if (f_open(&log_debug, "debug.txt", FA_OPEN_EXISTING |FA_READ | FA_WRITE) == FR_OK) {
+		 //try to open existing file
+		 //however we need to append to it!
+		 f_lseek(&log_debug, f_size(&log1));
+		 f_sync(&log_debug);
+	 } else {
+		 TM_RTC_t timeBuffer;
+		 TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
 
+		 if (f_open(&log_debug, "debug.txt", FA_CREATE_ALWAYS|FA_READ | FA_WRITE) == FR_OK) {
+			 //add header
+			 f_printf(&log1,"File creation at: %u-%u-%u %u:%u:%u\n",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds);
+			 f_sync(&log_debug);
+		 }
+	 }
+}
+
+void checkLogging() {
+	//getting current date and time
+	TM_RTC_t timeBuffer;
+	TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
+
+	//creating actual fileName
+	char rightName[100];
+	sprintf(rightName,"%d-%d-%d.txt\n",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day);
+
+	//if they are not equal, need to create new file
+	if (initStatus!=ERROR_RTC_NOT_SET&&strcmp(rightName,currentFileName)) {
+		//close old file
+		f_close(&log1);
+		openLogFile(timeBuffer);
+	}
 }
 
 void writeLogEntry (FIL* fil, int type) {

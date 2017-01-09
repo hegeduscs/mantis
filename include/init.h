@@ -45,7 +45,7 @@ void MX_NVIC_Init(void); //IT enabler
 #define ERROR_RTC_NOT_SET 4
 #define ERROR_TIMER_INIT 5
 #define ERROR_UART_INIT 6
-#define ERROR_I2C__INIT 7
+#define ERROR_I2C_INIT 7
 #define MPU_INIT_FAIL 8
 #define ERROR_ADC_INIT 9
 

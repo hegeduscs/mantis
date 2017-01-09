@@ -1,9 +1,10 @@
 #include "utils.h"
 #include "init.h"
-static uint8_t LEDs[5]={0,0,0,0,0};
+static char LEDs[5]={0,0,0,0,0};
+
 void toggleLED(int pinNumber) {
 	switch (pinNumber) {
-	case LED_ERROR: //H407 onboard LED: ACTIVE_LOW
+	case LED_SD: //H407 onboard LED: ACTIVE_LOW
 		if (LEDs[0]) { //was on
 			HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13, GPIO_PIN_SET);
 			LEDs[0]=0;
@@ -12,13 +13,32 @@ void toggleLED(int pinNumber) {
 			LEDs[0]=1;
 		}
 		break;
-	case LED_SD: //PD1
+	case LED_ERROR: //PD3 -- red
+		if (LEDs[1]) { //was on
+			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_3, GPIO_PIN_RESET);
+			LEDs[1]=0;
+		} else { //was off
+			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_3, GPIO_PIN_SET);
+			LEDs[1]=1;
+		}
 		break;
-	case LED_MEAS: //PD2
+	case LED_MEAS: //PD4- green
+		if (LEDs[2]) { //was on
+			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_4, GPIO_PIN_RESET);
+			LEDs[2]=0;
+		} else { //was off
+			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_4, GPIO_PIN_SET);
+			LEDs[2]=1;
+		}
 		break;
-	case LED_RTC:  //PD3
-		break;
-	case 4:
+	case LED_RTC:  //PD7 - yellow
+		if (LEDs[3]) { //was on
+			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_7, GPIO_PIN_RESET);
+			LEDs[3]=0;
+		} else { //was off
+			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_7, GPIO_PIN_SET);
+			LEDs[3]=1;
+		}
 		break;
 	}
 }
@@ -50,44 +70,5 @@ void startBlinking() {
 	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
 	HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig);
 	HAL_TIM_Base_Start_IT(&htim1);
-}
-
-int I2C_ReadMulti(I2C_HandleTypeDef* I2C_handler, uint8_t device_address, uint8_t register_address, uint8_t* data, uint16_t count) {
-	if (HAL_I2C_Master_Transmit(I2C_handler, (uint16_t)device_address, &register_address, 1, 1000) != HAL_OK) {
-			/* Check error */
-			if (HAL_I2C_GetError(I2C_handler) != HAL_I2C_ERROR_AF) {
-				trace_printf("I2C_TRANSMIT_ERROR:%x\n",HAL_I2C_GetError(I2C_handler));
-			}
-
-			/* Return error */
-			return HAL_I2C_STATE_ERROR;
-		}
-
-		/* Receive multiple byte */
-		if (HAL_I2C_Master_Receive(I2C_handler, device_address, data, count, 1000) != HAL_OK) {
-			/* Check error */
-			if (HAL_I2C_GetError(I2C_handler) != HAL_I2C_ERROR_AF) {
-				trace_printf("I2C_RECEIVE_ERROR:%x\n",HAL_I2C_GetError(I2C_handler));
-			}
-
-			/* Return error */
-			return HAL_I2C_STATE_ERROR;
-		}
-
-		/* Return OK */
-		return HAL_OK;
-}
-
-int I2C_WriteMulti (I2C_HandleTypeDef* Handle, uint8_t device_address, uint16_t register_address, uint8_t* data, uint16_t count) {
-	if (HAL_I2C_Mem_Write(Handle, device_address, register_address, register_address > 0xFF ? I2C_MEMADD_SIZE_16BIT : I2C_MEMADD_SIZE_8BIT, data, count, 1000) != HAL_OK) {
-			/* Check error */
-			if (HAL_I2C_GetError(Handle) != HAL_I2C_ERROR_AF) {
-				trace_printf("I2C_WRITE_ERROR:%x\n",HAL_I2C_GetError(Handle));
-			}
-			/* Return error */
-			return HAL_I2C_STATE_ERROR;
-		}
-		/* Return OK */
-		return HAL_OK;
 }
 

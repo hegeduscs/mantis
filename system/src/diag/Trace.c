@@ -17,10 +17,16 @@
 #endif
 
 // ----------------------------------------------------------------------------
+//rerouting it to debug.txt if release mode
+#include "../include/logging.h"
+#include "../include/fatfs.h"
+#include "../include/TM_lib/tm_stm32_rtc.h"
+extern FIL log_debug;
 
 int
 trace_printf(const char* format, ...)
 {
+
   int ret;
   va_list ap;
 
@@ -39,7 +45,16 @@ trace_printf(const char* format, ...)
     }
 
   va_end (ap);
+
+  int written;
+  TM_RTC_t timeBuffer;
+  TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
+  f_printf(&log_debug,"%u-%u-%u %u:%u:%u	%s",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds,buf);
+  f_sync(&log_debug);
+
   return ret;
+
+
 }
 
 int

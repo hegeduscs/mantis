@@ -15,7 +15,7 @@ int HIH_read(HIH_readout* buffer) {
 	uint16_t temp_humidity;
 	uint16_t temp_temperature;
 
-	if(I2C_ReadMulti(&hi2c2, HIH_ADDRESS << 1, NULL, data, 4) != HAL_OK) {
+	if(HAL_I2C_Master_Receive(&hi2c2, HIH_ADDRESS << 1,data, 4, 10) != HAL_OK) {
 			buffer->humidity = 0;
 			buffer->temperature = 0;
 			return HIH_FAIL;

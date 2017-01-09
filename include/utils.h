@@ -20,7 +20,6 @@ extern char sdStatus;
 extern TIM_HandleTypeDef htim1;
 
 void toggleLED(int pinNumber);
-int I2C_ReadMulti(I2C_HandleTypeDef* I2C_handler, uint8_t device_address, uint8_t register_address, uint8_t* data, uint16_t count);
 void BlinkErrors();
 void startBlinking();
 

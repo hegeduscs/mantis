@@ -45,7 +45,7 @@
 #define log_e       MPL_LOGE
 #define min(a,b) ((a<b)?a:b)
 
-#define MPU6050
+#define MPU9250
    
 #if !defined MPU6050 && !defined MPU9150 && !defined MPU6500 && !defined MPU9250
 #error  Which gyro are you using? Define MPUxxxx in your compiler options.
@@ -579,12 +579,13 @@ int i2c_write(unsigned char slave_addr,
 	int tries;
 	for(tries = 0; tries < 3; tries++)
 	{
-		if(I2C_WriteMulti(&hi2c2, slave_addr << 1, reg_addr, data_ptr, len) == HAL_OK)
+		if (HAL_I2C_Mem_Write(&hi2c2, 0x68<<1, reg_addr,I2C_MEMADD_SIZE_8BIT, data_ptr, len, 10) == HAL_OK)
 		{
 			return 0;
 		}
 		//delay_ms(100);
 	}
+	trace_printf("MPU I2C WRITE ERROR\n");
 	return tries;
 }
 
@@ -594,12 +595,13 @@ int i2c_read(unsigned char slave_addr,
 	int tries;
 	for(tries = 0; tries < 3; tries++) //TODO ?? unsigned char -> uint8_t conversion
 	{
-		if(I2C_ReadMulti(&hi2c2, slave_addr << 1, reg_addr, data_ptr, len) == HAL_OK)
+		if (HAL_I2C_Mem_Read(&hi2c2,0x68<<1,reg_addr,I2C_MEMADD_SIZE_8BIT,data_ptr,len,10)==HAL_OK)
 		{
 			return 0;
 		}
 		//delay_ms(100);
 	}
+	trace_printf("MPU I2C READ ERROR\n");
 	return tries;
 }
 
@@ -693,15 +695,8 @@ int mpu_init(struct int_param_s *int_param)
 
     uint8_t temp;
 
-    if (HAL_I2C_IsDeviceReady(&hi2c2, MPU6050_I_AM << 1,2,100) != HAL_OK)
+    /*if (HAL_I2C_IsDeviceReady(&hi2c2, MPU6050_I_AM<<1,2,100) != HAL_OK)
     {
-    		/* Return error */
-    		return -1;
-    }
-
-    //TODO
-    /*TM_I2C_Read(I2C_SENS, MPU6050_I_AM << 1, MPU6050_WHO_AM_I, &temp);
-    	if (temp != MPU6050_I_AM) {
     		return -1;
     }*/
 
@@ -2935,7 +2930,7 @@ static int setup_compass(void)
 
     if (akm_addr > 0x0F) {
         /* TODO: Handle this case in all compass-related functions. */
-        log_e("Compass not found.\n");
+        //log_e("Compass not found.\n");
         return -1;
     }
 

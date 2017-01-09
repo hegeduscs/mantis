@@ -62,11 +62,11 @@ void initRCC() {
 	  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
 	  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-	  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+	  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5)!=HAL_OK)
 	  {
-		//TODO: error handling
-	    //Error_Handler();
-	  }
+		  initStatus = RCC_INIT_ERROR;
+	  };
+
 // if need to manually enable RTC LSE clock, but included in TM lib
 //	  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
 //	  PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
@@ -91,6 +91,7 @@ void GPIO_Init() {
 	__HAL_RCC_GPIOF_CLK_ENABLE();
 	__HAL_RCC_GPIOH_CLK_ENABLE();
 	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOD_CLK_ENABLE();
 
 	//H407 onboard LED
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -100,7 +101,25 @@ void GPIO_Init() {
 	GPIO_InitStructure.Pull = GPIO_PULLUP;
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13, GPIO_PIN_SET);
-	//TODO: init GPIO pin-s
+
+	//status LEDs: PD3,4,7
+	GPIO_InitTypeDef GPIO_InitStructure_LEDs;
+	GPIO_InitStructure_LEDs.Pin = GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_7;
+	GPIO_InitStructure_LEDs.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStructure_LEDs.Speed = GPIO_SPEED_FAST;
+	GPIO_InitStructure_LEDs.Pull = GPIO_PULLUP;
+	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure_LEDs);
+	HAL_GPIO_WritePin(GPIOD,GPIO_PIN_3, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOD,GPIO_PIN_4, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOD,GPIO_PIN_7, GPIO_PIN_RESET);
+
+	//PD1,2: buttons, set up for IT
+	GPIO_InitTypeDef GPIO_InitStruct_buttons;
+	GPIO_InitStruct_buttons.Pin = GPIO_PIN_1|GPIO_PIN_2;
+	GPIO_InitStruct_buttons.Mode = GPIO_MODE_IT_FALLING;
+	GPIO_InitStruct_buttons.Pull = GPIO_PULLUP;
+	GPIO_InitStruct_buttons.Speed = GPIO_SPEED_FREQ_HIGH;
+	HAL_GPIO_Init(GPIOD, &GPIO_InitStruct_buttons);
 
 
 	//USART2 PD5, PD6 config
@@ -117,16 +136,15 @@ void GPIO_Init() {
 	GPIO_InitTypeDef GPIO_InitStructure_I2C2;
 	GPIO_InitStructure_I2C2.Pin = GPIO_PIN_0|GPIO_PIN_1;
 	GPIO_InitStructure_I2C2.Mode = GPIO_MODE_AF_OD;
-	GPIO_InitStructure_I2C2.Pull = GPIO_PULLUP;
+	GPIO_InitStructure_I2C2.Pull = GPIO_NOPULL;//GPIO_PULLUP;
 	GPIO_InitStructure_I2C2.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 	GPIO_InitStructure_I2C2.Alternate = GPIO_AF4_I2C2;
 	HAL_GPIO_Init(GPIOF, &GPIO_InitStructure_I2C2);
 
 	//PD0 for MPU IT
-	__HAL_RCC_GPIOD_CLK_ENABLE();
 	GPIO_InitTypeDef GPIO_InitStruct_MPU;
 	GPIO_InitStruct_MPU.Pin = GPIO_PIN_0;
-	GPIO_InitStruct_MPU.Mode = GPIO_MODE_IT_RISING;
+	GPIO_InitStruct_MPU.Mode = GPIO_MODE_IT_FALLING;
 	GPIO_InitStruct_MPU.Pull = GPIO_PULLUP;
 	GPIO_InitStruct_MPU.Speed = GPIO_SPEED_FREQ_HIGH;
 	HAL_GPIO_Init(GPIOD, &GPIO_InitStruct_MPU);
@@ -275,7 +293,7 @@ void initRTC() {
 		TM_RTC_SetDateTimeString("01.01.15.5;00:00:01");
 	}
 
-	if (isValidConfig()==0) configStatus= ERROR_RTC_NOT_SET;
+	if (!isValidConfig()) configStatus= ERROR_RTC_NOT_SET;
 
 	TM_RTC_t timeBuffer;
 	TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
@@ -301,7 +319,7 @@ void initI2C() {
 	hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
 	if (HAL_I2C_Init(&hi2c2) != HAL_OK)
 	{
-		initStatus = ERROR_I2C__INIT;
+		initStatus = ERROR_I2C_INIT;
 	}
 }
 
@@ -370,12 +388,15 @@ void MX_NVIC_Init(void)
   HAL_NVIC_EnableIRQ(TIM3_IRQn);
 
   //UART3 Receive interrupt
-  HAL_NVIC_SetPriority(USART3_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(USART3_IRQn, 0, 1);
   HAL_NVIC_EnableIRQ(USART3_IRQn);
 
-  /* EXTI15_10_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 1);
-  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+  //EXTI button1 and button2
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 2, 1);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI2_IRQn, 2, 2);
+  HAL_NVIC_EnableIRQ(EXTI2_IRQn);
 }
 
 

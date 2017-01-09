@@ -43,8 +43,8 @@ struct int_param_s {
 #endif
 };
 
-#define MPU6050_WHO_AM_I				0x75
-#define MPU6050_I_AM					0x68
+#define MPU6050_WHO_AM_I				0x71
+#define MPU6050_I_AM					0x6D
 #define EMPL_TARGET_STM32F4
 
 
