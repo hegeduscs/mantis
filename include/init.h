@@ -23,7 +23,7 @@ extern I2C_HandleTypeDef hi2c2;
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern char initStatus;
-extern char configStatus;
+extern char sdStatus;
 
 void initSystem();
 void initRTC();
@@ -41,13 +41,14 @@ void MX_NVIC_Init(void); //IT enabler
 #define INIT_OK 0
 #define RCC_INIT_ERROR 1
 #define ERROR_NO_MOUNT 2
-#define ERROR_FILE_OPEN 3
-#define ERROR_RTC_NOT_SET 4
-#define ERROR_TIMER_INIT 5
-#define ERROR_UART_INIT 6
-#define ERROR_I2C_INIT 7
-#define MPU_INIT_FAIL 8
-#define ERROR_ADC_INIT 9
+#define ERROR_ADC_INIT 3
+#define ERROR_TIMER_INIT 4
+#define ERROR_UART_INIT 5
+#define ERROR_I2C_INIT 6
+#define MPU_INIT_FAIL 7
+#define ERROR_FILE_OPEN 8
+#define ERROR_RTC_NOT_SET 9
+
 
 
 

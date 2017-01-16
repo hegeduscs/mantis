@@ -18,22 +18,16 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		break;
 
 	case 'T': //time and date is being written
-		HAL_UART_Receive(&huart3,inputBuffer,100,10);
-		if (sscanf(inputBuffer,"%d-%d-%d %d:%d:%d",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds) == 6){
-			if (TM_RTC_SetDateTime(&inputBuffer,TM_RTC_Format_BIN) ==TM_RTC_Result_Ok) {
+		HAL_UART_Receive(&huart3,inputBuffer,100,20);
+			if (TM_RTC_SetDateTimeString(inputBuffer)==TM_RTC_Result_Ok) {
 				strcpy(outputBuffer,"Time set.\n");
 				HAL_UART_Transmit(&huart3,outputBuffer,strlen(outputBuffer),10);
 				trace_printf("Time was set:%s\n",inputBuffer);
 			} else //failed to set RTC time
 			{
-				strcpy(outputBuffer,"Wrong input. Format: YY-MM-DD hh:mm:ss\n");
+				strcpy(outputBuffer,"Wrong input. Format: DD.MM.YY.weekday;hh:mm:ss\n");
 				HAL_UART_Transmit(&huart3,outputBuffer,strlen(outputBuffer),10);
 			}
-
-		} else { //bad input
-			strcpy(outputBuffer,"Wrong input. Format: YY-MM-DD hh:mm:ss\n");
-			HAL_UART_Transmit(&huart3,outputBuffer,strlen(outputBuffer),10);
-		}
 
 		break;
 
@@ -61,7 +55,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		break;
 
 	case 'S': //set ID
-		HAL_UART_Receive(&huart3,inputBuffer,100,10);
+		HAL_UART_Receive(&huart3,inputBuffer,10,10);
 		char temp=0;
 		if (sscanf(inputBuffer,"%d",&temp)) {
 			snprintf(outputBuffer,100,"ID was set:%d\n",temp);

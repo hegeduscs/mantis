@@ -23,10 +23,10 @@ void toggleLED(int pinNumber);
 void BlinkErrors();
 void startBlinking();
 
-#define LED_ERROR 0
-#define LED_SD 1
-#define LED_MEAS 2
-#define LED_RTC 3
+#define LED_SD 0
+#define LED_RED 1
+#define LED_GREEN 2
+#define LED_YELLOW 3
 
 
 #endif /* UTILS_H_ */

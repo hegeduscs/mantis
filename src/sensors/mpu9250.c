@@ -77,9 +77,9 @@ void MPU_init(){
 	if(mpu_set_dmp_state(1)){
 		trace_printf("DMP STATE ERROR!");
 	}
-	if(dmp_enable_lp_quat(1)){
-		trace_printf("QUAT STATE ERROR!");
-	}
+	//if(dmp_enable_lp_quat(1)){
+		//trace_printf("QUAT STATE ERROR!");
+	//}
 	//mpu_get_accel_fsr(mpu_acc_fsr);
 	//mpu_get_gyro_fsr(mpu_gyro_fsr);
 

@@ -34,7 +34,6 @@ char currentFileName[100];
 
 /* operational global variables ----------*/
 char initStatus = INIT_OK;
-char configStatus = INIT_OK;
 char sdStatus = INIT_OK;
 
 char inputBuffer[100];
@@ -49,45 +48,50 @@ int main(void)
   initSystem();
 
   //if init failed, the status code will be blinked through the error LED
-  if (initStatus) {
+  if (initStatus!=INIT_OK&&initStatus<ERROR_RTC_NOT_SET) {
 	  //blink out the error
-	  for (int runs=0;runs<2;runs++) {
 		  for (int i=0;i<2*initStatus;i++) {
-			  toggleLED(LED_ERROR);
+			  toggleLED(LED_RED);
 			  HAL_Delay(250);
 		  }
-		  HAL_Delay(3000);
-	  }
 	  //perform system reset
 	  HAL_NVIC_SystemReset();
+  }
+
+  //blink out if SD card is low on space and RTC is not set
+  if (initStatus==ERROR_RTC_NOT_SET|sdStatus!=INIT_OK) {
+	  startBlinking();
   }
 
   openLogFile();
   openDebugFile();
 
   //STARTUP
-  //enable interrupts for UART3, TIM2,TIM3,
+  //enable interrupts for UART3, TIM2,TIM3, buttons
   MX_NVIC_Init();
   //enable debug UART interface
-  //HAL_UART_Receive_IT(&huart3,inputBuffer,1);
+  HAL_UART_Receive_IT(&huart3,inputBuffer,1);
 
   MPU_init();
   MPU_selftest();
 
   HIH_init();
   //MAIN LOOP
-  for (uint8_t i=0;i<127;i++) {
-	  toggleLED(LED_ERROR);
-	  toggleLED(LED_SD);
-	  toggleLED(LED_MEAS);
-	  toggleLED(LED_RTC);
-	  HAL_Delay(300);
-  }
+
+  //LED tests
+  //for (uint8_t i=0;i<127;i++) {
+	//  toggleLED(LED_ERROR);
+	//  toggleLED(LED_SD);
+	//  toggleLED(LED_MEAS);
+	//  toggleLED(LED_RTC);
+	//  HAL_Delay(300);
+  //}
+  //HAL_GPIO_WritePin(GPIOF,GPIO_PIN_2, GPIO_PIN_SET);
 
   while (1)
   {
 
-	  trace_printf("%d\n",HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_0));
+	  //trace_printf("%d\n",HAL_ADC_);
 	  //toggleLED(LED_ERROR);
 	  //int timerValue =__HAL_TIM_GET_COUNTER(&htim2);
 	  //trace_printf("value:%d\n",timerValue);
@@ -95,25 +99,34 @@ int main(void)
 	  //trace_printf("UART RECEIVE\n");
 	  //HAL_UART_Receive(&huart2,inputBuffer,100,1000);
 	  //trace_printf("%s\n",inputBuffer);
-	 HIH_readout hbuf;
-	 if (HIH_read(&hbuf)==HIH_OK) {
-	  char output[100];
-	  snprintf(output,100,"Temp:%f, %f \n",hbuf.temperature, hbuf.humidity);
-	  trace_printf("%s",output);
-	}
+	 //HIH_readout hbuf;
+	 //if (HIH_read(&hbuf)==HIH_OK) {
+	  //char output[100];
+	  //snprintf(output,100,"Temp:%f, %f \n",hbuf.temperature, hbuf.humidity);
+	  //trace_printf("%s",output);
+	  char buffer[100];
+	  TM_RTC_t timeBuffer;
+	  TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
 	  if (MPU_read(&mpuBuffer)==0) {
-		  trace_printf("%u,%u,%u\n",mpuBuffer.accel[0],mpuBuffer.accel[1],mpuBuffer.accel[2]);
+		  snprintf(buffer,200,"%u:%u:%u;%d;%d;%d",timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds,mpuBuffer.accel[0],mpuBuffer.accel[1],mpuBuffer.accel[2]);
+		  f_printf(&log1,"%s\n",buffer);
+		  f_sync(&log1);
 	} else {
-		  trace_printf("NO_FIFO\n");
+		  f_printf(&log1,"NO_FIFO\n");
+		  f_sync(&log1);
 	}
-	  //HAL_UART_Transmit(&huart3,"MAIN\n",5,100);
-	    //  HAL_Delay(1000);
-
-	  //HAL_ADC_Start(&hadc3);
-	  //if (HAL_ADC_PollForConversion(&hadc3,50)==HAL_OK) {
-	//	  trace_printf("Value: %d\n",HAL_ADC_GetValue(&hadc3));
-	  //}
-	  //HAL_ADC_Stop(&hadc3);
+	//HAL_UART_Transmit(&huart3,"MAIN\n",5,100);
+	 //HAL_Delay(500);
+//	 HAL_GPIO_WritePin(GPIOF,GPIO_PIN_2, GPIO_PIN_SET);
+//	 for (int i=0;i<100;i++);
+//
+//	  HAL_ADC_Start(&hadc3);
+//	  if (HAL_ADC_PollForConversion(&hadc3,50)==HAL_OK) {
+//		  trace_printf("Value: %d\n",HAL_ADC_GetValue(&hadc3));
+//	  }
+//	  HAL_ADC_Stop(&hadc3);
+//	  HAL_GPIO_WritePin(GPIOF,GPIO_PIN_2, GPIO_PIN_SET);
+//	  HAL_Delay(500);
   }
 
 }

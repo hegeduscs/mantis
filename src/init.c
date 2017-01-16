@@ -1,5 +1,6 @@
 #include "init.h"
 #include "sensors/mpu9250.h"
+#include "logging.h"
 
 void initSystem () {
 	HAL_Init();
@@ -11,6 +12,12 @@ void initSystem () {
 	initI2C();
 	initTIMs();
 	initUARTs();
+
+	//check if enough space is left
+	if (checkSD()!=INIT_OK) {
+		initStatus=ERROR_FILE_OPEN;
+		sdStatus=ERROR_FILE_OPEN;
+	}
 }
 
 
@@ -27,6 +34,7 @@ void initSD() {
 
 	if (f_mount(&FS, "SD1", 1) != FR_OK) {
 		initStatus=ERROR_NO_MOUNT; //can't mount SD card
+
 	}
 }
 
@@ -166,6 +174,14 @@ void GPIO_Init() {
 	GPIO_InitStruct_adc.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOF, &GPIO_InitStruct_adc);
 
+	//PF2: dust enabler
+	GPIO_InitTypeDef GPIO_InitStruct_dust;
+	GPIO_InitStruct_dust.Pin = GPIO_PIN_2;
+	GPIO_InitStruct_dust.Mode = GPIO_MODE_OUTPUT_OD; //!
+	GPIO_InitStruct_dust.Pull = GPIO_NOPULL;
+	GPIO_InitStruct_dust.Speed = GPIO_SPEED_HIGH;
+	HAL_GPIO_Init(GPIOF, &GPIO_InitStruct_dust);
+
 }
 
 void initADC() {
@@ -288,20 +304,15 @@ void initRTC() {
 //	    }
 	if (!TM_RTC_Init(TM_RTC_ClockSource_External)) {
 		//RTC was first time initialized!
-		configStatus= ERROR_RTC_NOT_SET;
 		initStatus = ERROR_RTC_NOT_SET;
 		TM_RTC_SetDateTimeString("01.01.15.5;00:00:01");
 	}
 
-	if (!isValidConfig()) configStatus= ERROR_RTC_NOT_SET;
 
 	TM_RTC_t timeBuffer;
 	TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
-	if (timeBuffer.Year<2016) configStatus = ERROR_RTC_NOT_SET;
+	if (timeBuffer.Year<16) initStatus = ERROR_RTC_NOT_SET;
 
-	if (configStatus==ERROR_RTC_NOT_SET) {
-
-	}
 	trace_printf("Current time is:%u-%u-%u %u:%u:%u ",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds);
 
 }
@@ -380,23 +391,24 @@ void initTIMs() {
 void MX_NVIC_Init(void)
 {
   /* TIM2_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(TIM2_IRQn, 1, 0);
+  HAL_NVIC_SetPriority(TIM2_IRQn, 1, 2);
   HAL_NVIC_EnableIRQ(TIM2_IRQn);
 
   /* TIM3_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(TIM3_IRQn, 1, 1);
+  HAL_NVIC_SetPriority(TIM3_IRQn, 1, 3);
   HAL_NVIC_EnableIRQ(TIM3_IRQn);
 
   //UART3 Receive interrupt
-  HAL_NVIC_SetPriority(USART3_IRQn, 0, 1);
+  HAL_NVIC_SetPriority(USART3_IRQn, 1, 1);
   HAL_NVIC_EnableIRQ(USART3_IRQn);
 
   //EXTI button1 and button2
   HAL_NVIC_SetPriority(EXTI1_IRQn, 2, 1);
   HAL_NVIC_EnableIRQ(EXTI1_IRQn);
 
-  HAL_NVIC_SetPriority(EXTI2_IRQn, 2, 2);
-  HAL_NVIC_EnableIRQ(EXTI2_IRQn);
-}
+  //HAL_NVIC_SetPriority(EXTI2_IRQn, 2, 2);
+  //HAL_NVIC_EnableIRQ(EXTI2_IRQn);
+
+ }
 
 

@@ -13,7 +13,7 @@ void toggleLED(int pinNumber) {
 			LEDs[0]=1;
 		}
 		break;
-	case LED_ERROR: //PD3 -- red
+	case LED_RED: //PD3 -- red
 		if (LEDs[1]) { //was on
 			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_3, GPIO_PIN_RESET);
 			LEDs[1]=0;
@@ -22,7 +22,7 @@ void toggleLED(int pinNumber) {
 			LEDs[1]=1;
 		}
 		break;
-	case LED_MEAS: //PD4- green
+	case LED_GREEN: //PD4- green
 		if (LEDs[2]) { //was on
 			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_4, GPIO_PIN_RESET);
 			LEDs[2]=0;
@@ -31,7 +31,7 @@ void toggleLED(int pinNumber) {
 			LEDs[2]=1;
 		}
 		break;
-	case LED_RTC:  //PD7 - yellow
+	case LED_YELLOW:  //PD7 - yellow
 		if (LEDs[3]) { //was on
 			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_7, GPIO_PIN_RESET);
 			LEDs[3]=0;
@@ -44,9 +44,9 @@ void toggleLED(int pinNumber) {
 }
 
 void BlinkErrors() {
-	//if TIM1 enabled, this will toggle SD or CONFIG leds 0.5Hz
-	if (configStatus == ERROR_RTC_NOT_SET) {
-		toggleLED(LED_RTC);
+	//if TIM4 enabled, this will toggle SD or CONFIG leds 0.5Hz
+	if (initStatus == ERROR_RTC_NOT_SET) {
+		toggleLED(LED_YELLOW);
 	}
 	if (sdStatus != INIT_OK) {
 		toggleLED(LED_SD);
@@ -56,8 +56,8 @@ void BlinkErrors() {
 void startBlinking() {
 	TIM_ClockConfigTypeDef sClockSourceConfig;
 	TIM_MasterConfigTypeDef sMasterConfig;
-	__TIM1_CLK_ENABLE();
-	htim1.Instance = TIM1;
+	__TIM4_CLK_ENABLE();
+	htim1.Instance = TIM4;
 	htim1.Init.Prescaler = 42000;
 	htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
 	htim1.Init.Period = 2000;
@@ -70,5 +70,9 @@ void startBlinking() {
 	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
 	HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig);
 	HAL_TIM_Base_Start_IT(&htim1);
+
+	//TIM1 for LED blinking
+	HAL_NVIC_SetPriority(TIM4_IRQn, 3, 0);
+	HAL_NVIC_EnableIRQ(TIM4_IRQn);
 }
 

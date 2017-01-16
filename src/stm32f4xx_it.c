@@ -82,10 +82,10 @@ void EXTI2_IRQHandler(void)
 }
 
 
-void TIM1_IRQHandler(void)
+void TIM4_IRQHandler(void)
 {
 	//started manually to blink LED-s
-	BlinkErrors();
+	  HAL_TIM_IRQHandler(&htim1);
 	//HAL_TIM_IRQHandler(&htim2);
 }
 
