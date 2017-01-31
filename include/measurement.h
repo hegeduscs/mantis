@@ -9,6 +9,7 @@
 
 #include "sensors/hih6030.h"
 #include "sensors/mpu9250.h"
+#include "sensors/dust.h"
 
 void writeLogEntry (FIL*);
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);

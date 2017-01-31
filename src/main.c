@@ -7,6 +7,7 @@
 #include "TM_lib/tm_stm32_rtc.h"
 #include "sensors/mpu9250.h"
 #include "sensors/hih6030.h"
+#include "sensors/dust.h"
 
 /* Hardware handler global variables ---------*/
 I2C_HandleTypeDef hi2c2;
@@ -58,11 +59,6 @@ int main(void)
 	  HAL_NVIC_SystemReset();
   }
 
-  //blink out if SD card is low on space and RTC is not set
-  if (initStatus==ERROR_RTC_NOT_SET|sdStatus!=INIT_OK) {
-	  startBlinking();
-  }
-
   openLogFile();
   openDebugFile();
 
@@ -108,12 +104,13 @@ int main(void)
 	  TM_RTC_t timeBuffer;
 	  TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
 	  if (MPU_read(&mpuBuffer)==0) {
-		  snprintf(buffer,200,"%u:%u:%u;%d;%d;%d",timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds,mpuBuffer.accel[0],mpuBuffer.accel[1],mpuBuffer.accel[2]);
-		  f_printf(&log1,"%s\n",buffer);
-		  f_sync(&log1);
+		  snprintf(buffer,200,"%u:%u:%u;%d;%d;%d;%d;%d;%d",timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds,mpuBuffer.accel[0],mpuBuffer.accel[1],mpuBuffer.accel[2],
+				  mpuBuffer.gyro[0],mpuBuffer.gyro[1],mpuBuffer.gyro[2]);
+		  f_printf(&log_debug,"%s\n",buffer);
+		  //f_sync(&log1);
 	} else {
-		  f_printf(&log1,"NO_FIFO\n");
-		  f_sync(&log1);
+		  //f_printf(&log1,"NO_FIFO\n");
+		  //f_sync(&log1);
 	}
 	//HAL_UART_Transmit(&huart3,"MAIN\n",5,100);
 	 //HAL_Delay(500);
@@ -126,7 +123,8 @@ int main(void)
 //	  }
 //	  HAL_ADC_Stop(&hadc3);
 //	  HAL_GPIO_WritePin(GPIOF,GPIO_PIN_2, GPIO_PIN_SET);
-//	  HAL_Delay(500);
+	  //HAL_Delay(500);
+
   }
 
 }

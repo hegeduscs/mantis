@@ -1,5 +1,6 @@
 #include "init.h"
 #include "sensors/mpu9250.h"
+#include "sensors/dust.h"
 #include "logging.h"
 
 void initSystem () {
@@ -17,6 +18,10 @@ void initSystem () {
 	if (checkSD()!=INIT_OK) {
 		initStatus=ERROR_FILE_OPEN;
 		sdStatus=ERROR_FILE_OPEN;
+	}
+
+	if (check_dust_sensor()!=INIT_OK) {
+		initStatus=DUST_ERROR;
 	}
 }
 
@@ -386,6 +391,24 @@ void initTIMs() {
 	  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK) initStatus = ERROR_TIMER_INIT;
 
 	  HAL_TIM_Base_Start_IT(&htim3);
+
+	  //TIM4 with 1sec, for f_sync and blinking
+	  TIM_ClockConfigTypeDef sClockSourceConfig4;
+	  TIM_MasterConfigTypeDef sMasterConfig4;
+	  __TIM4_CLK_ENABLE();
+	  htim1.Instance = TIM4;
+	  htim1.Init.Prescaler = 42000;
+	  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+	  htim1.Init.Period = 2000;
+	  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	  htim1.Init.RepetitionCounter = 0;
+	  HAL_TIM_Base_Init(&htim1);
+	  sClockSourceConfig4.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+	  HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig4);
+	  sMasterConfig4.MasterOutputTrigger = TIM_TRGO_RESET;
+	  sMasterConfig4.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+	  HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig4);
+	  HAL_TIM_Base_Start_IT(&htim1);
 }
 
 void MX_NVIC_Init(void)
@@ -408,6 +431,10 @@ void MX_NVIC_Init(void)
 
   //HAL_NVIC_SetPriority(EXTI2_IRQn, 2, 2);
   //HAL_NVIC_EnableIRQ(EXTI2_IRQn);
+
+  //TIM1 for LED blinking
+  HAL_NVIC_SetPriority(TIM4_IRQn, 3, 0);
+  HAL_NVIC_EnableIRQ(TIM4_IRQn);
 
  }
 

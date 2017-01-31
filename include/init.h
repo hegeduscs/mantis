@@ -20,6 +20,7 @@ extern UART_HandleTypeDef huart2;
 extern UART_HandleTypeDef huart3;
 extern UART_HandleTypeDef huart6;
 extern I2C_HandleTypeDef hi2c2;
+extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern char initStatus;
@@ -46,8 +47,9 @@ void MX_NVIC_Init(void); //IT enabler
 #define ERROR_UART_INIT 5
 #define ERROR_I2C_INIT 6
 #define MPU_INIT_FAIL 7
-#define ERROR_FILE_OPEN 8
-#define ERROR_RTC_NOT_SET 9
+#define DUST_ERROR 8
+#define ERROR_FILE_OPEN 9
+#define ERROR_RTC_NOT_SET 10
 
 
 

@@ -86,23 +86,10 @@ int checkSD() {
 	int total = (fs->n_fatent - 2) * fs->csize * 0.5;
 	int free = fre_clust * fs->csize * 0.5;
 
-	trace_printf("All storage:%d KB, free:%d KB\n",total,free);
+	//trace_printf("All storage:%d KB, free:%d KB\n",total,free);
 
 	if (free > (MANTIS_MEAS_ENTRY_SIZE*3600*8)) {
 		return INIT_OK;
 	} else
 		return ERROR_FILE_OPEN;
-}
-
-void writeLogEntry (FIL* fil, int type) {
-	//format: TIMESTAMP;VIBRATION_AVG;MAX_ACC;MAX_GYRO
-	//specified in init.c: initSD();
-
-
-	//snprintf(buffer,200,"%u:%u:%u;%d;%d;%d",datetime.Hours,datetime.Minutes,datetime.Seconds, IMU_data->accel[0], IMU_data->accel[1], (int)vibration_data);
-	//TM_USART_Puts(USART3, buffer);
-	//f_printf(fil,"%s\n",buffer);
-
-	//needs to actually write to SD card
-	f_sync(fil);
 }

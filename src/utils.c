@@ -53,26 +53,4 @@ void BlinkErrors() {
 	}
 }
 
-void startBlinking() {
-	TIM_ClockConfigTypeDef sClockSourceConfig;
-	TIM_MasterConfigTypeDef sMasterConfig;
-	__TIM4_CLK_ENABLE();
-	htim1.Instance = TIM4;
-	htim1.Init.Prescaler = 42000;
-	htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim1.Init.Period = 2000;
-	htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-	htim1.Init.RepetitionCounter = 0;
-	HAL_TIM_Base_Init(&htim1);
-	sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-	HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig);
-	sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-	HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig);
-	HAL_TIM_Base_Start_IT(&htim1);
-
-	//TIM1 for LED blinking
-	HAL_NVIC_SetPriority(TIM4_IRQn, 3, 0);
-	HAL_NVIC_EnableIRQ(TIM4_IRQn);
-}
 

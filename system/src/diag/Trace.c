@@ -50,7 +50,7 @@ trace_printf(const char* format, ...)
   TM_RTC_t timeBuffer;
   TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
   f_printf(&log_debug,"%u-%u-%u %u:%u:%u	%s",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day,timeBuffer.Hours,timeBuffer.Minutes,timeBuffer.Seconds,buf);
-  f_sync(&log_debug);
+  //f_sync(&log_debug);
   return ret;
 
 

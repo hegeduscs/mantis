@@ -576,32 +576,39 @@ extern I2C_HandleTypeDef hi2c2;
 int i2c_write(unsigned char slave_addr,
 		unsigned char reg_addr, unsigned short len, const unsigned char *data_ptr)
 {
+	 __disable_irq();
+
 	int tries;
 	for(tries = 0; tries < 3; tries++)
 	{
 		if (HAL_I2C_Mem_Write(&hi2c2, 0x68<<1, reg_addr,I2C_MEMADD_SIZE_8BIT, data_ptr, len, 10) == HAL_OK)
 		{
+			__enable_irq();
 			return 0;
 		}
 		//delay_ms(100);
 	}
 	trace_printf("MPU I2C WRITE ERROR\n");
+	__enable_irq();
 	return tries;
 }
 
 int i2c_read(unsigned char slave_addr,
 		unsigned char reg_addr, unsigned short len, const unsigned char *data_ptr)
 {
+	 __disable_irq();
 	int tries;
 	for(tries = 0; tries < 3; tries++) //TODO ?? unsigned char -> uint8_t conversion
 	{
 		if (HAL_I2C_Mem_Read(&hi2c2,0x68<<1,reg_addr,I2C_MEMADD_SIZE_8BIT,data_ptr,len,10)==HAL_OK)
 		{
+			__enable_irq();
 			return 0;
 		}
 		//delay_ms(100);
 	}
 	trace_printf("MPU I2C READ ERROR\n");
+	__enable_irq();
 	return tries;
 }
 

@@ -21,7 +21,6 @@ extern TIM_HandleTypeDef htim1;
 
 void toggleLED(int pinNumber);
 void BlinkErrors();
-void startBlinking();
 
 #define LED_SD 0
 #define LED_RED 1
