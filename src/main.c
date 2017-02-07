@@ -72,7 +72,7 @@ int main(void)
   MPU_selftest();
 
   HIH_init();
-  //MAIN LOOP
+
 
   //LED tests
   //for (uint8_t i=0;i<127;i++) {
@@ -82,24 +82,10 @@ int main(void)
 	//  toggleLED(LED_RTC);
 	//  HAL_Delay(300);
   //}
-  //HAL_GPIO_WritePin(GPIOF,GPIO_PIN_2, GPIO_PIN_SET);
 
+  //MAIN LOOP
   while (1)
   {
-
-	  //trace_printf("%d\n",HAL_ADC_);
-	  //toggleLED(LED_ERROR);
-	  //int timerValue =__HAL_TIM_GET_COUNTER(&htim2);
-	  //trace_printf("value:%d\n",timerValue);
-	  //HAL_UART_Transmit(&huart2,outputBuffer,4,1000);
-	  //trace_printf("UART RECEIVE\n");
-	  //HAL_UART_Receive(&huart2,inputBuffer,100,1000);
-	  //trace_printf("%s\n",inputBuffer);
-	 //HIH_readout hbuf;
-	 //if (HIH_read(&hbuf)==HIH_OK) {
-	  //char output[100];
-	  //snprintf(output,100,"Temp:%f, %f \n",hbuf.temperature, hbuf.humidity);
-	  //trace_printf("%s",output);
 	  char buffer[100];
 	  TM_RTC_t timeBuffer;
 	  TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
@@ -112,18 +98,8 @@ int main(void)
 		  //f_printf(&log1,"NO_FIFO\n");
 		  //f_sync(&log1);
 	}
-	//HAL_UART_Transmit(&huart3,"MAIN\n",5,100);
-	 //HAL_Delay(500);
-//	 HAL_GPIO_WritePin(GPIOF,GPIO_PIN_2, GPIO_PIN_SET);
-//	 for (int i=0;i<100;i++);
-//
-//	  HAL_ADC_Start(&hadc3);
-//	  if (HAL_ADC_PollForConversion(&hadc3,50)==HAL_OK) {
-//		  trace_printf("Value: %d\n",HAL_ADC_GetValue(&hadc3));
-//	  }
-//	  HAL_ADC_Stop(&hadc3);
-//	  HAL_GPIO_WritePin(GPIOF,GPIO_PIN_2, GPIO_PIN_SET);
-	  //HAL_Delay(500);
+
+
 
   }
 

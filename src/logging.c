@@ -66,13 +66,14 @@ void checkLogging() {
 
 	//if they are not equal, need to create new file
 	if (initStatus!=ERROR_RTC_NOT_SET&&strcmp(rightName,currentFileName)) {
-		//close old file
+		//close file and reboot
 		f_close(&log1);
-		openLogFile();
+		f_close(&log_debug);
+		f_mount(0, "", 1);
+		HAL_NVIC_SystemReset();
 	}
 }
 
-extern FATFS FS;
 
 int checkSD() {
 	FATFS *fs;

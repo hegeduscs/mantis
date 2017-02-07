@@ -71,7 +71,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
 	case 'R':
 		HAL_UART_Receive(&huart3,inputBuffer,10,10);
-		if (strcmp("EBOOT\n",inputBuffer)==0) HAL_NVIC_SystemReset();
+		if (strcmp("EBOOT\n",inputBuffer)==0) {
+			snprintf(outputBuffer,100,"Rebooting system\n");
+			HAL_UART_Transmit(&huart3,outputBuffer,strlen(outputBuffer),10);
+			HAL_NVIC_SystemReset();
+		}
 		break;
 
 	case '\0':
