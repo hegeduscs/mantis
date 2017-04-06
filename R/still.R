@@ -1,5 +1,5 @@
 #setting workspace path
-setwd("D:/MANTIS projects")
+setwd("C:/Users/Public/R/still")
 
 #read csv, but metamachinerrorcode is not empty
 still<-read.csv("mergedSTILL.csv",header=TRUE,na.string=c("  ","","NA"))
@@ -21,38 +21,44 @@ still$BauJ<-NULL
 still$automaticlogout<-NULL
 still$Ende<-NULL
 still$metamachinerrorcode<-gsub(" ","",still$metamachinerrorcode,fixed=TRUE)
+still$metamachinerrorcode<-as.factor(still$metamachinerrorcode)
 
 #list the possible error codes
 table(still$metamachinerrorcode)
+#sum of the error cases (94969 out of 1681161 is about 5.65% error rate)
+sum(!is.na(still$metamachinerrorcode))
 
 #creating subset: removing empty errorcode 
 faulty.logs<-subset(still,!is.na(still$Concatenate.Material..for)|!is.na(still$technischer.Hinweis))
 
 #need to load ggplot2 package
-library("ggplot2", lib.loc="C:/Program Files/R/R-3.3.2/library")
+library("ggplot2")
 
 #filtering for error events
-still.filtered<-subset(still,!is.na(still$metamachinerrorcode))
+still.error.cases<-subset(still,!is.na(still$metamachinerrorcode))
 
 #plot distribution of error codes per truck
-ggplot(still.filtered,aes(x=still.filtered$identifier, fill=factor(still.filtered$metamachinerrorcode))) + 
+ggplot(still.error.cases,aes(x=still.error.cases$identifier, fill=factor(still.error.cases$metamachinerrorcode))) + 
 geom_bar() +
 xlab("Truck ID") +
 ylab("Total count")+
-labs(fill = "Error Code") 
+labs(fill = "Error Code")
 
 #see which trucks have log entries
-table(still.filtered$identifier)
+table(still.error.cases$identifier)
 
 #separating material lists into multiple rows
 #need to install tidyr 0.5.0 or above
-install.packages("tidyr")
+#install.packages("tidyr")
 library(tidyr)
 faulty.logs<-separate_rows(faulty.logs,Concatenate.Material..for, sep = ",")
 
 #renaming the Concatenate field to 'materials'
 names(faulty.logs)[names(faulty.logs)=="Concatenate.Material..for"] <- "materials"
 names(faulty.logs)[names(faulty.logs)=="technischer.Hinweis"] <- "description"
+
+names(still)[names(still)=="Concatenate.Material..for"] <- "materials"
+names(still)[names(still)=="technischer.Hinweis"] <- "description"
 
 #creating a subframe for only the 3 technical fields
 faulty.logs<-faulty.logs[,c("identifier","metatimestamp","description","materials")]
@@ -73,5 +79,10 @@ important_replacements<-merge(faulty.logs,filtered_parts,by.x="materials",by.y="
 error_codes<-read.csv("error_list.csv",header=TRUE,sep=";",na.strings = "")
 filtered_codes<-error_codes[,c("FehlerNr","NAME","BESCHREIBUNG","URSACHE","REAKT.","QUIT","ABHILFE")]
 
+write.csv(still, file = "merged_still_cleaned.csv", row.names = FALSE)
+
+#write.csv2 generates ; separated rows
+write.csv2(still, file = "merged_still_cleaned_semicol.csv", row.names = FALSE)
+write.csv2(still[1:1000000,], file = "merged_still_cleaned_partial_semicol.csv", row.names = FALSE)
 
 
