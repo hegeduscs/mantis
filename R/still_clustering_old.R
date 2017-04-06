@@ -22,17 +22,11 @@ still.df$energyunit<-as.factor(still.df$energyunit)
 still.df$identifier<-as.factor(still.df$identifier)
 still.df$metatimestamp<-as.POSIXct(still.df$metatimestamp, format="%Y-%m-%d %H:%M:%S")
 
-#convert the timing fields' unit into sec (from msec)
-still.df$readoutduration <- still.df$readoutduration /1000
-still.df$drivetime <- still.df$drivetime / 1000
-still.df$lifttime <- still.df$lifttime / 1000
-still.df$liftanddrivetime <- still.df$liftanddrivetime / 1000
-
 #summary of some of the most important fields
 summary(still.df$distance) #m, median 200, mean 307.2, 708k NA
-summary(still.df$readoutduration) #median 10 minutes, 506k NA
-summary(still.df$drivetime) #708k NA
-summary(still.df$lifttime) #708k NA
+summary(still.df$readoutduration) #ms median 10 minutes, 506k NA
+summary(still.df$drivetime) #ms, 708k NA
+summary(still.df$lifttime) #ms, 708k NA
 
 #omit the rows from the data frame where the 'readoutduration' is NA
 #this field is a must have for the clustering and almost all of these rows are missing all the other fields too
@@ -40,7 +34,7 @@ still.df <- still.df %>% filter(!is.na(readoutduration))
 
 #Feature engineering parts
 #1) Average speed feature [km/h]
-still.df <- still.df %>% mutate(average_speed = distance / readoutduration * 3.6) #median 2.01, mean 2.32, 202k NA
+still.df <- still.df %>% mutate(average_speed = distance / readoutduration * 1000 * 3.6) #median 2.01, mean 2.32, 202k NA
 
 #2) Driving ratio feature (%)
 still.df <- still.df %>% mutate(driving_ratio = drivetime / readoutduration) #median 0.56, mean 0.51, 202k NA
@@ -48,10 +42,7 @@ still.df <- still.df %>% mutate(driving_ratio = drivetime / readoutduration) #me
 #3) Lifting ratio feature (%)
 still.df <- still.df %>% mutate(lifting_ratio = lifttime / readoutduration) #median 0.14, mean 0.16, 202k NA
 
-#4) Direction change feature - normalized with the maximum readout duration (10 minutes)
-still.df <- still.df %>% mutate(direction_changes_10min = numberofdirectionchanges * readoutduration / 600) #median 9, mean 15.26, 202k NA
-
-#5) Energy consumption rate (a.k.a. Power) [W]
+#4) Energy consumption rate (a.k.a. Power) [kW]
 #First we need to assign the battery voltage to each forklift where it's available
 battery.voltages <- data.frame(identifier = c("515063B00279", "515063B00287", 
                                               "516210D00488", "516213C00241", "516213C00247","516215D00843", "516215D00862", "516215D00871",
@@ -80,7 +71,7 @@ summary(ah.units$consumedamount)
 summary(kwh.units$consumedamount)
 summary(fuel.units$consumedamount)
 
-#converting the consumedamount from mAh to Wh
+#converting the consumedamount from Ah to kWh
 converted.ah.units <- ah.units %>% 
   mutate(consumedamount = consumedamount * battery_voltage / 1000) %>%
   mutate(energyunit = "KWH")
@@ -92,29 +83,29 @@ still.df <- mutate(still.df, consumedamount = ifelse(grepl("BATTERY_AMPERE_HOURS
                                               ifelse(grepl("FUEL_LITERS", energyunit), NA, consumedamount)))
 
 #then replace the energyunit values too (this is probably a way too complicated way to do it)
-still.df <- mutate(still.df, energyunit = ifelse(grepl("BATTERY_AMPERE_HOURS", energyunit), "Wh", 
-                                          ifelse(grepl("KWH", energyunit), "Wh", 
+still.df <- mutate(still.df, energyunit = ifelse(grepl("BATTERY_AMPERE_HOURS", energyunit), "KWH", 
+                                          ifelse(grepl("KWH", energyunit), "KWH", 
                                           ifelse(grepl("FUEL_LITERS", energyunit), "FUEL_LITERS", NA))))
 summary(still.df$consumedamount)
 still.df$energyunit <- as.factor(still.df$energyunit)
 summary(still.df$energyunit)
 
-#because these consumption rates seem very high to me, (later on I assumed the values were in mAh and Wh, they just messed up the energyunit values)
+#because these consumption rates seem very high to me, 
 #i just wanna make sure that they are at least somewhat correlated to the distance and readoutduration variables
-ggplot(still.df, aes(distance, consumedamount)) + geom_point() + xlab("Distance [m]") + ylab("Consumed energy [Wh]")
-ggplot(still.df, aes(readoutduration, consumedamount)) + geom_point() + xlab("Readout duration [s]") + ylab("Consumed energy [Wh]")
+ggplot(still.df, aes(distance, consumedamount)) + geom_point() + xlab("Distance [m]") + ylab("Consumed energy [kWh]")
+ggplot(still.df, aes(readoutduration, consumedamount)) + geom_point() + xlab("Readout duration [ms]") + ylab("Consumed energy [kWh]")
 
-#and finally create the new consumption rate [W] field (there is a function called power)
-still.df <- still.df %>% mutate(consumption_rate = consumedamount / readoutduration * 3600) #median 254.1, mean 299.1, 719k NA
+#and finally create the new consumption rate [kW] field (there is a function called power)
+still.df <- still.df %>% mutate(consumption_rate = consumedamount / readoutduration * 3600 * 1000) #median 254.1, mean 299.1, 719k NA
                    
 #create filtered dataframe, dropping the columns which were not used (+ keeping ID and metatimestamp)
-still.stripped.df <- still.df %>% select(distance, maxspeed, direction_changes_10min, readoutduration, 
+still.stripped.df <- still.df %>% select(distance, maxspeed, numberofdirectionchanges, readoutduration, 
                                          drivetime, lifttime, consumedamount, energyunit, identifier, 
                                          metatimestamp, average_speed, driving_ratio, lifting_ratio, 
                                          battery_voltage, consumption_rate)
 
 #create an even more filtered daraframe, which only has the columns needed for clustering
-still.clustering.df <- still.df %>% select(direction_changes_10min, average_speed, driving_ratio, 
+still.clustering.df <- still.df %>% select(numberofdirectionchanges, average_speed, driving_ratio, 
                                            lifting_ratio, consumption_rate)
 
 #filter out rows which have more than 3 NA values
@@ -122,8 +113,8 @@ still.clustering.df$na_count <- rowSums(is.na(still.clustering.df))
 still.clustering.df <- still.clustering.df %>% filter(na_count < 3) #roughly 212k rows filtered out
 
 #fill in the rest of the missing values with median and mean values
-summary(still.clustering.df$direction_changes_10min) #median 8, mean 14.7 -> replace NA with median
-still.clustering.df$direction_changes_10min[is.na(still.clustering.df$direction_changes_10min)] <- 8
+summary(still.clustering.df$numberofdirectionchanges) #median 13, mean 16.7 -> replace NA with median
+still.clustering.df$numberofdirectionchanges[is.na(still.clustering.df$numberofdirectionchanges)] <- 13
 
 summary(still.clustering.df$average_speed) #median 1.896, mean 2.252 -> replace NA with median
 still.clustering.df$average_speed[is.na(still.clustering.df$average_speed)] <- 1.896
@@ -139,17 +130,10 @@ na.consumption <- still.clustering.df %>% filter(is.na(consumption_rate))
 #based on the summaries of na.consumption and still.clustering.df, 210 seems like a reasonable replacement for NA values
 still.clustering.df$consumption_rate[is.na(still.clustering.df$consumption_rate)] <- 210
 
-#there are outlier entries at the consumption_rate, with extremly high numbers, while the other fields are 0
-#these faulty values need to be corrected
-outlier.entries <- still.clustering.df %>% filter(consumption_rate > 1799 & average_speed == 0)
-still.clustering.df <- still.clustering.df %>% 
-  mutate(consumption_rate = ifelse((consumption_rate > 1799 & average_speed == 0), 0, consumption_rate))
-outlier.entries2 <- still.clustering.df %>% filter(consumption_rate > 1799)
-
 #but this is such a drastic data imputation, that I'm gonna do a clustering without the consumption_rate field too
 still.clustering.df2 <- still.clustering.df %>% select(-consumption_rate)
 
-#creating a new csv file from still.clustering.df
+#creating a new csv file from still.stripped.df
 still.clustering.df <- still.clustering.df %>% select(-na_count)
 write.csv2(still.clustering.df, file = "still_clustering.csv", row.names = FALSE)
 still.clustering.df2 <- still.clustering.df2 %>% select(-na_count)
@@ -174,15 +158,15 @@ still.clustering.df2$cluster_of7 <- as.factor(still.cluster4$cluster)
 #install.packages("Rtsne")
 library(Rtsne)
 
-features1 <- c("direction_changes_10min", "average_speed", "driving_ratio", "lifting_ratio", "consumption_rate")
-features2 <- c("direction_changes_10min", "average_speed", "driving_ratio", "lifting_ratio")
+features1 <- c("numberofdirectionchanges", "average_speed", "driving_ratio", "lifting_ratio", "consumption_rate")
+features2 <- c("numberofdirectionchanges", "average_speed", "driving_ratio", "lifting_ratio")
 
+set.seed(200)
 #takes too long to run on the full data frame :()
-#set.seed(200)
 #tsne.1 <- Rtsne(still.clustering.df[, features1], check_duplicates = FALSE)
 #tsne.2 <- Rtsne(still.clustering.df2[, features2], check_duplicates = FALSE)
 
-ggplot(still.clustering.df, aes(x = direction_changes_10min, y = average_speed, color = still.clustering.df$cluster_of4)) + 
+ggplot(still.clustering.df, aes(x = numberofdirectionchanges, y = average_speed, color = still.clustering.df$cluster_of4)) + 
   geom_point() + xlab("Number of direction changes") + 
   ylab("Average speed [km/h]") +
   labs(color = "Cluster")
@@ -190,28 +174,25 @@ ggplot(still.clustering.df, aes(x = direction_changes_10min, y = average_speed, 
 #randomly select 0.1% of still.clustering.df
 still.clustering.sampled <- sample_frac(still.clustering.df, 0.001)
 
-ggplot(still.clustering.sampled, aes(x = direction_changes_10min, y = average_speed, color = still.clustering.sampled$cluster_of4)) + 
+ggplot(still.clustering.sampled, aes(x = numberofdirectionchanges, y = average_speed, color = still.clustering.sampled$cluster_of4)) + 
   geom_point() + xlab("Number of direction changes") + 
   ylab("Average speed [km/h]") +
-  labs(color = "Cluster") +
-  ggtitle("0.01% of the data points randomly chosen, 4 clusters")
+  labs(color = "Cluster")
 
-ggplot(still.clustering.sampled, aes(x = direction_changes_10min, y = average_speed, color = still.clustering.sampled$cluster_of7)) + 
+ggplot(still.clustering.sampled, aes(x = numberofdirectionchanges, y = average_speed, color = still.clustering.sampled$cluster_of7)) + 
   geom_point() + xlab("Number of direction changes") + 
   ylab("Average speed [km/h]") +
-  labs(color = "Cluster") +
-  ggtitle("0.01% of the data points randomly chosen, 7 clusters")
+  labs(color = "Cluster")
 
 ggplot(still.clustering.df, aes(x = driving_ratio, y = consumption_rate, color = still.clustering.df$cluster_of4)) + 
   geom_point() + xlab("Driving ratio (%)") + 
-  ylab("Consumption rate [W]") +
+  ylab("Consumption rate [kW]") +
   labs(color = "Cluster")
 
 ggplot(still.clustering.sampled, aes(x = driving_ratio, y = consumption_rate, color = still.clustering.sampled$cluster_of4)) + 
   geom_point() + xlab("Driving ratio (%)") + 
-  ylab("Consumption rate [W]") +
-  labs(color = "Cluster") +
-  ggtitle("0.01% of the data points randomly chosen, 4 clusters")
+  ylab("Consumption rate [kW]") +
+  labs(color = "Cluster")
 
 clustering1.centers <- as.data.frame(still.cluster1$centers)
 clustering2.centers <- as.data.frame(still.cluster2$centers)
@@ -219,28 +200,23 @@ clustering3.centers <- as.data.frame(still.cluster3$centers)
 clustering4.centers <- as.data.frame(still.cluster4$centers)
 
 #~5 min calculations each
-set.seed(200)
 tsne.1 <- Rtsne(still.clustering.df[1:20000, features1], check_duplicates = FALSE)
 tsne.2 <- Rtsne(still.clustering.df2[1:20000, features2], check_duplicates = FALSE)
 
 ggplot(NULL, aes(x = tsne.1$Y[, 1], y = tsne.1$Y[, 2], color = still.clustering.df2$cluster_of4[1:20000])) +
   geom_point() +
-  labs(color = "Cluster") +
-  ggtitle("t-DSNE with the first 20000 rows, 5 variables, 4 clusters")
+  labs(color = "Cluster")
 
 ggplot(NULL, aes(x = tsne.1$Y[, 1], y = tsne.1$Y[, 2], color = still.clustering.df2$cluster_of7[1:20000])) +
   geom_point() +
-  labs(color = "Cluster") +
-  ggtitle("t-DSNE with the first 20000 rows, 5 variables, 7 clusters")
+  labs(color = "Cluster")
 
 ggplot(NULL, aes(x = tsne.2$Y[, 1], y = tsne.2$Y[, 2], color = still.clustering.df2$cluster_of4[1:20000])) +
   geom_point() +
-  labs(color = "Cluster") +
-  ggtitle("t-DSNE with the first 20000 rows, 4 variables, 4 clusters")
+  labs(color = "Cluster")
 
 ggplot(NULL, aes(x = tsne.2$Y[, 1], y = tsne.2$Y[, 2], color = still.clustering.df2$cluster_of7[1:20000])) +
   geom_point() +
-  labs(color = "Cluster") +
-  ggtitle("t-DSNE with the first 20000 rows, 4 variables, 7 clusters")
+  labs(color = "Cluster")
 
 table(still.cluster3$cluster)
