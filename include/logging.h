@@ -3,11 +3,13 @@
 
 #include "stm32f4xx_hal.h"
 #include "fatfs.h"
+#include "sensors/mpu9250.h"
 
 extern FATFS FS;
 extern FIL log1;
 extern FIL log_mpu;
 extern FIL log_debug;
+extern FIL log_bin;
 extern FRESULT fres;
 
 extern char initStatus;
@@ -23,5 +25,9 @@ void writeLogEntry (FIL* fil, int type);
 void createFile(int type);
 void openDebugFile();
 int checkSD();
+
+extern MPU_measurement mpuBuffer;
+void openBinaryFile();
+void binary_log(MPU_measurement theBuff);
 
 #endif /* LOGGING_H_ */

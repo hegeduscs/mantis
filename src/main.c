@@ -28,7 +28,7 @@ UART_HandleTypeDef huart6;
 
 /*fatFs global variables ------------------*/
 FATFS FS;
-FIL log1,log_mpu,log_debug;
+FIL log1,log_mpu,log_debug,log_bin;
 FRESULT fres;
 
 char currentFileName[100];
@@ -61,6 +61,7 @@ int main(void)
 
   openLogFile();
   openDebugFile();
+  openBinaryFile();
 
   //STARTUP
   //enable interrupts for UART3, TIM2,TIM3, buttons
@@ -94,6 +95,7 @@ int main(void)
 				  mpuBuffer.gyro[0],mpuBuffer.gyro[1],mpuBuffer.gyro[2]);
 		  f_printf(&log_debug,"%s\n",buffer);
 		  //f_sync(&log1);
+		  binary_log(mpuBuffer);
 	} else {
 		  //f_printf(&log1,"NO_FIFO\n");
 		  //f_sync(&log1);

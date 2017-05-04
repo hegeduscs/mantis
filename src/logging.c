@@ -94,3 +94,71 @@ int checkSD() {
 	} else
 		return ERROR_FILE_OPEN;
 }
+
+char binFileName[100];
+void openBinaryFile()
+{
+	//Get data from RTC
+	TM_RTC_t timeBuffer;
+	TM_RTC_GetDateTime(&timeBuffer, TM_RTC_Format_BIN);
+	sprintf(binFileName,"%d-%d-%d.dat\n",timeBuffer.Year,timeBuffer.Month,timeBuffer.Day);
+
+	//Open file or create one if it doesn't exist
+	if(f_open(&log_bin, binFileName, FA_READ | FA_WRITE | FA_OPEN_EXISTING) == FR_OK)
+	{
+		f_lseek(&log_bin, f_size(&log_bin));
+		f_sync(&log_bin);
+	}
+	else
+	{
+		if(initStatus != ERROR_RTC_NOT_SET)
+		{
+			if (f_open(&log_bin, binFileName, FA_READ | FA_WRITE | FA_CREATE_ALWAYS) == FR_OK)
+			{
+				f_sync(&log_bin);
+			}
+		}
+		else
+		{
+			f_open(&log_bin, "def_RTC.dat", FA_READ | FA_WRITE | FA_CREATE_ALWAYS);
+		}
+	}
+}
+
+void binary_log(MPU_measurement theBuff)
+{
+	short buffer[6];
+	TM_RTC_t timeBuffer;
+	uint8_t outTimeBuff[6];
+	UINT *error_indicator;
+
+	for(int i = 0; i<3; i++)
+	{
+		buffer[i] = theBuff.accel[i];
+		buffer[i+3] = theBuff.gyro[i];
+	}
+
+	TM_RTC_GetDateTime(&timeBuffer,TM_RTC_Format_BIN);
+	outTimeBuff[0] = timeBuffer.Year;
+	outTimeBuff[1] = timeBuffer.Month;
+	outTimeBuff[2] = timeBuffer.Day;
+	outTimeBuff[3] = timeBuffer.Hours;
+	outTimeBuff[4] = timeBuffer.Minutes;
+	outTimeBuff[5] = timeBuffer.Seconds;
+
+	//Writing timestamp
+	f_write(&log_bin, outTimeBuff, sizeof(outTimeBuff), error_indicator);
+	if(&error_indicator < sizeof(outTimeBuff))
+	{
+		trace_printf("SD is full!");
+	}
+
+	//Writing data
+	f_write(&log_bin, &buffer, sizeof(buffer), error_indicator);
+	if(&error_indicator < sizeof(outTimeBuff))
+		{
+			trace_printf("SD is full!");
+		}
+	f_sync(&log_bin);
+}
+
