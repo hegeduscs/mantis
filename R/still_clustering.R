@@ -171,6 +171,23 @@ still.clustering.df$cluster_of7 <- as.factor(still.cluster2$cluster)
 still.clustering.df2$cluster_of4 <- as.factor(still.cluster3$cluster)
 still.clustering.df2$cluster_of7 <- as.factor(still.cluster4$cluster)
 
+clustering1.centers <- as.data.frame(still.cluster1$centers)
+clustering2.centers <- as.data.frame(still.cluster2$centers)
+clustering3.centers <- as.data.frame(still.cluster3$centers)
+clustering4.centers <- as.data.frame(still.cluster4$centers)
+
+table(still.clustering.df$cluster_of4)
+table(still.clustering.df$cluster_of7)
+table(still.clustering.df2$cluster_of4)
+table(still.clustering.df2$cluster_of7)
+
+clustering1.centers <- clustering1.centers %>% mutate(cluster_cardinality = c(62495, 730931, 21067, 91459))
+clustering2.centers <- clustering2.centers %>% mutate(cluster_cardinality 
+                                                          = c(165495, 531445, 36823, 16681, 2403, 91859, 61246))
+clustering3.centers <- clustering3.centers %>% mutate(cluster_cardinality = c(502822, 32410, 226934, 143786))
+clustering4.centers <- clustering4.centers %>% mutate(cluster_cardinality 
+                                                      = c(106089, 34175, 8657, 385988, 131216, 74641, 165186))
+
 #install.packages("Rtsne")
 library(Rtsne)
 
@@ -212,11 +229,6 @@ ggplot(still.clustering.sampled, aes(x = driving_ratio, y = consumption_rate, co
   ylab("Consumption rate [W]") +
   labs(color = "Cluster") +
   ggtitle("0.01% of the data points randomly chosen, 4 clusters")
-
-clustering1.centers <- as.data.frame(still.cluster1$centers)
-clustering2.centers <- as.data.frame(still.cluster2$centers)
-clustering3.centers <- as.data.frame(still.cluster3$centers)
-clustering4.centers <- as.data.frame(still.cluster4$centers)
 
 #~5 min calculations each
 set.seed(200)
