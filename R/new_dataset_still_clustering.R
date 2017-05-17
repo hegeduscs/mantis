@@ -8,10 +8,10 @@ library(dplyr)
 library(ggplot2)
 
 #read the text file into a data frame
-still.df <- read.table("new_still.txt", header=TRUE, sep="\t")
+still.df <- read.table("new_still.txt", header=TRUE, sep="\t", dec=",", encoding = "UTF-8")
 
 #renaming the timestamp column with the weird name
-names(still.df)[names(still.df) == 'ď.żtimestamp'] <- 'timestamp'
+names(still.df)[names(still.df) == 'X.U.FEFF.timestamp'] <- 'timestamp'
 
 #making sure the required fields have the correct data type
 still.df$timestamp<-as.POSIXct(still.df$timestamp, format="%d.%m.%Y %H:%M:%S")
@@ -24,17 +24,23 @@ still.df$numberofdirectionchanges<-as.numeric(still.df$numberofdirectionchanges)
 still.df$energyunit<-as.factor(still.df$energyunit)
 still.df$consumedamount<-as.numeric(still.df$consumedamount)
 
+#comparing the old dataset with this newer one, so I look at the rows from 1 day
+still.df.1day <- still.df %>% 
+  filter(timestamp >= as.POSIXct("2015-12-31 00:00:00") & timestamp <= as.POSIXct("2015-12-31 11:59:59"))
+table(still.df$identifier)
+table(still.df.1day$identifier)
+
 #convert the timing fields' unit into sec (from msec)
 still.df$readoutduration <- still.df$readoutduration /1000
 still.df$drivetime <- still.df$drivetime / 1000
+
+#75% of the readoutduration is 10 minutes, 25% is less than 10 minutes
+quantile(still.df$readoutduration, probs = seq(0, 1, 0.01))
 
 #summary of some of the most important fields
 summary(still.df$distance) #median 480, mean 475.4
 summary(still.df$readoutduration) #median 600, mean 515.2
 summary(still.df$drivetime) #median 425, mean 364.7
-
-#25% of the rows have a readoutduration less than 10 minutes
-quantile(still.df$readoutduration, probs = seq(0, 1, 0.01))
 
 #Feature engineering parts
 #1) Average speed feature [km/h]
@@ -51,39 +57,29 @@ summary(still.df$direction_changes_10min)
 
 #4) Energy consumption rate (a.k.a. Power) [W]
 summary(still.df$consumedamount)
-still.df <- mutate(still.df, energyunit = "Wh")
-still.df$energyunit <- as.factor(still.df$energyunit)
 
 #lets see how corraletad is the consumedamount with the distance and readoutduration
 still.df.sampled.0.1percent <- sample_frac(still.df, 0.001)
-ggplot(still.df.sampled.0.1percent, aes(distance, consumedamount)) + geom_point() + xlab("Distance [m]") + ylab("Consumed energy [Wh]")
-ggplot(still.df.sampled.0.1percent, aes(readoutduration, consumedamount)) + geom_point() + xlab("Readout duration [s]") + ylab("Consumed energy [Wh]")
+ggplot(still.df.sampled.0.1percent, aes(distance, consumedamount * 1000)) + geom_point() + xlab("Distance [m]") + ylab("Consumed energy [Wh]")
+ggplot(still.df.sampled.0.1percent, aes(readoutduration, consumedamount * 1000)) + geom_point() + xlab("Readout duration [s]") + ylab("Consumed energy [Wh]")
 
 #create the new consumption rate [W] field
-still.df <- still.df %>% mutate(consumption_rate = consumedamount / readoutduration * 3600) #median 204, mean 221.5
+still.df <- still.df %>% mutate(consumption_rate = (consumedamount * 1000) / (readoutduration / 3600)) #median 1920, mean 1866
 summary(still.df$consumption_rate)
+
+forklift_dist <- still.df %>% count(identifier)
+still.df2min <- still.df %>% filter(readoutduration < 120)
+forklift_dist2min <- still.df2min %>% count(identifier)
+forklift_dist <- left_join(forklift_dist, forklift_dist2min, by = "identifier")
+names(forklift_dist)[names(forklift_dist) == 'n.x'] <- 'cardinality'
+names(forklift_dist)[names(forklift_dist) == 'n.y'] <- 'cardinality_2min'
+forklift_dist <- forklift_dist %>% mutate(cardinality_ratio = cardinality_2min / cardinality)
+summary(forklift_dist$cardinality_ratio)
 
 #create a filtered daraframe, which only has the columns needed for clustering
 still.clustering.df <- still.df %>% select(average_speed, driving_ratio, direction_changes_10min, consumption_rate)
 summary(still.clustering.df)
-
-#consumption_rate has a maximum very far off the 3rd quantile
-quantile(still.clustering.df$consumption_rate, probs = seq(0, 1, 0.01))
-
-#let's take a look at the rows from the top 2%, which are at least 3 times higher than the average
-outlier.consumptions <- still.clustering.df %>% filter(consumption_rate > 1199)
-summary(outlier.consumptions)
-#most of the outlier entries have 0 average speed and 0 driving ratio!
-
-#15614 rows from the 16496 probably have faulty/default consumedamount values
-outlier.consumptions_filtered <- outlier.consumptions %>% filter(average_speed == 0 | driving_ratio == 0)
-#since all of these rows have either 1200, 1800 or 3600 consumption_rates exactly
-table(outlier.consumptions_filtered$consumption_rate)
-#let's filter these rows out
-still.clustering.df <- still.clustering.df %>% filter(!(consumption_rate > 1199 & (average_speed == 0 | driving_ratio == 0)))
-
-#there are also many more suspicious rows with 0 speed and driving ratio where the consumption_rate is a nice round number
-
+  
 #Let's try clustering with k means
 set.seed(100)
 #asking for 4 clusters, 20 different random starting assignments
@@ -122,9 +118,9 @@ still.clustering.df$cluster_of7_mq <- as.factor(still.cluster.mq7$cluster)
 table(still.clustering.df$cluster_of4_mq)
 table(still.clustering.df$cluster_of7_mq)
 
-clustering.hw4.centers <- clustering.hw4.centers %>% mutate(cluster_cardinality = c(389342, 8828, 825004, 410269))
+clustering.hw4.centers <- clustering.hw4.centers %>% mutate(cluster_cardinality = c(247960, 481249, 647256, 272592))
 clustering.hw7centers <- clustering.hw7centers %>% mutate(cluster_cardinality 
-                        = c(421981, 183605, 6388, 221665, 454913, 303575, 41316))
+                        = c(291297, 360295, 170181, 207902, 211174, 344622, 63586))
 
 #install.packages("Rtsne")
 library(Rtsne)

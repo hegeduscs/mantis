@@ -22,6 +22,24 @@ still.df$energyunit<-as.factor(still.df$energyunit)
 still.df$identifier<-as.factor(still.df$identifier)
 still.df$metatimestamp<-as.POSIXct(still.df$metatimestamp, format="%Y-%m-%d %H:%M:%S")
 
+#this is here to compare this dataset with the new one in 1 RStudio workspace
+still.df.old <- read.csv("merged_still_cleaned.csv",header=TRUE)
+still.df.old$distance<-as.numeric(still.df.old$distance)
+still.df.old$maxspeed<-as.numeric(still.df.old$maxspeed)
+still.df.old$numberofdirectionchanges<-as.numeric(still.df.old$numberofdirectionchanges)
+still.df.old$readoutduration<-as.numeric(still.df.old$readoutduration)
+still.df.old$drivetime<-as.numeric(still.df.old$drivetime)
+still.df.old$lifttime<-as.numeric(still.df.old$lifttime)
+still.df.old$consumedamount<-as.numeric(still.df.old$consumedamount)
+still.df.old$energyunit<-as.factor(still.df.old$energyunit)
+still.df.old$identifier<-as.factor(still.df.old$identifier)
+still.df.old$metatimestamp<-as.POSIXct(still.df.old$metatimestamp, format="%Y-%m-%d %H:%M:%S")
+
+still.df.old.1day <- still.df.old %>% 
+  filter(metatimestamp >= as.POSIXct("2015-12-31 00:00:00") & metatimestamp <= as.POSIXct("2015-12-31 11:59:59"))
+table(still.df.old$identifier)
+table(still.df.old.1day$identifier)
+
 #convert the timing fields' unit into sec (from msec)
 still.df$readoutduration <- still.df$readoutduration /1000
 still.df$drivetime <- still.df$drivetime / 1000
