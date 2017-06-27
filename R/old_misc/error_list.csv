@@ -1,0 +1,3433 @@
+COUNTER;NAME    ;GRUPPE  ;NUMMER  ;GERAET  ;Temp;FehlerNr;PRIO    ;BESCHREIBUNG;URSACHE ;BEMERK. ;LEVEL   ;SW-VERS ;REAKT.  ;QUIT    ;ABHILFE ;KUERZEL ;Vari_Nr;ET;;;;;;;;;;;;;;;;;;;;
+19;"HWf. I2C-Bus
+";"12
+";"01
+";"A
+";;A1201;"0
+";Internal process error;Parameter set cannot be read out (error message from EEprom driver);"System arbeitet mit den Default-Parametern
+";"SERV1
+";"ab 0.01
+";No contactor activation;Key switch;Reload the par file. If the error keeps occurring, consult the service centre.;"We
+";"ERR_EDA_HW_24
+";;;;;;;;;;;;;;;;;;;;;
+20;"Pruefsumme Bereich Param.bereich
+";"12
+";"05
+";"A
+";;A1205;"0
+";Internal process error;Check sum not OK after reading the EEprom data;"System arbeitet mit den Default-Parametern
+";"SERV1
+";"ab 0.01
+";No contactor activation;Key switch;Reload the par file.;"We
+";"ERR_EDA_PARA_CS_25
+";;;;;;;;;;;;;;;;;;;;;
+22;"DefaultParam. aktiviert
+";"12
+";"06
+";"A
+";;A1206;"0
+";Internal process error;No consistent EEprom dataset available;"
+";"SERV1
+";"ab 0.01
+";No contactor activation;Key switch;Reload the par file.;"We
+";"ERR_EDA_PARA_DEF_27
+";;;;;;;;;;;;;;;;;;;;;
+21;"Pruefsumme Abgl.werte
+";"12
+";"10
+";"A
+";;A1210;"0
+";Internal process error;Check sum not OK after reading the EEprom data;"System arbeitet mit den Default-Parametern
+";"SERV1
+";"ab 0.01
+";No contactor activation;Key switch;Replace MCU;"We
+";"ERR_EDA_ABGL_CS_26
+";;;;;;;;;;;;;;;;;;;;;
+23;"Defaultabgleichwerte aktiviert
+";"12
+";"11
+";"A
+";;A1211;"0
+";Internal process error;No consistent EEprom dataset available;"System arbeitet mit den Default-Parametern
+";"SERV1
+";"ab 0.01
+";No contactor activation;Key switch;Replace MCU;"We
+";"ERR_EDA_ABGL_DEF_28
+";;;;;;;;;;;;;;;;;;;;;
+173;"Pruefsumme Kal.bereich
+";"12
+";"15
+";"A
+";;A1215;"0
+";Error during alignment of parameters;Check sum not OK after reading the EEprom data;"
+";"SERV1
+";"ab 0.47
+";;Key switch;Reload the par file. Use diagnostics to recalibrate transmitters.;"We,AW                               
+";"ERR_EDA_KAL_CS_187
+";;;;;;;;;;;;;;;;;;;;;
+174;"Defaultkalibrierwerte aktiviert
+";"12
+";"16
+";"A
+";;A1216;"0
+";Error during alignment of parameters;No consistent EEprom dataset available;"System arbeitet mit den Default-Parametern
+";"SERV1
+";"ab 0.47
+";;Key switch;Reload the par file. Use diagnostics to recalibrate transmitters.;"We,AW
+";"ERR_EDA_KAL_DEF_188
+";;;;;;;;;;;;;;;;;;;;;
+175;"Pruefsumme Param. 1
+";"12
+";"20
+";"A
+";;A1220;"0
+";Internal process error;Check sum not OK after reading the EEprom data;"PV-Bereich Pruefsummenfehler
+";"SERV1
+";"ab 0.47
+";;Key switch;Reload the par file.;"We,AW
+";"ERR_EDA_PV_CS_189
+";;;;;;;;;;;;;;;;;;;;;
+176;"Defaultwerte Param. 1
+";"12
+";"21
+";"A
+";;A1221;"0
+";Internal process error;No consistent EEprom dataset available;"PV-Bereich Defaultdaten geladen
+";"SERV1
+";"ab 0.47
+";;Key switch;Reload the par file.;"We,AW
+";"ERR_EDA_PV_DEF_190
+";;;;;;;;;;;;;;;;;;;;;
+26;"Pruefsumme Param. 2
+";"12
+";"25
+";"A
+";;A1225;"0
+";Internal process error;Check sum not OK after reading the EEprom data;"SIC-Bereich Prüfsummenfehler
+";"SERV1
+";"ab 0.93
+";System operates with the default parameters;;Reload the par file.;"R+T/aw
+";"ERR_EDA_SIC_CS_31
+";;;;;;;;;;;;;;;;;;;;;
+27;"Defaultwerte Param. 2
+";"12
+";"26
+";"A
+";;A1226;"0
+";Internal process error;No consistent EEprom dataset available;"SIC-Bereich Defaultdaten geladen
+";"SERV1
+";"ab 0.93
+";System operates with the default parameters;;Reload the par file.;"R+T/aw
+";"ERR_EDA_SIC_DEF_32
+";;;;;;;;;;;;;;;;;;;;;
+177;"Pruefsumme Sichk. 1
+";"12
+";"50
+";"A
+";;A1250;"0
+";Internal process error;Check sum not OK after reading the EEprom data;"Sicherungskopie FU1 Pruefsummenfehler
+";"SERV1
+";"ab 0.47
+";;Key switch;Reload the par file.;"We,AW
+";"ERR_EDA_SFU1_CS_191
+";;;;;;;;;;;;;;;;;;;;;
+178;"Pruefsumme Sichk. 2
+";"12
+";"55
+";"A
+";;A1255;"0
+";Internal process error;Check sum not OK after reading the EEprom data;"Sicherungskopie FU2 Pruefsummenfehler
+";"SERV1
+";"ab 0.47
+";;Key switch;Reload the par file.;"We,AW
+";"ERR_EDA_SFU2_CS_192
+";;;;;;;;;;;;;;;;;;;;;
+179;"Pruefsumme Sichk. 3
+";"12
+";"60
+";"A
+";;A1260;"0
+";Internal process error;Check sum not OK after reading the EEprom data;"Sicherungskopie PU Pruefsummenfehler
+";"SERV1
+";"ab 0.47
+";;Key switch;Reload the par file.;"
+";"ERR_EDA_SPU_CS_193
+";;;;;;;;;;;;;;;;;;;;;
+180;"Pruefsumme Sichk. 4
+";"12
+";"65
+";"A
+";;A1265;"0
+";Internal process error;Check sum not OK after reading the EEprom data;"Sicherungskopie ABE Pruefsummenfehler
+";"SERV1
+";"ab 0.47
+";;Key switch;Reload the par file.;"We,AW
+";"ERR_EDA_SABE_CS_194
+";;;;;;;;;;;;;;;;;;;;;
+25;"RN1: Speichertest
+";"14
+";"01
+";"A
+";;A1401;"16
+";Control processor RAM memory test;Faulty storage cell detected;"
+";"NORM
+";"ab 0.86
+";No contactor activation;;Replace MCU;"R+T/aw
+";"ERR_SPT_30
+";;;;;;;;;;;;;;;;;;;;;
+259;"RN2: Speichertest
+";"14
+";"31
+";"A
+";;A1431;"16
+";Monitoring processor RAM memory test;Faulty storage cell detected;"
+";"NORM
+";"ab 0.86
+";No contactor activation;;Replace MCU;"R+T/aw
+";"ERR_UE_SPT_278
+";;;;;;;;;;;;;;;;;;;;;
+194;"Falsche SW-Version Fahrumrichter
+";"21
+";"30
+";"A
+";"2130
+";A2130;"0
+";Traction converter software version error;The software versions for the converter and MCU are incompatible;"
+";"NORM
+";"0.17
+";No contactor activation;;Update the operating software for the converter or the MCU;"MSch
+";"ERR_SW_Version_FU_209
+";;;;;;;;;;;;;;;;;;;;;
+195;"Falsche SW-Ver. Pumpenumrichter
+";"21
+";"31
+";"A
+";"2131
+";A2131;"0
+";Pump converter software version error;The software versions for the converter and MCU are incompatible;"
+";"NORM
+";"0.17
+";No contactor activation;;Update the operating software for the converter or the MCU;"MSch
+";"ERR_SW_Version_PU_210
+";;;;;;;;;;;;;;;;;;;;;
+190;"Parameterfehler FU
+";"21
+";"32
+";"A
+";"2132
+";A2132;"0
+";FU parameter error;Sensorless revolution control for FU has been parameterised;"
+";"NORM
+";"0.18
+";Drive unit is disabled;;"Traction converter must not be parameterised as ""sensorless""";"MSch
+";"ERR_ParamSensorless_FU_205
+";;;;;;;;;;;;;;;;;;;;;
+143;"12V ext.: Kurzschluss
+";"22
+";"42
+";"A
+";;A2242;"16
+";Short circuit in the accelerator/hydraulic transmitter;Transmitter supply short circuit;"Kurzschluss 12V Geber
+";"NORM
+";"ab 0.01
+";Truck will not move, accelerator has no effect, hydraulics are no longer working;Automatically if error is rectified;Check cables and plugs on accelerator and hydraulic transmitter.;"We
+";"ERR_VCC_12Vx_153
+";;;;;;;;;;;;;;;;;;;;;
+163;"12V ext.: Spannung zu klein
+";"22
+";"44
+";"A
+";;A2244;"0
+";External 12 V too low;External load on the supply too high;"VCC 12Vint zu klein
+";"SERV1
+";"ab 0.01
+";;Automatically if error is rectified;Check external transmitters and switches, replacing if necessary. Replace MCU.;"We,aw
+";"ERR_VCC12Vug_174
+";;;;;;;;;;;;;;;;;;;;;
+164;"12V ext.: Spannung zu gross
+";"22
+";"45
+";"A
+";;A2245;"0
+";External 12 V too high;Possible load on the VCC from the MCU. VCC source cannot be controlled;"VCC 12Vint zu gross
+";"SERV1
+";"ab 0.01
+";;Automatically if error is rectified;Check external transmitters and switches, replacing if necessary. Replace MCU.;"We,aw
+";"ERR_VCC12Vog_175
+";;;;;;;;;;;;;;;;;;;;;
+173;"Zw.-Kr.: Vers.-Spng. zu klein
+";"22
+";"92
+";"A
+";"2292
+";A2292;"0
+";Intermediate circuit voltage error;The intermediate circuit voltage is < 13 V, and the required traction strength of the contactor is therefore no longer sufficient.;"
+";"SERV1
+";"ab 0.01
+";The contactor is opened;;Check the intermediate circuit voltage;"AnFi
+";"ERR_HSK_Untersp_Schuetz_185
+";;;;;;;;;;;;;;;;;;;;;
+172;"Klebefehler Hauptschuetz
+";"22
+";"95
+";"A
+";;A2295;"16
+";Main contactor error;Contactor does not disconnect correctly (contactor contact jams);"Fehler koennen bei Download SR-Software auftreten
+";"NORM
+";"
+";Drive unit and hydraulic drive disabled;Key switch;Check contactor.;"Shli
+";"ERR_HSK_hs_klebt_186
+";;;;;;;;;;;;;;;;;;;;;
+188;"Buffer geplatzt 2
+";"23
+";"03
+";"A
+";;A2303;"0
+";Error memory overloaded;Error memory is too full;"128 Fehler koennen zwischengespeichert werden, solange die Anzeige
+keine neue Darstellung zulaesst (der Fahrer nicht quittiert).
+Nicht alle Fehler werden angezeigt
+";"SERV1
+";"ab 0.01
+";;Key switch;Delete error list.;"We
+";"ERR_FMA_ErrBuf_202
+";;;;;;;;;;;;;;;;;;;;;
+193;"DOD-Tabelle inkompatibel
+";"24
+";"03
+";"A
+";;A2403;"0
+";ABE software version not compatible;ABE SW version is incompatible with the MCU SW;"Ab der MCU-SW-Version V0.61:
+Dieser Fehler wird auch gemeldet, wenn der Parameter Adresse A 0 277
+auf ABE2 eingestellt ist und im Fahrzeug eine ABE1 verbaut ist.
+ABE verharrt in der Begruessungsanzeige,
+bei neuerer ABE-SW (>1.21) wird die sogenannte Zebra-View angezeigt
+";"SERV1
+";"ab 0.59
+";;Key switch;Flash the truck software.;"AW
+";"ERR_ABE_DODKOMP_207
+";;;;;;;;;;;;;;;;;;;;;
+233;"Konfiguration ABE-Typ
+";"24
+";"04
+";"A
+";;A2404;"0
+";ABE type configuration;Configured ABE type does not correspond to the ABE type fitted;"kein Umschalten in die Standardview
+";"SERV1
+";"ab 1.00
+";;Key switch;Reset ABE configuration to correct ABE type;"R+T/aw
+";"ERR_ABE_TYP_247
+";;;;;;;;;;;;;;;;;;;;;
+334;"allgemeiner Stellerfehler 1
+";"25
+";"01
+";"A
+";;A2501;"16
+";Lifting valve faulty;Lifting valve taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab V1.00
+";Working hydraulics not active;Key switch;Check lifting valve and wiring, replacing if necessary.;"De
+";"ERR_VR_HUB_UEBSTR_POS_406
+";;;;;;;;;;;;;;;;;;;;;
+335;"Stellerf.1: Kurzschluss Steller
+";"25
+";"04
+";"A
+";;A2504;"16
+";Lifting valve short circuit;Lifting valve has short circuit. The short circuit test at truck startup detected a short circuit. Collective hardware message: LOCK;"----
+";"SERV1
+";"ab V0.01
+";The affected valve is blocked;Key switch;Check lifting valve and wiring, replacing if necessary. Try fitting valve plug to adjacent valve to find the faulty component.;"De
+";"ERR_VR_HUB_KS_POS_407
+";;;;;;;;;;;;;;;;;;;;;
+336;"Stellerf.1: Abriss Aktor
+";"25
+";"05
+";"A
+";;A2505;"16
+";Lifting valve breakdown;Lifting valve has broken down. The breakdown test at device startup detected a breakdown on this valve.;"----
+";"SERV1
+";"ab V0.01
+";The affected valve is blocked;Key switch;Check lifting valve and wiring, replacing if necessary.;"De
+";"ERR_VR_HUB_ABRISS_POS_408
+";;;;;;;;;;;;;;;;;;;;;
+337;"allgemeiner Stellerfehler 2
+";"25
+";"06
+";"A
+";;A2506;"16
+";Lowering valve faulty;Lowering valve taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab V0.01
+";Working hydraulics not active;Key switch;Check lowering valve and wiring, replacing if necessary.;"De
+";"ERR_VR_HUB_UEBSTR_NEG_409
+";;;;;;;;;;;;;;;;;;;;;
+338;"Stellerf.2: Kurzschluss Steller
+";"25
+";"09
+";"A
+";;A2509;"16
+";Lowering valve short circuit;Lowering valve has short circuit. The short circuit test at truck startup detected a short circuit. Collective hardware message: LOCK;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check lowering valve and wiring, replacing if necessary. Try fitting valve plug to adjacent valve to find the faulty component.;"De
+";"ERR_VR_HUB_KS_NEG_410
+";;;;;;;;;;;;;;;;;;;;;
+339;"Stellerf.2: Abriss Aktor
+";"25
+";"10
+";"A
+";;A2510;"16
+";Lowering valve breakdown;Lowering valve has broken down. The breakdown test at device startup detected a breakdown on this valve.;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check lowering valve and wiring, replacing if necessary.;"De
+";"ERR_VR_HUB_ABRISS_NEG_411
+";;;;;;;;;;;;;;;;;;;;;
+340;"allgemeiner Stellerfehler 3
+";"25
+";"11
+";"A
+";;A2511;"16
+";Tilt valve faulty;Forwards tilt valve taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab 0.01
+";Working hydraulics not active;Key switch;Check tilt valve and wiring, replacing if necessary.;"De
+";"ERR_VR_NEIG_UEBSTR_POS_416
+";;;;;;;;;;;;;;;;;;;;;
+341;"Stellerf.3: Kurzschluss Steller
+";"25
+";"14
+";"A
+";;A2514;"16
+";Tilt valve short circuit;Forwards tilt valve has a short circuit. The short circuit test at truck startup detected a short circuit. Collective hardware message: LOCK;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check tilt valve and wiring, replacing if necessary. Try fitting valve plug to adjacent valve to find the faulty component.;"De
+";"ERR_VR_NEIG_KS_POS_417
+";;;;;;;;;;;;;;;;;;;;;
+342;"Stellerf.3: Abriss Aktor
+";"25
+";"15
+";"A
+";;A2515;"16
+";Tilt valve breakdown;Forwards tilt valve has broken down. The breakdown test at truck startup detected a breakdown on this valve.;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check tilt valve and wiring, replacing if necessary.;"De
+";"ERR_VR_NEIG_ABRISS_POS_418
+";;;;;;;;;;;;;;;;;;;;;
+343;"allgemeiner Stellerfehler 4
+";"25
+";"16
+";"A
+";;A2516;"16
+";General controller error 4;Backwards tilt valve taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab 0.01
+";Working hydraulics not active;Key switch;Check tilt valve and wiring, replacing if necessary.;"De
+";"ERR_VR_NEIG_UEBSTR_NEG_419
+";;;;;;;;;;;;;;;;;;;;;
+344;"Stellerf.4: Kurzschluss Steller
+";"25
+";"19
+";"A
+";;A2519;"16
+";Tilt valve short circuit;Backwards tilt valve has short circuit. The short circuit test at truck startup detected a short circuit. Collective hardware message: LOCK;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check tilt valve and wiring, replacing if necessary. Try fitting valve plug to adjacent valve to find the faulty component.;"De
+";"ERR_VR_NEIG_KS_NEG_420
+";;;;;;;;;;;;;;;;;;;;;
+345;"Stellerf.4: Abriss Aktor
+";"25
+";"20
+";"A
+";;A2520;"16
+";Tilt valve breakdown;Backwards tilt valve has broken down. The breakdown test at truck startup detected a breakdown on this valve.;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check tilt valve and wiring, replacing if necessary.;"De
+";"ERR_VR_NEIG_ABRISS_NEG_421
+";;;;;;;;;;;;;;;;;;;;;
+346;"allgemeiner Stellerfehler 5
+";"25
+";"21
+";"A
+";;A2521;"16
+";Error in auxiliary 1 valve;Auxiliary 1 positive valve taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab 0.01
+";Working hydraulics not active;Key switch;Check auxiliary 1 valve and wiring, replacing if necessary.;"De
+";"ERR_VR_Z1_UEBSTR_POS_426
+";;;;;;;;;;;;;;;;;;;;;
+347;"Stellerf.5: Kurzschluss Steller
+";"25
+";"24
+";"A
+";;A2524;"16
+";Auxiliary 1 valve short circuit;Auxiliary 1 positive valve has short circuit. The short circuit test at truck startup detected a short circuit. Collective hardware message: LOCK;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check auxiliary 1 valve and wiring, replacing if necessary. Try fitting valve plug to adjacent valve to find the faulty component.;"De
+";"ERR_VR_Z1_KS_POS_427
+";;;;;;;;;;;;;;;;;;;;;
+348;"Stellerf.5: Abriss Aktor
+";"25
+";"25
+";"A
+";;A2525;"16
+";Auxiliary 1 valve breakdown;Auxiliary 1 positive valve has broken down. The breakdown test at truck startup detected a breakdown on this valve.;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check auxiliary 1 valve and wiring, replacing if necessary.;"De
+";"ERR_VR_Z1_ABRISS_POS_428
+";;;;;;;;;;;;;;;;;;;;;
+349;"allgemeiner Stellerfehler 6
+";"25
+";"26
+";"A
+";;A2526;"16
+";Error in auxiliary 1 valve;Auxiliary 1 negative valve taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab 0.01
+";Working hydraulics not active;Key switch;Check auxiliary 1 valve and wiring, replacing if necessary.;"De
+";"ERR_VR_Z1_UEBSTR_NEG_429
+";;;;;;;;;;;;;;;;;;;;;
+350;"Stellerf.6: Kurzschluss Steller
+";"25
+";"29
+";"A
+";;A2529;"16
+";Auxiliary 1 valve short circuit;Auxiliary 1 negative valve has short circuit. The short circuit test at truck startup detected a short circuit. Collective hardware message: LOCK;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check auxiliary 1 valve and wiring, replacing if necessary. Try fitting valve plug to adjacent valve to find the faulty component.;"De
+";"ERR_VR_Z1_KS_NEG_430
+";;;;;;;;;;;;;;;;;;;;;
+351;"Stellerf.6: Abriss Aktor
+";"25
+";"30
+";"A
+";;A2530;"16
+";Auxiliary 1 valve breakdown;Auxiliary 1 negative valve has broken down. The breakdown test at truck startup detected a breakdown on this valve.;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check auxiliary 1 valve and wiring, replacing if necessary.;"De
+";"ERR_VR_Z1_ABRISS_NEG_431
+";;;;;;;;;;;;;;;;;;;;;
+352;"allgemeiner Stellerfehler 7
+";"25
+";"31
+";"A
+";;A2531;"16
+";Error in auxiliary 2 valve;Auxiliary 2 positive valve taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab 0.01
+";Working hydraulics not active;Key switch;Check auxiliary 2 valve and wiring, replacing if necessary.;"De
+";"ERR_VR_Z2_UEBSTR_POS_436
+";;;;;;;;;;;;;;;;;;;;;
+353;"Stellerf.7: Kurzschluss Steller
+";"25
+";"34
+";"A
+";;A2534;"16
+";Auxiliary 2 valve short circuit;Auxiliary 2 positive valve has short circuit. The short circuit test at truck startup detected a short circuit. Collective hardware message: LOCK;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check auxiliary 2 valve and wiring, replacing if necessary. Try fitting valve plug to adjacent valve to find the faulty component.;"De
+";"ERR_VR_Z2_KS_POS_437
+";;;;;;;;;;;;;;;;;;;;;
+354;"Stellerf.7: Abriss Aktor
+";"25
+";"35
+";"A
+";;A2535;"16
+";Auxiliary 2 valve breakdown;Auxiliary 2 positive valve has broken down. The breakdown test at device startup detected a breakdown on this valve.;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check auxiliary 2 valve and wiring, replacing if necessary.;"De
+";"ERR_VR_Z2_ABRISS_POS_438
+";;;;;;;;;;;;;;;;;;;;;
+355;"allgemeiner Stellerfehler 8
+";"25
+";"36
+";"A
+";;A2536;"16
+";Error in auxiliary 2 valve;Auxiliary 2 negative valve taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab 0.01
+";Working hydraulics not active;Key switch;Check auxiliary 2 valve and wiring, replacing if necessary.;"De
+";"ERR_VR_Z2_UEBSTR_NEG_439
+";;;;;;;;;;;;;;;;;;;;;
+356;"Stellerf.8: Kurzschluss Steller
+";"25
+";"39
+";"A
+";;A2539;"16
+";Auxiliary 2 valve short circuit;Auxiliary 2 negative valve has short circuit. The short circuit test at truck startup detected a short circuit. Collective hardware message: LOCK;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check auxiliary 2 valve and wiring, replacing if necessary. Try fitting valve plug to adjacent valve to find the faulty component.;"De
+";"ERR_VR_Z2_KS_NEG_440
+";;;;;;;;;;;;;;;;;;;;;
+357;"Stellerf.8: Abriss Aktor
+";"25
+";"40
+";"A
+";;A2540;"16
+";Auxiliary 2 valve breakdown;Auxiliary 2 negative valve has broken down. The breakdown test at truck startup detected a breakdown on this valve.;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check auxiliary 2 valve and wiring, replacing if necessary.;"De
+";"ERR_VR_Z2_ABRISS_NEG_441
+";;;;;;;;;;;;;;;;;;;;;
+358;"allgemeiner Stellerfehler 9
+";"25
+";"41
+";"A
+";;A2541;"16
+";Switch valve error;Switch valve taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab 0.01
+";Working hydraulics not active;Key switch;Check switch valve and wiring, replacing if necessary.;"De
+";"ERR_VR_USCHLT_UEBSTR_446
+";;;;;;;;;;;;;;;;;;;;;
+359;"Stellerf.9: Kurzschluss Steller
+";"25
+";"44
+";"A
+";;A2544;"16
+";Switch valve short circuit;Switch valve has short circuit. The short circuit test at truck startup detected a short circuit. Collective hardware message: LOCK;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check switch valve and wiring, replacing if necessary. Try fitting valve plug to adjacent valve to find the faulty component.;"De
+";"ERR_VR_USCHLT_KS_447
+";;;;;;;;;;;;;;;;;;;;;
+360;"Stellerf.9: Abriss Aktor
+";"25
+";"45
+";"A
+";;A2545;"16
+";Switch valve breakdown;Switch valve has broken down. The breakdown test at truck startup detected a breakdown on this valve.;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check switch valve and wiring, replacing if necessary.;"De
+";"ERR_VR_USCHLT_ABRISS_448
+";;;;;;;;;;;;;;;;;;;;;
+361;"allgemeiner Stellerfehler 10
+";"25
+";"46
+";"A
+";;A2546;"16
+";Exhaust valve error;Exhaust valve taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab 0.01
+";Working hydraulics not active;Key switch;Check exhaust valve and wiring, replacing if necessary.;"De
+";"ERR_VR_FREIG_UEBSTR_456
+";;;;;;;;;;;;;;;;;;;;;
+362;"Stellerf.10: Kurzschluss Steller
+";"25
+";"49
+";"A
+";;A2549;"16
+";Exhaust valve short circuit;Exhaust valve has short circuit. The short circuit test at truck startup detected a short circuit. Collective hardware message: LOCK;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check exhaust valve and wiring, replacing if necessary. Try fitting valve plug to adjacent valve to find the faulty component.;"De
+";"ERR_VR_FREIG_KS_457
+";;;;;;;;;;;;;;;;;;;;;
+363;"Stellerf.10: Abriss Aktor
+";"25
+";"50
+";"A
+";;A2550;"16
+";Exhaust valve breakdown;Exhaust valve has broken down. The breakdown test at device startup detected a breakdown on this valve.;"-----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check exhaust valve and wiring, replacing if necessary.;"De
+";"ERR_VR_FREIG_ABRISS_458
+";;;;;;;;;;;;;;;;;;;;;
+364;"allgemeiner Stellerfehler 11
+";"25
+";"51
+";"A
+";;A2551;"16
+";Error in valve for energy recovery on lowering;Valve for energy recovery on lowering taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab 0.01
+";Working hydraulics not active;Key switch;Check valve for energy recovery on lowering and check wiring, replacing if necessary.;"De
+";"ERR_VR_NUTZSENK_UEBSTR_466
+";;;;;;;;;;;;;;;;;;;;;
+365;"Stellerf.11: Kurzschluss Steller
+";"25
+";"54
+";"A
+";;A2554;"16
+";Short circuit in valve for energy recovery on lowering;Valve for energy recovery on lowering has short circuit. The short circuit test at truck startup detected a short circuit. Collective hardware message: LOCK;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check valve for energy recovery on lowering and check wiring, replacing if necessary. Try fitting valve plug to adjacent valve to find the faulty component.;"De
+";"ERR_VR_NUTZSENK_KS_467
+";;;;;;;;;;;;;;;;;;;;;
+366;"Stellerf.11: Abriss Aktor
+";"25
+";"55
+";"A
+";;A2555;"16
+";Breakdown of valve for energy recovery on lowering;Valve for energy recovery on lowering has broken down. The breakdown test at device startup detected a breakdown on this valve.;"----
+";"SERV1
+";"ab 0.01
+";The affected valve is blocked;Key switch;Check valve for energy recovery on lowering and check wiring, replacing if necessary.;"De
+";"ERR_VR_NUTZSENK_ABRISS_468
+";;;;;;;;;;;;;;;;;;;;;
+292;"allgemeiner Stellerfehler 13
+";"25
+";"61
+";"A
+";"2561
+";A2561;"0
+";Lowering valve error;Lowering valve taking excess current. The current in the valve is over 2 A.;"----
+";"SERV1
+";"ab 0.10
+";;;Check lowering valve and wiring, replacing if necessary.;"EE/MSch
+";"ERR_ISO_UEBSTR_353
+";;;;;;;;;;;;;;;;;;;;;
+293;"Stellerf.13: Abriss Aktor
+";"25
+";"65
+";"A
+";"2565
+";A2565;"0
+";Lowering valve breakdown;Lowering valve has broken down. The breakdown test at device startup detected a breakdown on this valve.;"----
+";"SERV1
+";"ab 0.10
+";The affected valve is blocked;Key switch;Check lowering valve and wiring, replacing if necessary.;"EE/MSch
+";"ERR_ISO_ABRISS_354
+";;;;;;;;;;;;;;;;;;;;;
+300;"Sammelf. Komm. zu anderen Ger.en
+";"26
+";"00
+";"A
+";;A2600;"0
+";CAN bus and joystick error;CAN communication with joystick disrupted after communication had started up. Possible loose connection in CAN connection or supply to joystick.;"Fehler Netzwerkwatchdog (180ms)
+";"SERV1
+";"
+";Working hydraulics not active;Automatically if error is rectified;Check CAN bus and the plug to joystick. Replace joystick if necessary.;"De
+";"ERR_UE_NWM_WD_356
+";;;;;;;;;;;;;;;;;;;;;
+207;"Komm. zum Batt.controller
+";"26
+";"01
+";"A
+";;A2601;"0
+";Battery controller communication error;Control unit detects a communication timeout for the battery controller;"Es wird die Restladung des STILL-Entladeanzeigers angezeigt.
+Der Steuerrechner versucht zyklisch die Kommunikation zum
+Batteriecontroller wieder herzustellen.
+";"SERV1
+";"ab 0.39
+";;;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_BCD_BC_221
+";;;;;;;;;;;;;;;;;;;;;
+310;"Anlauf NWM
+";"26
+";"03
+";"A
+";;A2603;"0
+";CAN bus and joystick error;CAN communication with joystick disrupted after communication had started up. Possible loose connection in CAN connection or supply to joystick.;"----
+";"SERV1
+";"
+";Working hydraulics not active;Automatically if error is rectified;Check CAN bus and the plug to joystick. Replace joystick if necessary.;"De
+";"ERR_UE_NWM_WD_AN_375
+";;;;;;;;;;;;;;;;;;;;;
+299;"Startnachricht Joystick fehlt
+";"26
+";"21
+";"A
+";;A2621;"0
+";CAN bus and joystick error;Joystick does not send start message via CAN;"Geraet laeuft nicht hoch, Ventilsteuerung nicht moeglich
+";"SERV1
+";"
+";Working hydraulics not active;Key switch;Check CAN bus and the plug to joystick. Replace joystick if necessary.;"De
+";"ERR_UE_JOY_Startnachr_355
+";;;;;;;;;;;;;;;;;;;;;
+301;"WD Sollwertg. Nachricht auf SR
+";"26
+";"22
+";"A
+";;A2622;"0
+";CAN bus and joystick error;CAN communication with joystick disrupted after communication had started up. Possible loose connection in CAN connection or supply to joystick.;"---
+";"SERV1
+";"
+";Working hydraulics not active;Automatically if error is rectified;Check CAN bus and the plug to joystick. Replace joystick if necessary.;"De
+";"ERR_UE_JOY_WD_357
+";;;;;;;;;;;;;;;;;;;;;
+327;"WD Sollwertg. Nachricht auf VR
+";"26
+";"24
+";"A
+";;A2624;"0
+";CAN bus and joystick error;CAN communication with joystick disrupted after communication had started up. Possible loose connection in CAN connection or supply to joystick.;"---
+";"SERV1
+";"ab V1.00
+";Working hydraulics not active;Key switch;Check CAN bus and the plug to joystick. Replace joystick if necessary.;"De
+";"ERR_VR_KOMM_SWG_396
+";;;;;;;;;;;;;;;;;;;;;
+236;"Falscher Modemtyp konfiguriert.
+";"26
+";"50
+";"A
+";;A2650;"0
+";Wrong modem type configured.;The GPRS or WLAN modem type parameter is set incorrectly.;"Keine DFÜ-Kommunikation.
+";"SERV1
+";"ab 1.00
+";;Key switch;Correct the modem type parameter.;"Vo, ReS
+";"ERR_MOK_Modemtyp_250
+";;;;;;;;;;;;;;;;;;;;;
+237;"Modem Netzanmeldung
+";"26
+";"51
+";"A
+";;A2651;"0
+";Modem network login;The modem cannot log into the relevant network.;"Keine DFÜ-Kommunikation.
+";"SERV1
+";"ab 1.00
+";;Automatically if error is rectified;GPRS:- Is the SIM card present?- Is the SIM card GPRS-capable?- Is the PIN code correct?- Have the GPRS module parameters been checked?- Check the device is ready to receive.WLAN:- Check WLAN parameters.- Check the device is ready to receive.;"Vo,ReS
+";"ERR_MOK_ModemNetz_251
+";;;;;;;;;;;;;;;;;;;;;
+238;"Modem Sendetimeout
+";"26
+";"52
+";"A
+";;A2652;"0
+";Modem transmission timeout;Modem does not confirm transmission of data before timeout.;"Keine DFÜ-Kommunikation
+";"SERV1
+";"ab 1.00
+";;Key switch;Switch truck off (display must be switched off), then switch back on.;"Vo, ReS
+";"ERR_MOK_Modemtimeout_252
+";;;;;;;;;;;;;;;;;;;;;
+240;"Kom.Server nicht erreichbar
+";"26
+";"53
+";"A
+";;A2653;"0
+";Communication server not available;Modem cannot connect to the communication server.;"Keine DFÜ-Kommunikation.
+";"SERV1
+";"ab 1.00
+";;Automatically if error is rectified;Have communication server checked to ensure it is functioning correctly.;"Vo, ReS
+";"ERR_MOK_KomSrv_254
+";;;;;;;;;;;;;;;;;;;;;
+275;"Fehler Prozess 1
+";"28
+";"01
+";"A
+";;A2801;"16
+";Internal process error in accelerator signal;Accelerator signal voltage difference SR<-->UR outside limit;"
+";"NORM
+";"0.36
+";Drive unit is locked, no drive function;Release accelerator;If the error keeps occurring, replace the MCU.;"Shli,We
+";"ERR_UE_pzu01_327
+";;;;;;;;;;;;;;;;;;;;;
+276;"Fehler Prozess 2
+";"28
+";"02
+";"A
+";;A2802;"16
+";Internal SU relay test;The SU failed to complete the safety relay test for switching on the contactor without errors. The relay may be stuck.;"
+";"NORM
+";"1.03
+";No contactor activation;Key switch;If the error keeps occurring, replace the SU.;"pdv/ReS
+";"ERR_UE_pzu02_328
+";;;;;;;;;;;;;;;;;;;;;
+277;"Fehler Prozess 3
+";"28
+";"03
+";"A
+";;A2803;"16
+";Internal process error in lift lever;Process monitoring detected an error. Lift lever (drive direction forwards/backwards/actuation);"Prozessueberwachung Proz 3-5
+";"NORM
+";"0.36
+";Drive direction in neutral;Automatically if error is rectified;Delete error list. If the error keeps occurring, replace the MCU.;"Shli,We
+";"ERR_UE_pzu03_329
+";;;;;;;;;;;;;;;;;;;;;
+278;"Fehler Prozess 4
+";"28
+";"04
+";"A
+";;A2804;"16
+";ELF communication;Communication to the electric parking brake is disrupted. Electric parking brake is malfunctioning.;"Prozessueberwachung Prozess ELF
+";"NORM
+";"1.10
+";Drive direction in neutral;Automatically if error is rectified;Delete error list. If the error keeps occurring, replace the MCU.;"pdv/ReS
+";"ERR_UE_pzu04_330
+";;;;;;;;;;;;;;;;;;;;;
+280;"Fehler Prozess 6
+";"28
+";"06
+";"A
+";;A2806;"16
+";Internal process error in mini-console;Process monitoring detected an error. Drive direction information in mini-console (incorrect interpretation);"
+";"NORM
+";"0.36
+";Drive direction in neutral;Automatically if error is rectified;Delete error list. If the error keeps occurring, replace the MCU.;"Shli,We
+";"ERR_UE_pzu06_332
+";;;;;;;;;;;;;;;;;;;;;
+281;"Fehler Prozess 7
+";"28
+";"07
+";"A
+";;A2807;"16
+";Internal process error;Implausible processing of nominal speed und nominal number of revolutions.;"
+";"NORM
+";"1.03
+";Drive unit is locked, no drive function;Release accelerator;If the error keeps occurring, replace the MCU.;"pdv/ReS
+";"ERR_UE_pzu07_333
+";;;;;;;;;;;;;;;;;;;;;
+282;"Fehler Prozess 8
+";"28
+";"08
+";"A
+";;A2808;"16
+";Internal process error;No reaction to run-up integrator reset command;"
+";"NORM
+";"0.36
+";Drive unit is locked, no drive function;Release accelerator;Delete error list. If the error keeps occurring, replace the MCU.;"Shli,We
+";"ERR_UE_pzu08_334
+";;;;;;;;;;;;;;;;;;;;;
+283;"Fehler Prozess 9
+";"28
+";"09
+";"A
+";;A2809;"16
+";Internal process error in accelerator;Vnom limit exceeded --> Vmax forwards, reverse;"
+";"NORM
+";"0.36
+";Drive unit is locked, no drive function;Release accelerator;Delete error list. If the error keeps occurring, replace the MCU.;"Shli,We
+";"ERR_UE_pzu09_335
+";;;;;;;;;;;;;;;;;;;;;
+284;"Fehler Prozess 10
+";"28
+";"10
+";"A
+";;A2810;"16
+";Internal process error in accelerator;Vsoll does not match the drive direction (implausible);"
+";"NORM
+";"0.36
+";Drive unit is locked, no drive function;Release accelerator;Delete error list. If the error keeps occurring, replace the MCU.;"Shli,We
+";"ERR_UE_pzu10_336
+";;;;;;;;;;;;;;;;;;;;;
+285;"Fehler Prozess 11
+";"28
+";"11
+";"A
+";;A2811;"16
+";Internal process error in traction converter 1;Traction converter 1 (right): Converter variable is outside the permitted range.;"
+";"NORM
+";"0.36
+";Drive unit is locked, no drive function;Release accelerator;Delete error list. If the error keeps occurring, replace the MCU buffer battery (reset the time) and flash the truck software.;"Shli,We
+";"ERR_UE_pzu11_337
+";;;;;;;;;;;;;;;;;;;;;
+286;"Fehler Prozess 12
+";"28
+";"12
+";"A
+";;A2812;"16
+";Internal process error in traction converter 2;Traction converter 2 (left): Converter variable is outside the permitted range.;"
+";"NORM
+";"0.36
+";Drive unit is locked, no drive function;Release accelerator;Delete error list. If the error keeps occurring, replace the MCU.;"Shli,We
+";"ERR_UE_pzu12_338
+";;;;;;;;;;;;;;;;;;;;;
+287;"Fehler Prozess 13
+";"28
+";"13
+";"A
+";;A2813;"16
+";Internal process error in traction converter 1;Traction converter 1 (right): Replication of the converter variable;"
+";"NORM
+";"0.36
+";Drive unit is locked, no drive function;Release accelerator;Delete error list. If the error keeps occurring, replace the MCU.;"Shli,We
+";"ERR_UE_pzu13_339
+";;;;;;;;;;;;;;;;;;;;;
+288;"Fehler Prozess 14
+";"28
+";"14
+";"A
+";;A2814;"16
+";Internal process error in traction converter 2;Traction converter 2 (left): Replication of the converter variable;"
+";"NORM
+";"0.36
+";Drive unit is locked, no drive function;Release accelerator;Delete error list. If the error keeps occurring, replace the MCU.;"Shli,We
+";"ERR_UE_pzu14_340
+";;;;;;;;;;;;;;;;;;;;;
+289;"Fehler Prozess 15
+";"28
+";"15
+";"A
+";;A2815;"16
+";Traction converter 1: Process error in the number of revolutions;Traction converter 1 (right): Converter rev counting;"
+";"NORM
+";"0.36
+";Drive unit is locked, no drive function;Release accelerator;Check rev sensor and wiring.;"Shli,We
+";"ERR_UE_pzu15_341
+";;;;;;;;;;;;;;;;;;;;;
+290;"Fehler Prozess 16
+";"28
+";"16
+";"A
+";;A2816;"16
+";Traction converter 2: Process error in the number of revolutions;Traction converter 2 (left): Converter rev counting;"
+";"NORM
+";"0.36
+";Drive unit is locked, no drive function;Release accelerator;Check rev sensor and wiring.;"Shli,We
+";"ERR_UE_pzu16_342
+";;;;;;;;;;;;;;;;;;;;;
+291;"Fehler Prozess 17
+";"28
+";"17
+";"A
+";;A2817;"16
+";Internal process error.;Escalation of process monitoring. The control processor did not respond in time to a previous process monitoring fault.;"
+";"NORM
+";"0.36
+";No contactor activation;Key switch;Delete error list. If the error keeps occurring, replace the MCU.;"Shli,We
+";"ERR_UE_pzu17_343
+";;;;;;;;;;;;;;;;;;;;;
+311;"Plaus. Stromsollwert / -istwert
+";"28
+";"60
+";"A
+";;A2860;"0
+";Internal process error in valve block;A current was measured in a valve without a setpoint value being present (occurs if transistor is faulty, for example);"
+";"SERV1
+";"
+";Working hydraulics not active;Transmitter zero position;Check wiring to valve block. Replace wiring or valve block.;"De
+";"ERR_UE_SR_PLAUS_376
+";;;;;;;;;;;;;;;;;;;;;
+330;"Plaus. Sollwertgeber
+";"28
+";"61
+";"A
+";;A2861;"0
+";Internal process error in valve processor;The setpoint device data received in the valve processor does not match the setpoint device data sent by the control processor.;"Ventilrechner Plausibilitaetsfehler Sollwertgeber
+";"SERV1
+";"ab V1.00
+";Working hydraulics not active;Transmitter zero position;Flash the truck software.;"De
+";"ERR_VR_PLAUS_SOLLW_GEB_402
+";;;;;;;;;;;;;;;;;;;;;
+331;"Plaus. Stromsollwert 
+";"28
+";"62
+";"A
+";;A2862;"0
+";Internal process error in valve processor;The valve processor has detected that the setpoint device data for calculating the current setpoint values does not match the current setpoint values sent by the control processor;"----
+";"SERV1
+";"ab V1.00
+";Working hydraulics not active;Transmitter zero position;Flash the truck software.;"De
+";"ERR_VR_PLAUS_ISOLL_403
+";;;;;;;;;;;;;;;;;;;;;
+332;"Plaus. Pumpensollwert
+";"28
+";"63
+";"A
+";;A2863;"0
+";Internal process error in valve processor;The valve processor has detected that the pump setpoint values sent by the control processor are not permissible.;"----
+";"SERV1
+";"ab V1.00
+";Working hydraulics not active;Transmitter zero position;Flash the truck software.;"De
+";"ERR_VR_PLAUS_PUMP_404
+";;;;;;;;;;;;;;;;;;;;;
+36;"RN1: Anmeldung und HochlIF 1
+";"29
+";"02
+";"A
+";;A2902;"16
+";Internal process error;Synchronous serial interface could not be initialised.;"SSC Anmeldung und Hochlauf
+keine Kommunikation zwischen beiden Microcontrollern im Steuergeraet
+";"SERV1
+";"ab 0.02
+";No contactor activation;Key switch;Replace MCU;"We,FiAn
+";"ERR_SSC_INIT_44
+";;;;;;;;;;;;;;;;;;;;;
+37;"RN1: RN A - RN B (Sendef.) IF 1
+";"29
+";"03
+";"A
+";;A2903;"16
+";Internal process error;Synchronous serial interface cannot send or receive;"SSC Uebertragungsfehler
+keine Kommunikation zwischen beiden Microcontrollern im Steuergeraet
+";"SERV1
+";"ab 0.02
+";Reset;;Replace MCU;"We,FiAn
+";"ERR_SSC_TR_REC_45
+";;;;;;;;;;;;;;;;;;;;;
+38;"RN1: RN A - RN B (Empf.-F) IF 1
+";"29
+";"04
+";"A
+";;A2904;"0
+";Internal process error;Check sum or watchdog error;"SSC Checksumme oder Watchdog
+";"SERV1
+";"ab 0.02
+";Reset;;Replace MCU;"We,FiAn
+";"ERR_SSC_CHKS_46
+";;;;;;;;;;;;;;;;;;;;;
+268;"RN2: Anmeldung und HochlIF 1
+";"29
+";"12
+";"A
+";;A2912;"16
+";Internal process error;Synchronous serial interface could not be initialised.;"keine Kommunikation zwischen beiden Microcontrollern im Steuergeraet
+";"SERV1
+";"ab 0.01
+";No contactor activation;Key switch;Flash the truck software. Replace MCU.;"We,FiAn
+";"ERR_UE_SSC_INIT_300
+";;;;;;;;;;;;;;;;;;;;;
+269;"RN2: RN A - RN B (Sendef.) IF 1
+";"29
+";"13
+";"A
+";;A2913;"16
+";Internal process error;Synchronous serial interface cannot send or receive;"keine Kommunikation zwischen beiden Microcontrollern im Steuergeraet
+";"SERV1
+";"ab 0.01
+";No contactor activation;Key switch;Flash the truck software. Replace MCU.;"We,FiAn
+";"ERR_UE_SSC_TR_REC_301
+";;;;;;;;;;;;;;;;;;;;;
+270;"RN2: RN A - RN B (Empf.-F) IF 1
+";"29
+";"14
+";"A
+";;A2914;"16
+";Internal process error;Check sum or watchdog error;"---
+";"SERV1
+";"ab 0.01
+";Reset;;Flash the truck software. Replace MCU.;"We,FiAn
+";"ERR_UE_SSC_CHKS_302
+";;;;;;;;;;;;;;;;;;;;;
+122;"Fahrg.: GND-Abriss Poti 1
+";"30
+";"02
+";"A
+";;A3002;"0
+";Accelerator breakdown;Potentiometer voltage outside the permitted range;"Meldetext: FAHRGEBER
+";"NORM
+";"ab 0.01
+";Truck will not drive, accelerator has no effect;Automatically if error is rectified;Check the accelerator.;"MSch,ZiRo
+";"ERR_FGB_gnd_1_132
+";;;;;;;;;;;;;;;;;;;;;
+123;"Fahrg.: VCC-Abriss Poti 1
+";"30
+";"03
+";"A
+";;A3003;"0
+";Accelerator breakdown;Potentiometer voltage outside the permitted range;"Meldetext: FAHRGEBER
+";"NORM
+";"ab 0.01
+";Truck will not drive, accelerator has no effect;Automatically if error is rectified;Check the accelerator.;"MSch,ZiRo
+";"ERR_FGB_vcc_1_133
+";;;;;;;;;;;;;;;;;;;;;
+124;"Fahrg.: GND-Abriss Poti 2
+";"30
+";"04
+";"A
+";;A3004;"0
+";Accelerator breakdown;Potentiometer voltage outside the permitted range;"Meldetext: FAHRGEBER
+";"NORM
+";"ab 0.01
+";Truck will not drive, accelerator has no effect;Automatically if error is rectified;Check the accelerator.;"MSch,ZiRo
+";"ERR_FGB_gnd_2_134
+";;;;;;;;;;;;;;;;;;;;;
+125;"Fahrg.: VCC-Abriss Poti 2
+";"30
+";"05
+";"A
+";;A3005;"0
+";Accelerator breakdown;Potentiometer voltage outside the permitted range;"Meldetext: FAHRGEBER
+";"NORM
+";"ab 0.01
+";Truck will not drive, accelerator has no effect;Automatically if error is rectified;Check the accelerator.;"MSch,ZiRo
+";"ERR_FGB_vcc_2_135
+";;;;;;;;;;;;;;;;;;;;;
+126;"Fahrg.-Sch. schaltet nicht EIN
+";"30
+";"06
+";"A
+";;A3006;"0
+";Accelerator error;Accelerator voltage is so high that the switch has to switch;"nur bei 1-Pedal mit einem Poti und Schalter
+Offset an Pedalschalter zu gross
+Meldetext: FAHRGEBER
+";"NORM
+";"ab 0.01
+";Truck will not drive, accelerator has no effect;Automatically if error is rectified;Check the accelerator.;"MSch,ZiRo
+";"ERR_FGB_s_on_136
+";;;;;;;;;;;;;;;;;;;;;
+127;"Fahrg.-Sch. schaltet nicht AUS
+";"30
+";"07
+";"A
+";;A3007;"0
+";Accelerator error;Accelerator voltage is so low that the switch has to switch;"nur bei 1-Pedal mit einem Poti und Schalter
+Offset an Pedalschalter zu klein
+";"NORM
+";"ab 0.01
+";Truck will not drive, accelerator has no effect;;Check the accelerator.;"MSch,ZiRo
+";"ERR_FGB_s_off_137
+";;;;;;;;;;;;;;;;;;;;;
+130;"Plausib.-Fehler Fahrg.
+";"30
+";"08
+";"A
+";;A3008;"0
+";Accelerator error;Accelerator voltages do not match;"Meldetext: FAHRGEBER
+";"NORM
+";"ab 0.01
+";Truck will not drive, accelerator has no effect;Release accelerator;Check dual-pedal accelerator.;"MSch,ZiRo
+";"ERR_FGB_plau_140
+";;;;;;;;;;;;;;;;;;;;;
+132;"Bremsgeber: GND-Abriss Poti
+";"30
+";"16
+";"A
+";;A3016;"0
+";Brake sensor breakdown;Potentiometer voltage outside the permitted range;"GND-Abriss Bremsgeber
+Meldetext: BREMSGEBER
+";"NORM
+";"ab 0.01
+";Truck can only be driven at emergency mode speed;Automatically if error is rectified;Check brake sensor.;"We
+";"ERR_BRG_gnd_142
+";;;;;;;;;;;;;;;;;;;;;
+131;"Bremsgeber: VCC-Abriss poti
+";"30
+";"17
+";"A
+";;A3017;"0
+";Brake sensor breakdown;Potentiometer voltage outside the permitted range;"VCC-Abriss Bremsgeber
+Meldetext: BREMSGEBER
+";"NORM
+";"ab 0.01
+";Truck can only be driven at emergency mode speed;Automatically if error is rectified;Check brake sensor.;"We
+";"ERR_BRG_vcc_141
+";;;;;;;;;;;;;;;;;;;;;
+129;"Fahrtrichtung Sammelf.
+";"30
+";"20
+";"A
+";;A3020;"16
+";Drive direction switch error;An error was detected in an input device for the drive direction.;"Solange der Fehlerzustand anhaelt, kann die Fahrtrichtung auch
+von keinem anderen Eingabegeraet gesetzt werden.
+Meldetext FAHRTRICHTUNG
+";"NORM
+";"ab 0.27
+";Drive direction in neutral;Key switch;Check wiring or drive direction switch, replacing if necessary.;"We
+";"ERR_FGB_FahrtRicht_139
+";;;;;;;;;;;;;;;;;;;;;
+155;"Fahrtrichtungstaster Heben-Hebel
+";"30
+";"21
+";"A
+";;A3021;"0
+";Lift lever drive direction switch;Error evaluating the drive direction switch for the lift lever.;"Solange der Fehlerzustand anhaelt, kann die Fahrtrichtung auch
+von keinem anderen Eingabegeraet gesetzt werden.
+";"SERV1
+";"ab. 0.99
+";Drive direction in neutral;Automatically if error is rectified;Check wiring or drive direction switch, replacing if necessary.;"pdv/ReS
+";"ERR_FRS_HH_166
+";;;;;;;;;;;;;;;;;;;;;
+144;"Sitzsch. oeffnet nicht
+";"30
+";"27
+";"A
+";;A3027;"0
+";Seat switch error;Seat switch does not open;"Sitzschalter muss sich nach einer bestimmten Zeit (ca.8h)
+einmal geoeffnet haben
+Meldetext: SITZSCHALTER
+";"NORM
+";"ab 0.01
+";Parameterisable: Limit hydraulics and/or speed;Automatically if error is rectified;Check seat switch.;"We
+";"ERR_vfm_Sitz_154
+";;;;;;;;;;;;;;;;;;;;;
+142;"Bremsfl.-sch. Sammelf.
+";"30
+";"35
+";"A
+";"3035
+";A3035;"0
+";Brake fluid switch error;Brake fluid level too low or switch faulty;"Klartextfehlermeldung auf der ABE
+Meldetext: BREMSGEBER
+";"NORM
+";"ab 0.01
+";Truck will only drive in emergency operation;;Top up fluid or repair switch;"ZiRo
+";"ERR_SWI_Brf_152
+";;;;;;;;;;;;;;;;;;;;;
+135;"Hebengeber: GND-Abriss Poti
+";"31
+";"02
+";"A
+";;A3102;"0
+";Lift transmitter breakdown;Potentiometer voltage outside the permitted range;"GND-Abriss Hebengeber
+Meldetext: HEBEN
+";"NORM
+";"ab 0.01
+";No setpoint speed through this transmitter;Automatically if error is rectified;Check lift transmitter and wiring.;"ZiRo
+";"ERR_heb_gnd_145
+";;;;;;;;;;;;;;;;;;;;;
+134;"Hebengeber: VCC-Abriss poti
+";"31
+";"03
+";"A
+";;A3103;"0
+";Lift transmitter breakdown;Potentiometer voltage outside the permitted range;"VCC-Abriss Hebengeber
+Meldetext: HEBEN
+";"NORM
+";"ab 0.01
+";No setpoint speed through this transmitter;Automatically if error is rectified;Check lift transmitter and wiring.;"ZiRo
+";"ERR_heb_vcc_144
+";;;;;;;;;;;;;;;;;;;;;
+137;"Neigengeber: GND-Abriss Poti
+";"31
+";"07
+";"A
+";;A3107;"0
+";Tilt transmitter breakdown;Potentiometer voltage outside the permitted range;"GND-Abriss Neigengeber
+Meldetext: NEIGEN
+";"NORM
+";"ab 0.01
+";No setpoint speed through this transmitter;Automatically if error is rectified;Check tilt transmitter and wiring.;"ZiRo
+";"ERR_nei_gnd_147
+";;;;;;;;;;;;;;;;;;;;;
+136;"Neigengeber: VCC-Abriss poti
+";"31
+";"08
+";"A
+";;A3108;"0
+";Tilt transmitter breakdown;Potentiometer voltage outside the permitted range;"VCC-Abriss Neigengeber
+Meldetext: NEIGEN
+";"NORM
+";"ab 0.01
+";No setpoint speed through this transmitter;Automatically if error is rectified;Check tilt transmitter and wiring.;"ZiRo
+";"ERR_nei_vcc_146
+";;;;;;;;;;;;;;;;;;;;;
+139;"Zusatzgeber 1: GND-Abriss Poti
+";"31
+";"12
+";"A
+";;A3112;"0
+";Additional transmitter 1 breakdown;Potentiometer voltage outside the permitted range;"GND-Abriss Z1
+Meldetext: ZUSATZ1
+";"NORM
+";"ab 0.01
+";No setpoint speed through this transmitter;Automatically if error is rectified;Check additional transmitter 1 and wiring.;"ZiRo
+";"ERR_z1_gnd_149
+";;;;;;;;;;;;;;;;;;;;;
+138;"Zusatzgeber 1: VCC-Abriss poti
+";"31
+";"13
+";"A
+";;A3113;"0
+";Additional transmitter 1 breakdown;Potentiometer voltage outside the permitted range;"VCC-Abriss Z1
+Meldetext: ZUSATZ1
+";"NORM
+";"ab 0.01
+";No setpoint speed through this transmitter;Automatically if error is rectified;Check additional transmitter 1 and wiring.;"ZiRo
+";"ERR_z1_vcc_148
+";;;;;;;;;;;;;;;;;;;;;
+141;"Zusatzgeber 2: GND-Abriss Poti
+";"31
+";"17
+";"A
+";;A3117;"0
+";Additional transmitter 2 breakdown;Potentiometer voltage outside the permitted range;"GND-Abriss Z2
+Meldetext: ZUSATZ2
+";"NORM
+";"ab 0.01
+";No setpoint speed through this transmitter;Automatically if error is rectified;Check additional transmitter 2 and wiring.;"ZiRo
+";"ERR_z2_gnd_151
+";;;;;;;;;;;;;;;;;;;;;
+140;"Zusatzgeber 2: VCC-Abriss poti
+";"31
+";"18
+";"A
+";;A3118;"0
+";Additional transmitter 2 breakdown;Potentiometer voltage outside the permitted range;"VCC-Abriss Z2
+Meldetext: ZUSATZ2
+";"NORM
+";"ab 0.01
+";No setpoint speed through this transmitter;Automatically if error is rectified;Check additional transmitter 2 and wiring.;"ZiRo
+";"ERR_z2_vcc_150
+";;;;;;;;;;;;;;;;;;;;;
+153;"Drucksensor: GND-Abriss Poti
+";"31
+";"27
+";"A
+";;A3127;"0
+";Pressure sensor breakdown;GND breakdown;"GND-Abriss Drucksensor
+";"SERV1
+";"ab 0.01
+";No calculation of the measured pressure value (display value: 9999 kg);Automatically if error is rectified;Check pressure sensor and wiring.;"ZiRo
+";"ERR_dru_gnd_164
+";;;;;;;;;;;;;;;;;;;;;
+152;"Drucksensor: VCC-Abriss poti
+";"31
+";"28
+";"A
+";;A3128;"0
+";Pressure sensor breakdown;VCC breakdown;"VCC-Abriss Drucksensor
+";"SERV1
+";"ab 0.01
+";No calculation of the measured pressure value (display value: 9999 kg);Automatically if error is rectified;Check pressure sensor and wiring.;"ZiRo
+";"ERR_dru_vcc_163
+";;;;;;;;;;;;;;;;;;;;;
+234;"Mast-Senkrecht Sensor Fehler
+";"31
+";"30
+";"A
+";;A3130;"0
+";Mast vertical position sensor error;A) Sensor signal for track 1 does not correspond to track 2B) System startup;"Bei aktiver Funktion (Taste gedrückt) wird der Antrieb gesperrt.
+";"NORM
+";"ab 1.01
+";Hydraulic drive is disabled;Deactivation of the function (press button);Case A: Check mast sensor system, replacing sensor if necessary;"FEE/De
+";"ERR_MAS_S_PLAU_248
+";;;;;;;;;;;;;;;;;;;;;
+235;"Mast-Senkrecht GND Fehler
+";"31
+";"31
+";"A
+";;A3131;"0
+";Mast vertical position GND error;A) Sensor signal breakdown or short circuit to GNDB) System startup;"Bei aktiver Funktion (Taste gedrückt) wird der Antrieb gesperrt.
+";"NORM
+";"ab 1.01
+";Hydraulic drive is disabled;Deactivation of the function (press button);Case A: Check mast sensor system, replacing MCU if necessary;"FEE/De
+";"ERR_MAS_GND_249
+";;;;;;;;;;;;;;;;;;;;;
+241;"Mast-Senkrecht VCC Fehler
+";"31
+";"32
+";"A
+";;A3132;"0
+";Mast vertical position VCC error;A) Sensor signal breakdown or short circuit to supply voltageB) System startup;"Bei aktiver Funktion (Taste gedrückt) wird der Antrieb gesperrt.
+";"NORM
+";"ab 1.01
+";Hydraulic drive is disabled;Deactivation of the function (press button);Case A: Check mast sensor system, replacing sensor system if necessary;"FEE/De
+";"ERR_MAS_VCC_255
+";;;;;;;;;;;;;;;;;;;;;
+333;"Mast-Senkrecht Plausibilitaet
+";"31
+";"35
+";"A
+";;A3135;"0
+";Mast vertical position plausibility;The following was observed in the valve processor:- There is a setpoint value for the valve opening- However, the actual angle does not change;"----
+";"SERV1
+";"ab 0.35
+";Working hydraulics not active;;Check sensor system at the mast and wiring;"De,HR
+";"ERR_VR_MAS_PLAUS_405
+";;;;;;;;;;;;;;;;;;;;;
+200;"Plausib. Sensorfunktion
+";"31
+";"48
+";"A
+";;A3148;"0
+";Process error in lift height detection;Model calculation for the lift height detects error;"nur bei Variante: Sicherheitspaket Hubhoehenerkennung
+Plausibilitaet SHE
+";"SERV1
+";"ab 0.01
+";Driver is requested to perform a new reference drive;;Reference drive. Check lift height sensor and wiring. Incorrect cylinder cross-section parameterised.;"We, AW
+";"ERR_SHE_BETRIEB_214
+";;;;;;;;;;;;;;;;;;;;;
+316;"Plausibilitaet Fahrtrichtung
+";"31
+";"49
+";"A
+";;A3149;"0
+";Drive direction switch error;A drive direction switch plausibility error is detected in the mini-lever;"
+";"SERV1
+";"
+";Drive unit is locked, no drive function;Key switch;Delete error list. If the error keeps occurring, replace the drive direction switch.;"De
+";"ERR_UE_FIT_FRS_381
+";;;;;;;;;;;;;;;;;;;;;
+317;"Plausibilitaet 5. Funktion
+";"31
+";"50
+";"A
+";;A3150;"0
+";F button error;An F button plausibility error is detected in the mini-lever;"
+";"SERV1
+";"
+";Working hydraulics not active;Key switch;Check F button, replacing mini-lever/fingertip if necessary.;"De
+";"ERR_UE_FIT_FUNKT5_382
+";;;;;;;;;;;;;;;;;;;;;
+302;"Sollwertgeber nicht passend
+";"31
+";"61
+";"A
+";;A3161;"0
+";Incorrect setpoint device parameterised;Incorrect type of setpoint device or incorrect software version in setpoint device;"Nur Meldung
+";"SERV1
+";"
+";;Key switch;Correct setpoint device parameterised.;"De
+";"ERR_UE_JS_DATA_358
+";;;;;;;;;;;;;;;;;;;;;
+303;"Joyst: Plausibilitaet.x-Richtung
+";"31
+";"66
+";"A
+";;A3166;"0
+";Internal process error in x-axis of joystick;An error is detected in the joystick;"---
+";"SERV1
+";"
+";Hydraulic drive is disabled;Key switch;Delete error list. If the error keeps occurring, recalibrate or replace the joystick.;"De
+";"ERR_UE_JOY_PLS_X_363
+";;;;;;;;;;;;;;;;;;;;;
+304;"Joyst: Plausibilitaet.y-Richtung
+";"31
+";"67
+";"A
+";;A3167;"0
+";Internal process error in y-axis of joystick;An error is detected in the joystick;"---
+";"SERV1
+";"
+";Working hydraulics not active;Key switch;Delete error list. If the error keeps occurring, recalibrate or replace the joystick.;"De
+";"ERR_UE_JOY_PLS_Y_364
+";;;;;;;;;;;;;;;;;;;;;
+305;"Joystick: Plausibilitaet. Wippe
+";"31
+";"68
+";"A
+";;A3168;"0
+";Internal process error in rocker joystick;An error is detected in the joystick;"---
+";"SERV1
+";"
+";Working hydraulics not active;Key switch;Delete error list. If the error keeps occurring, recalibrate or replace the joystick.;"De
+";"ERR_UE_JOY_PLS_W_365
+";;;;;;;;;;;;;;;;;;;;;
+306;"Joystick: EEPROM Fehler
+";"31
+";"69
+";"A
+";;A3169;"16
+";Internal process error in joystick;Hardware error in the EEprom or loss of power during calibration process;"---
+";"SERV1
+";"
+";Working hydraulics not active;Key switch;Delete error list. If the error keeps occurring, recalibrate or replace the joystick.;"R+T/hr
+";"ERR_UE_JOY_EEPROM_366
+";;;;;;;;;;;;;;;;;;;;;
+307;"Fingertip Gen.I: Basisnummer
+";"31
+";"70
+";"A
+";;A3170;"0
+";Internal process error in mini-lever;General error in setpoint device for fingertip/mini-lever;"
+";"SERV1
+";"
+";Working hydraulics not active;Key switch;Replace mini-lever;"De
+";"ERR_UE_JOY_FING_GRP_371
+";;;;;;;;;;;;;;;;;;;;;
+312;"Fit Gen.I+II: Fehler Hebel1
+";"31
+";"71
+";"A
+";;A3171;"16
+";Error in fingertip/mini-lever (lever 1);A lever 1 plausibility error is detected in the mini-lever;"
+";"SERV1
+";"
+";Working hydraulics not active;Key switch;Check lever 1, replacing if necessary. Replace entire fingertip.;"De
+";"ERR_UE_FIT_POT1_377
+";;;;;;;;;;;;;;;;;;;;;
+313;"Fit Gen.I+II: Fehler Hebel2
+";"31
+";"72
+";"A
+";;A3172;"16
+";Error in fingertip/mini-lever (lever 2);A lever 2 plausibility error is detected in the mini-lever console;"
+";"SERV1
+";"
+";Working hydraulics not active;Key switch;Check lever 2, replacing if necessary. Replace entire fingertip.;"De
+";"ERR_UE_FIT_POT2_378
+";;;;;;;;;;;;;;;;;;;;;
+314;"Fit Gen.I+II: Fehler Hebel3
+";"31
+";"73
+";"A
+";;A3173;"16
+";Error in fingertip/mini-lever (lever 3);A lever 3 plausibility error is detected in the mini-lever console;"
+";"SERV1
+";"
+";Working hydraulics not active;Key switch;Check lever 3, replacing if necessary. Replace entire fingertip.;"De
+";"ERR_UE_FIT_POT3_379
+";;;;;;;;;;;;;;;;;;;;;
+315;"Fit Gen.I+II: Fehler Hebel4
+";"31
+";"74
+";"A
+";;A3174;"16
+";Error in fingertip/mini-lever (lever 4);A lever 4 plausibility error is detected in the mini-lever console;"
+";"SERV1
+";"
+";Working hydraulics not active;Key switch;Check lever 4, replacing if necessary. Replace entire fingertip.;"De
+";"ERR_UE_FIT_POT4_380
+";;;;;;;;;;;;;;;;;;;;;
+318;"Fingertip Gen.II: Plaus. Hebel
+";"31
+";"80
+";"A
+";;A3180;"0
+";Internal process error in fingertip;The fingertip reports an error in the operating levers;"
+";"SERV1
+";"
+";Working hydraulics not active;Automatically if error is rectified;Check fingertip, replacing if necessary.;"De
+";"ERR_FIT2_HEBEL_383
+";;;;;;;;;;;;;;;;;;;;;
+154;"Fingertip Gen.II: Plaus. FR
+";"31
+";"81
+";"A
+";;A3181;"0
+";Internal process error in fingertip;Defective Hall sensor;"
+";"SERV1
+";"ab 1.01
+";Drive unit is disabled;Automatically if error is rectified;Check fingertip, replacing if necessary.;"pdv/res
+";"ERR_FTI2_FR_165
+";;;;;;;;;;;;;;;;;;;;;
+321;"VR Hauptschalter
+";"31
+";"90
+";"A
+";;A3190;"0
+";Valve processor error;- The main switch for supplying the output stage is switched off, but the voltage behind the main switch is not cut off.- The main switch is switched on and the voltage drop over the main switch is over 800 mV.- The test is run once during run-up and again at regular intervals during operation.;"----
+";"SERV1
+";"ab 0.01
+";Hydraulic drive is disabled;Key switch;"Check the wire to the solenoid coil (hydraulic block) for a short circuit. Check the tilt backwards wiring 2Y3; replace the MCU if necessary";"De
+";"ERR_VR_HAUPTSCHALTER_387
+";;;;;;;;;;;;;;;;;;;;;
+322;"VR Versorg. Leistungskreis
+";"31
+";"91
+";"A
+";;A3191;"0
+";Valve processor error;There is a power supply at the device input and the main switch is switched on, but the voltage in the power circuit is < 10 V or > 36 V.;"----
+";"SERV1
+";"ab 0.01
+";Working hydraulics not active;Key switch;Check solenoid coil wires for short circuit, replacing MCU if necessary.;"De
+";"ERR_VR_VERS_LEISTUNG_388
+";;;;;;;;;;;;;;;;;;;;;
+323;"VR Versorg. 12V Treiber.
+";"31
+";"92
+";"A
+";;A3192;"16
+";Valve processor error;The supply voltage for the driver stages is outside the tolerance range of 10.5 V to 13.5 V.;"----
+";"SERV1
+";"ab 0.01
+";Working hydraulics not active;Automatically if error is rectified;Replace MCU;"De
+";"ERR_VR_VERS_TREIBER_389
+";;;;;;;;;;;;;;;;;;;;;
+324;"VR Übertemperatur Endstufe
+";"31
+";"93
+";"A
+";;A3193;"0
+";Valve processor overtemperature;Output stage temperature exceeded 80°C.;"----
+";"SERV1
+";"ab 0.01
+";;Automatically if error is rectified;Restart truck. Check the valve currents (< 1.6 A). If the error keeps occurring, replace the MCU.;"De
+";"ERR_VR_TEMP_ENDSTUFE_390
+";;;;;;;;;;;;;;;;;;;;;
+320;"VR Versorg.24V Leistung
+";"31
+";"94
+";"A
+";;A3194;"16
+";Valve processor error;There is no 24 V supply voltage to the device input when contactor K1 is switched on.;"----
+";"SERV1
+";"ab 1.02
+";;Automatically if error is rectified;Check 24 V supply voltage.;"De
+";"ERR_VR_VERSORG_GERAET_386
+";;;;;;;;;;;;;;;;;;;;;
+205;"Plausib.-Fehler Lenkwinkelerf.
+";"32
+";"02
+";"A
+";"3202
+";A3202;"0
+";Steering angle sensor error;Steering angle recording detects an implausible status;"
+";"NORM
+";"ab 0.03
+";Limitation of the max. speed. Plain text error message: STEERING ERROR.;Reset;Check the steering angle sensor system and the parameters;"MSch,We
+";"ERR_LW_PlauCheck_220
+";;;;;;;;;;;;;;;;;;;;;
+133;"Sammelf. Lenkwinkelgeber
+";"32
+";"15
+";"A
+";;A3215;"0
+";Steering angle sensor error;Failure of the steering angle sensor on the steering column;"Meldetext: LENKEN
+";"NORM
+";"ab 0.01
+";Truck can only be driven at emergency mode speed;Key switch;Check steering angle sensor and wiring, replacing if necessary. Delete error list.;"We
+";"ERR_LW_Geber_143
+";;;;;;;;;;;;;;;;;;;;;
+157;"Lenkwinkelsch.: Schalter Links
+";"32
+";"21
+";"A
+";;A3221;"0
+";Error in left steering angle switch;Switch faulty, wiring error;"Lenkwinkelschalter Links
+Fehler kann durch Lenken zurückgesetzt werden.
+Fehler kann durch Löschen der Fehlerliste zurück gesetzt werden
+";"SERV1
+";"ab 0.01
+";;;Check left steering angle sensor and wiring, replacing if necessary. Delete error list. Reload original parameters.;"We
+";"ERR_LW_SchalterL_168
+";;;;;;;;;;;;;;;;;;;;;
+158;"Lenkwinkelsch.: Schalter Rechts
+";"32
+";"26
+";"A
+";;A3226;"0
+";Error in right steering angle switch;Switch faulty, wiring error;"Lenkwinkelschalter Rechts
+Fehler kann durch Lenken zurückgesetzt werden.
+Fehler kann durch Löschen der Fehlerliste zurück gesetzt werden
+";"SERV1
+";"ab 0.01
+";;;Check right steering angle sensor and wiring, replacing if necessary. Delete error list. Reload original parameters.;"We
+";"ERR_LW_SchalterR_169
+";;;;;;;;;;;;;;;;;;;;;
+171;"Sammelfehler CIO1
+";"33
+";"05
+";"A
+";;A3305;"0
+";CIO error;Configuration error. Hardware version does not correspond to parameters. Drop in 12 V ext. voltage or GND/VCC breakdown at analogue inputs.;"Klartextmeldung STEUERGERAET
+";"NORM
+";"ab 0.63
+";The CIO does not work;;Check CIO and wiring, replacing if necessary.;"AW
+";"ERR_ZEL_CIO1_185
+";;;;;;;;;;;;;;;;;;;;;
+211;"Sammelf. Lastmessung
+";"34
+";"00
+";"A
+";;A3400;"0
+";Load measurement error;Error in the load measurement (sensor breakdown, configuration, hardware conflicts);"bei BDE fehlerhafte Messdaten moeglich
+";"NORM
+";"ab 0.37
+";;;Check pressure sensor wiring and function, replacing if necessary. Check parameterising.;"Vo
+";"ERR_LAM_225
+";;;;;;;;;;;;;;;;;;;;;
+159;"Sensorfehler Batterietuer
+";"34
+";"03
+";"A
+";;A3403;"16
+";Battery door sensor fault;Battery door not been actuated for a long time, faulty sensor on battery door, wiring faulty;"
+";"SERV1
+";"ab 0.89
+";Parameterisable: Limit hydraulics and/or speed;Automatically if error is rectified;Open/close battery door, replace battery door sensor.;"De
+";"ERR_SSP_BATU_170
+";;;;;;;;;;;;;;;;;;;;;
+160;"Schalterfehler Handbremse
+";"34
+";"04
+";"A
+";;A3404;"16
+";Handbrake switch error;Handbrake not been actuated for a long time, faulty sensor, wiring faulty;"
+";"SERV1
+";"ab 0.89
+";Parameterisable: Limit hydraulics and/or speed;Automatically if error is rectified;Apply/release handbrake, replace switch on handbrake.;"De
+";"ERR_SSP_HABR_171
+";;;;;;;;;;;;;;;;;;;;;
+151;"Sammelfehler Kalibrierung
+";"35
+";"00
+";"A
+";;A3500;"16
+";Calibration error;Ext. supply voltage insufficient or excessive;"Kalibrierung fehlgeschlagen
+";"SERV1
+";"ab 0.01
+";Calibration cancelled;;"Perform calibration again. Check the wiring and sensor system; change MCU if necessary.";"R+T/aw
+";"ERR_kal_sammel_162
+";;;;;;;;;;;;;;;;;;;;;
+145;"Fahrgeber Sammelfehler
+";"35
+";"01
+";"A
+";;A3501;"16
+";Accelerator error;1. Potentiometer voltage outside the permitted range2. Error writing to EEprom;"Kalibrierung Fahrgeber
+RX20: nur bei 1-Pedal mit 1 Poti
+";"SERV1
+";"ab 0.01
+";Drive unit is disabled;Automatically if error is rectified;"Check accelerator and wiring, replacing if necessary. Recalibrate accelerator; replace MCU if necessary.";"R+T/aw
+";"ERR_kal_fgb_sammel_155
+";;;;;;;;;;;;;;;;;;;;;
+120;"Param Fahrg 2-Potis Kalib aussrh
+";"35
+";"04
+";"A
+";;A3504;"0
+";Parameter error in dual-pedal accelerator;Calibration invalid;"siehe auch Dokumentation
+- zur 2-Pedal-Bodenplatte
+- zur 1-Pedal-Bodenplatte mit 2-Potis
+FZG funktioniert mit Defaultparametern
+";"SERV1
+";"ab 0.01
+";Drive unit is disabled;Automatically if error is rectified;Check dual-pedal accelerator and wiring. Recalibrate accelerator. Reload original parameters.;"MSch,ZiRo
+";"ERR_FGB_KAL_Para_130
+";;;;;;;;;;;;;;;;;;;;;
+121;"Messf. Fahrg. 2-Potis Kalib.
+";"35
+";"05
+";"A
+";;A3505;"0
+";Parameter error in dual-pedal accelerator;1. Potentiometer voltage outside the permitted range2. Error writing to EEprom;"siehe auch Dokumentation
+- zur 2-Pedal-Bodenplatte
+- zur 1-Pedal-Bodenplatte mit 2-Potis
+Meldetext: FAHRGEBER
+Es werden Ersatztwerte für die Grenzwerte verwendet.
+Dies kann zu einer Begrenzung der maximalen Fahrgeschwindigkeit führen.
+";"NORM
+";"ab 0.01
+";;Automatically if error is rectified;Check dual-pedal accelerator and wiring. Recalibrate accelerator. Reload original parameters.;"MSch,ZiRo
+";"ERR_FGB_KAL_2Ped_131
+";;;;;;;;;;;;;;;;;;;;;
+156;"Param. 1-Pedal-Kalib. ausserh.
+";"35
+";"06
+";"A
+";;A3506;"0
+";Single-pedal accelerator error;Calibration invalid;"
+";"SERV1
+";"ab 0.01
+";;Automatically if error is rectified;Check single-pedal accelerator and wiring, replacing if necessary. Recalibrate zero position. Reload original parameters.;"ZiRo
+";"ERR_FGB_KAL_1P_167
+";;;;;;;;;;;;;;;;;;;;;
+146;"Bremsgeber Sammelfehler
+";"35
+";"10
+";"A
+";;A3510;"16
+";Brake sensor error;A) During calibration:1. Potentiometer voltage outside the permitted range.2. Error writing to EEprom.B) System startup1: Calibration invalid.;"Kalibrierung Bremsgeber
+-aktive Kalibrierung wird unterbrochen und ungueltig markiert
+-es werden Defaultwerte verwendet
+";"SERV1
+";"ab 0.01
+";;Automatically if error is rectified;"Check brake sensor and wiring, replacing if necessary. Recalibrate; change MCU if necessary.";"R+T/aw
+";"ERR_kal_brg_sammel_156
+";;;;;;;;;;;;;;;;;;;;;
+147;"Hebengeber Sammelfehler
+";"35
+";"15
+";"A
+";;A3515;"16
+";Lift transmitter error;A) During calibration:1. Potentiometer voltage outside the permitted range.2. Error writing to EEprom.B) System start 1:Invalid calibration.;"Kalibrierung Hebengeber
+-aktive Kalibrierung wird unterbrochen und ungueltig markiert
+-es werden Defaultwerte verwendet
+";"SERV1
+";"ab 0.01
+";;Automatically if error is rectified;"Check lift transmitter and wiring, replacing if necessary. Recalibrate; change MCU if necessary.";"R+T/aw
+";"ERR_kal_heb_sammel_157
+";;;;;;;;;;;;;;;;;;;;;
+148;"Neigengeber Sammelfehler
+";"35
+";"20
+";"A
+";;A3520;"16
+";Tilt transmitter error;A) During calibration:1. Potentiometer voltage outside the permitted range.2. Error writing to EEprom.B) System start 1:Invalid calibration.;"Kalibrierung Neigengeber
+-aktive Kalibrierung wird unterbrochen und ungueltig markiert
+-es werden Defaultwerte verwendet
+";"SERV1
+";"ab 0.01
+";;Automatically if error is rectified;"Check tilt transmitter and wiring, replacing if necessary. Recalibrate; change MCU if necessary.";"R+T/aw
+";"ERR_kal_nei_sammel_158
+";;;;;;;;;;;;;;;;;;;;;
+149;"Zusatzgeber 1 Sammelfehler
+";"35
+";"25
+";"A
+";;A3525;"16
+";Additional transmitter 1 error;A) During calibration:1. Potentiometer voltage outside the permitted range.2. Error writing to EEprom.B) System start 1:Invalid calibration.;"Kalibrierung Z1-Geber
+-aktive Kalibrierung wird unterbrochen und ungueltig markiert
+-es werden Defaultwerte verwendet
+";"SERV1
+";"ab 0.01
+";;Automatically if error is rectified;"Check additional transmitter 1 and wiring, replacing if necessary. Recalibrate; change MCU if necessary.";"R+T/aw
+";"ERR_kal_z1_sammel_159
+";;;;;;;;;;;;;;;;;;;;;
+150;"Zusatzgeber 2 Sammelfehler
+";"35
+";"30
+";"A
+";;A3530;"16
+";Additional transmitter 2 error;A) During calibration:1. Potentiometer voltage outside the permitted range.2. Error writing to EEprom.B) System start 1:Invalid calibration.;"Kalibrierung Z2-Geber
+-aktive Kalibrierung wird unterbrochen und ungueltig markiert
+-es werden Defaultwerte verwendet
+";"SERV1
+";"ab 0.01
+";;Automatically if error is rectified;"Check additional transmitter 2 and wiring, replacing if necessary. Recalibrate; change MCU if necessary.";"R+T/aw
+";"ERR_kal_z2_sammel_160
+";;;;;;;;;;;;;;;;;;;;;
+226;"Curve Speed Ctrl Kalibrierfehler
+";"35
+";"50
+";"A
+";;A3550;"0
+";Curve speed control calibration error;A) During calibration:1. Implausible switch change.2. Invalid number of increments between switch changes.3. Error writing to EEprom.B) System startup1. Calibration invalid.;"Kalibrierung Curve Speed Control
+-aktive Kalibrierung wird unterbrochen und ungueltig markiert
+-Begrenzung der Fahrgeschwindigkeit auf 6km/h
+-Klartextfehlermeldung auf der ABE
+";"NORM
+";"ab 0.80
+";Truck can only be driven at emergency mode speed;Automatically if error is rectified;Perform calibration again. Check sensors and wiring, replacing if necessary.;"R+T/aw
+";"ERR_KAL_CSC_SAMMEL_240
+";;;;;;;;;;;;;;;;;;;;;
+227;"Batt.-Auszug Kalibrierfehler
+";"35
+";"55
+";"A
+";;A3555;"0
+";Battery carrier error;A) During calibration1. Potentiometer voltage outside the permitted range.2. Error writing to EEpromB) System startup1. Calibration invalid;"Kalibrierung Batterievollauszug
+";"NORM
+";"ab 0.80
+";- Active calibration is cancelled and marked as invalid- Extension function of carrier locked (retraction still possible)- Plain text error message;;"Check support roller potentiometer, CPP5, limit position switch and wiring; replace if necessary";"R+T/aw
+";"ERR_KAL_BAV_SAMMEL_241
+";;;;;;;;;;;;;;;;;;;;;
+228;"Mast Kalibrierfehler
+";"35
+";"60
+";"A
+";;A3560;"0
+";Mast vertical position calibration error;A) During calibration:1. Potentiometer voltage outside the permitted range.2. Error writing to EEprom.B) System startup1: Calibration invalid.;"Kalibrierung Mastsensor
+-aktive Kalibrierung wird unterbrochen und ungültig markiert
+-keine Endlagendämpfung
+-Default Nullstellung
+";"NORM
+";"ab 0.80
+";;Automatically if error is rectified;Check sensors and wiring, replacing if necessary. Replace MCU.;"R+T/aw
+";"ERR_KAL_MAST_SAMMEL_242
+";;;;;;;;;;;;;;;;;;;;;
+24;"Betriebsstundenzaehler
+";"37
+";"02
+";"A
+";;A3702;"0
+";Internal process error in hour meter;No valid dataset available for the hour meter;"Fataler Fehler, damit sind alle Zaehler kaputt
+";"SERV1
+";"ab 0.01
+";Hour meter reinitialises to 0;;Replace MCU;"We
+";"ERR_BSZ_29
+";;;;;;;;;;;;;;;;;;;;;
+194;"unglt. Checks. Kilometerzaehler
+";"37
+";"07
+";"A
+";;A3707;"0
+";Internal process error in odometer;RAM fuse has invalid check sum;"kann auftreten, wenn Battriepufferung fuer RAM fehlt.
+Wegzaehler und Tripzaehler werden auf Null gesetzt.
+";"SERV1
+";"0.01
+";;Key switch;New battery in MCU. Reset time after replacing!;"We
+";"ERR_Weg_Checksum_208
+";;;;;;;;;;;;;;;;;;;;;
+166;"ungueltiger Fzg-Typ/St.-Ger.-Typ
+";"38
+";"01
+";"A
+";;A3801;"16
+";Internal process error in truck configuration;EEprom data does not correspond to associated software. Possible causes of faulty parameterising:- Truck type- Truck geometry- Lift mast type;"Meldetext: KONFIGURATION
+";"NORM
+";"0.01
+";No contactor activation;Key switch;Truck configurationCheck parameterising. Flash the truck software.;"We
+";"ERR_fzg_id_177
+";;;;;;;;;;;;;;;;;;;;;
+128;"Fahrgeberkonfig. fehlerhaft
+";"38
+";"11
+";"A
+";;A3811;"0
+";Internal process error in accelerator;Configuration of accelerator and drive direction switch is invalid.;"Meldetext: FAHRGEBER
+";"NORM
+";"ab 0.01
+";Truck will not drive, accelerator has no effect;Key switch;Check accelerator parameterising. Check drive direction parameterising.;"MSch,ZiRo
+";"ERR_FGB_konf_138
+";;;;;;;;;;;;;;;;;;;;;
+167;"unzulaessige FahrprogrammParam.
+";"38
+";"12
+";"A
+";;A3812;"0
+";Internal process error in drive programme;Drive programme parameters are outside the permitted range;"Parameter werden intern begrenzt
+Meldetext: KONFIGURATION
+";"NORM
+";"0.01
+";;Key switch;Check parameterising of drive programme.;"MSch
+";"ERR_FPG_Para_178
+";;;;;;;;;;;;;;;;;;;;;
+168;"ZEL: zu wenig Arg. fuer Funktion
+";"38
+";"32
+";"A
+";;A3832;"0
+";Internal process error in additional electrical installation;Too few arguments to process a parameterisable additional electrical installation function;"betreffende ZEL-Funktion arbeitet nicht
+";"SERV1
+";"0.23
+";;Key switch;Check parameterising of additional electrical installation.;"ZiRo
+";"ERR_PSS_182
+";;;;;;;;;;;;;;;;;;;;;
+169;"Sammelf. Relaisbox, CPP
+";"38
+";"40
+";"A
+";;A3840;"0
+";Internal process error in CPP;Configuration error (parameters), impermissible CPP channel or output configured several times;"Sammelfehler ZEL-Ausgangskanaele
+keine Funktion der betreffenden Kanäle
+";"SERV1
+";"ab 0.03
+";;Key switch;Check CPP parameterising.;"ZiRo
+";"ERR_CPP_183
+";;;;;;;;;;;;;;;;;;;;;
+296;"Konf. Koppelfeld
+";"38
+";"61
+";"A
+";;A3861;"0
+";Internal process error in crossbar switch;Parameter error: Crossbar switch index outside the defined range or crossbar switch index points to own element (recursion);"
+";"SERV1
+";"
+";;Key switch;Check crossbar switch parameterising.;"De
+";"ERR_UE_JOY_KOP_A_350
+";;;;;;;;;;;;;;;;;;;;;
+294;"Konf. Geber (Geberkennline)
+";"38
+";"62
+";"A
+";;A3862;"0
+";Parameter error in transmitter characteristic curve;Parameterisation error in input characteristic curves (transmitter characteristic curve for setpoint device);"Die Stuetzstellen muessen kontinuierlich steigend sein (y[1] > y[0] usw.)
+x3>x2>x1>x0
+y3>y2>y1>y0
+";"SERV1
+";"
+";;Key switch;Check parameterising for transmitter input characteristic curve.;"De
+";"ERR_UE_prm_poti_348
+";;;;;;;;;;;;;;;;;;;;;
+295;"Konf. Pumpenkennlinie
+";"38
+";"63
+";"A
+";;A3863;"0
+";Parameter error in pump characteristic curve;Parameterisation error in pump characteristic curves or failure to observe min./max. number of revolutions for pump;"Die Stuetzstellen müssen kontinuierlich steigend sein (y[1] > y[0] usw.)
+";"SERV1
+";"
+";;Key switch;Check parameterising for pump characteristic curve.;"De
+";"ERR_UE_prm_pump_349
+";;;;;;;;;;;;;;;;;;;;;
+293;"Konf. Ventilkennlinie
+";"38
+";"64
+";"A
+";;A3864;"0
+";Parameter error in valve characteristic curve;Parameterisation error in valve characteristic curves;"Die Stuetzstellen muessen kontinuierlich steigend sein (y[1] > y[0] usw.)
+x3>x2>x1>x0
+y3>y2>y1>y0
+";"SERV1
+";"
+";;Key switch;Check parameterising for valve characteristic curve.;"De
+";"ERR_UE_prm_vent_347
+";;;;;;;;;;;;;;;;;;;;;
+297;"Konf. Ventilregler
+";"38
+";"65
+";"A
+";;A3865;"0
+";Parameter error in valve regulator;Parameterisation error in valve regulator;"Ventilregler arbeitet mit Defaultwerten
+";"SERV1
+";"
+";;Key switch;Check parameterising for valve regulator.;"De
+";"ERR_UE_PVR_VRG_351
+";;;;;;;;;;;;;;;;;;;;;
+181;"Konf. PropTechnik Sollwertgeber
+";"38
+";"67
+";"A
+";;A3867;"0
+";Configuration of prop. technology setpoint device;The configuration of the proportional technology setpoint device is implausible;"Die Plausibilisierung hat erkannt, dass die parametrierte Prop-Bedieneinheit
+nicht mit der angeschlossenen übereinstimmt.
+";"SERV1
+";"ab 0.88
+";;Key switch;Check parameterising for truck and prop. technology;"De
+";"ERR_PROP_SOLLW_GEB_195
+";;;;;;;;;;;;;;;;;;;;;
+201;"allg. Konf. Komfortpaket
+";"38
+";"90
+";"A
+";;A3890;"0
+";Internal process error in comfort package;Parameter limits exceeded;"nur bei Variante: Sicherheitspaket Hubhoehenerkennung
+Parametrierung SHE
+";"SERV1
+";"ab 0.01
+";;Key switch;Check parameterising for lift height detection.;"We, AW
+";"ERR_SHE_PAR_215
+";;;;;;;;;;;;;;;;;;;;;
+41;"TN1 Anmeldefehler
+";"39
+";"02
+";"A
+";;A3902;"16
+";SU login error;No communication with SU;"CANopen Anmeldung TN1 (SU)
+";"SERV1
+";"ab ?.??
+";No contactor activation;Key switch;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN1_Anm_49
+";;;;;;;;;;;;;;;;;;;;;
+57;"TN1 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"03
+";"A
+";;A3903;"16
+";SU communication error;SR cannot send PDOs on time;"CANopen-PDO-Wd TN1 TX (SR->SU)
+";"SERV1
+";"ab 0.01
+";No contactor activation;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN1_TX_65
+";;;;;;;;;;;;;;;;;;;;;
+58;"TN1 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"04
+";"A
+";;A3904;"16
+";SU communication error;SR cannot receive PDOs on time;"CANopen-PDO-Wd TN1 RX (SR<-SU)
+";"SERV1
+";"ab 0.01
+";No contactor activation;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN1_RX_66
+";;;;;;;;;;;;;;;;;;;;;
+42;"TN2 Anmeldefehler
+";"39
+";"07
+";"A
+";;A3907;"16
+";FU1 login error;No communication with FU1;"CANopen Anmeldung TN2 (FU1)
+";"SERV1
+";"ab 0.01
+";No contactor activation;Key switch;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN2_Anm_50
+";;;;;;;;;;;;;;;;;;;;;
+59;"TN2 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"08
+";"A
+";;A3908;"16
+";FU1 communication error;SR cannot send PDOs on time;"CANopen-PDO-Wd TN2 TX (SR->FU1)
+";"SERV1
+";"ab 0.01
+";Drive unit is locked, no drive function;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN2_TX_67
+";;;;;;;;;;;;;;;;;;;;;
+60;"TN2 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"09
+";"A
+";;A3909;"16
+";FU1 communication error;SR cannot receive PDOs on time;"CANopen-PDO-Wd TN2 RX (SR<-FU1)
+";"SERV1
+";"ab 0.01
+";Drive unit is locked, no drive function;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN2_RX_68
+";;;;;;;;;;;;;;;;;;;;;
+43;"TN3 Anmeldefehler
+";"39
+";"12
+";"A
+";;A3912;"16
+";FU2 login error;No communication with FU2;"CANopen Anmeldung TN3 (FU2)
+";"SERV1
+";"ab 0.01
+";No contactor activation;Key switch;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN3_Anm_51
+";;;;;;;;;;;;;;;;;;;;;
+61;"TN3 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"13
+";"A
+";;A3913;"16
+";FU2 communication error;SR cannot send PDOs on time;"CANopen-PDO-Wd TN3 TX (SR->FU2)
+";"SERV1
+";"ab 0.01
+";Drive unit is locked, no drive function;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN3_TX_69
+";;;;;;;;;;;;;;;;;;;;;
+62;"TN3 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"14
+";"A
+";;A3914;"16
+";FU2 communication error;SR cannot receive PDOs on time;"CANopen-PDO-Wd TN3 RX (SR<-FU2)
+";"SERV1
+";"ab 0.01
+";Drive unit is locked, no drive function;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN3_RX_70
+";;;;;;;;;;;;;;;;;;;;;
+44;"TN4 Anmeldefehler
+";"39
+";"17
+";"A
+";;A3917;"16
+";PU login error;No communication with PU;"CANopen Anmeldung TN4 (PU)
+";"SERV1
+";"ab 0.01
+";No contactor activation;Key switch;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN4_Anm_52
+";;;;;;;;;;;;;;;;;;;;;
+63;"TN4 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"18
+";"A
+";;A3918;"16
+";PU communication error;SR cannot send PDOs on time;"CANopen-PDO-Wd TN4 TX (SR->PU)
+";"SERV1
+";"ab 0.01
+";Drive unit and hydraulic drive disabled;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN4_TX_71
+";;;;;;;;;;;;;;;;;;;;;
+64;"TN4 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"19
+";"A
+";;A3919;"16
+";PU communication error;SR cannot receive PDOs on time;"CANopen-PDO-Wd TN4 RX (SR<-PU)
+";"SERV1
+";"ab 0.01
+";Drive unit and hydraulic drive disabled;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN4_RX_72
+";;;;;;;;;;;;;;;;;;;;;
+45;"TN5 Anmeldefehler
+";"39
+";"22
+";"A
+";;A3922;"16
+";ABE login error;No communication with ABE;"CANopen Anmeldung TN5 (ABE)
+Bei Fahrzeugen mit ABE1 wird der Fahrantrieb nicht gesperrt.
+Keine Anzeigefunktion
+";"SERV1
+";"ab 0.01
+";Drive unit is locked, no drive function;Key switch;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN5_Anm_53
+";;;;;;;;;;;;;;;;;;;;;
+65;"TN5 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"23
+";"A
+";;A3923;"16
+";ABE communication error;SR cannot send PDOs on time;"CANopen-PDO-Wd TN5 TX (SR->ABE)
+Bei Fahrzeugen mit ABE1 wird der Fahrantrieb nicht gesperrt.
+Keine Anzeigefunktion
+";"SERV1
+";"ab 0.01
+";Drive unit is locked, no drive function;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN5_TX_73
+";;;;;;;;;;;;;;;;;;;;;
+66;"TN5 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"24
+";"A
+";;A3924;"16
+";ABE communication error;SR cannot receive PDOs on time;"CANopen-PDO-Wd TN5 RX (SR<-ABE)
+Bei Fahrzeugen mit ABE1 wird der Fahrantrieb nicht gesperrt.
+Keine Anzeigefunktion
+";"SERV1
+";"ab 0.01
+";Drive unit is locked, no drive function;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN5_RX_74
+";;;;;;;;;;;;;;;;;;;;;
+46;"TN6 Anmeldefehler
+";"39
+";"27
+";"A
+";;A3927;"16
+";FIT login error;No communication with fingertip;"CANopen Anmeldung TN6 (FIT, SLC)
+";"SERV1
+";"ab ?.??
+";Drive unit and hydraulic drive disabled;Key switch;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN6_Anm_54
+";;;;;;;;;;;;;;;;;;;;;
+67;"TN6 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"28
+";"A
+";;A3928;"16
+";FIT communication error;SR cannot send PDOs on time;"CANopen-PDO-Wd TN6 RX (SR<-FIT,SLC)
+";"SERV1
+";"ab ?.??
+";Hydraulic drive is disabled;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN6_TX_75
+";;;;;;;;;;;;;;;;;;;;;
+68;"TN6 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"29
+";"A
+";;A3929;"16
+";FIT communication error;SR cannot receive PDOs on time;"CANopen-PDO-Wd TN6 RX (SR<-FIT,SLC)
+";"SERV1
+";"ab ?.??
+";Hydraulic drive is disabled;Release accelerator;Check the CAN bus. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN6_RX_76
+";;;;;;;;;;;;;;;;;;;;;
+47;"TN7 Anmeldefehler
+";"39
+";"32
+";"A
+";;A3932;"16
+";CPP1 login error;No communication to CPP1. GND F interruption to truck chassis;"CANopen Anmeldung TN7 (CPP1)
+";"SERV1
+";"ab 0.03
+";;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN7_Anm_55
+";;;;;;;;;;;;;;;;;;;;;
+69;"TN7 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"33
+";"A
+";;A3933;"0
+";CPP1 communication error;SR cannot send PDOs on time. GND F interruption to truck chassis.;"CANopen-PDO-Wd TN7 TX (SR->CPP1)
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN7_TX_77
+";;;;;;;;;;;;;;;;;;;;;
+70;"TN7 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"34
+";"A
+";;A3934;"0
+";CPP1 communication error;SR cannot send PDOs on time. GND F interruption to truck chassis.;"CANopen-PDO-Wd TN7 RX (SR<-CPP1)
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN7_RX_78
+";;;;;;;;;;;;;;;;;;;;;
+48;"TN8 Anmeldefehler
+";"39
+";"37
+";"A
+";;A3937;"16
+";CPP2 login error;No communication to CPP2. GND F interruption to truck chassis;"CANopen Anmeldung TN8 (CPP2)
+";"SERV1
+";"ab 0.03
+";;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN8_Anm_56
+";;;;;;;;;;;;;;;;;;;;;
+71;"TN8 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"38
+";"A
+";;A3938;"0
+";CPP2 communication error;SR cannot send PDOs on time. GND F interruption to truck chassis.;"CANopen-PDO-Wd TN8 TX (SR->CPP2)
+angesteuerte Verbraucher werden nicht richtig EIN/AUS
+geschaltet
+Im Fehlerfall wird der Teilnehmer automatisch wieder
+angemeldet. Ursache ist der Spannungsumformer 400W,
+der nicht ausreichend Unterspannungsfest ist und dadurch
+im Falle Batterierestladung ca. 0%, die VCC der CPPs zusammen-
+brechen laesst und somit den Fehler verursachen kann.
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN8_TX_79
+";;;;;;;;;;;;;;;;;;;;;
+72;"TN8 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"39
+";"A
+";;A3939;"0
+";CPP2 communication error;SR cannot receive PDOs on time. GND F interruption to truck chassis;"CANopen-PDO-Wd TN8 RX (SR<-CPP2)
+angesteuerte Verbraucher werden nicht richtig EIN/AUS
+geschaltet
+Im Fehlerfall wird der Teilnehmer automatisch wieder
+angemeldet. Ursache ist der Spannungsumformer 400W,
+der nicht ausreichend Unterspannungsfest ist und dadurch
+im Falle Batterierestladung ca. 0%, die VCC der CPPs zusammen-
+brechen laesst und somit den Fehler verursachen kann.
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN8_RX_80
+";;;;;;;;;;;;;;;;;;;;;
+49;"TN9 Anmeldefehler
+";"39
+";"42
+";"A
+";;A3942;"16
+";CPP3 login error;No communication to CPP3. GND F interruption to truck chassis;"CANopen Anmeldung TN9 (CPP3)
+";"SERV1
+";"ab 0.03
+";;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN9_Anm_57
+";;;;;;;;;;;;;;;;;;;;;
+73;"TN9 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"43
+";"A
+";;A3943;"0
+";CPP3 communication error;SR cannot send PDOs on time. GND F interruption to truck chassis.;"CANopen-PDO-Wd TN9 TX (SR->CPP3)
+angesteuerte Verbraucher werden nicht richtig EIN/AUS
+geschaltet
+Im Fehlerfall wird der Teilnehmer automatisch wieder
+angemeldet. Ursache ist der Spannungsumformer 400W,
+der nicht ausreichend Unterspannungsfest ist und dadurch
+im Falle Batterierestladung ca. 0%, die VCC der CPPs zusammen-
+brechen laesst und somit den Fehler verursachen kann.
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN9_TX_81
+";;;;;;;;;;;;;;;;;;;;;
+74;"TN9 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"44
+";"A
+";;A3944;"0
+";CPP3 communication error;SR cannot receive PDOs on time. GND F interruption to truck chassis.;"CANopen-PDO-Wd TN9 RX (SR<-CPP3)
+angesteuerte Verbraucher werden nicht richtig EIN/AUS
+geschaltet
+Im Fehlerfall wird der Teilnehmer automatisch wieder
+angemeldet. Ursache ist der Spannungsumformer 400W,
+der nicht ausreichend Unterspannungsfest ist und dadurch
+im Falle Batterierestladung ca. 0%, die VCC der CPPs zusammen-
+brechen laesst und somit den Fehler verursachen kann.
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN9_RX_82
+";;;;;;;;;;;;;;;;;;;;;
+50;"TN10 Anmeldefehler
+";"39
+";"47
+";"A
+";;A3947;"16
+";CPP4 login error;No communication to CPP4. GND F interruption to truck chassis;"CANopen Anmeldung TN10 (CPP4)
+";"SERV1
+";"ab 0.03
+";;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN10_Anm_58
+";;;;;;;;;;;;;;;;;;;;;
+75;"TN10 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"48
+";"A
+";;A3948;"0
+";CPP4 communication error;SR cannot send PDOs on time. GND F interruption to truck chassis.;"CANopen-PDO-Wd TN10 TX (SR->CPP4)
+angesteuerte Verbraucher werden nicht richtig EIN/AUS
+geschaltet
+Im Fehlerfall wird der Teilnehmer automatisch wieder
+angemeldet. Ursache ist der Spannungsumformer 400W,
+der nicht ausreichend Unterspannungsfest ist und dadurch
+im Falle Batterierestladung ca. 0%, die VCC der CPPs zusammen-
+brechen laesst und somit den Fehler verursachen kann.
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN10_TX_83
+";;;;;;;;;;;;;;;;;;;;;
+76;"TN10 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"49
+";"A
+";;A3949;"0
+";CPP4 communication error;SR cannot receive PDOs on time. GND F interruption to truck chassis;"CANopen-PDO-Wd TN10 RX (SR<-CPP4)
+angesteuerte Verbraucher werden nicht richtig EIN/AUS
+geschaltet
+Im Fehlerfall wird der Teilnehmer automatisch wieder
+angemeldet. Ursache ist der Spannungsumformer 400W,
+der nicht ausreichend Unterspannungsfest ist und dadurch
+im Falle Batterierestladung ca. 0%, die VCC der CPPs zusammen-
+brechen laesst und somit den Fehler verursachen kann.
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN10_RX_84
+";;;;;;;;;;;;;;;;;;;;;
+51;"TN11 Anmeldefehler
+";"39
+";"52
+";"A
+";;A3952;"16
+";CPP5 login error;No communication to CPP5. GND F interruption to truck chassis;"CANopen Anmeldung TN11 (CPP5)
+";"SERV1
+";"ab 0.03
+";;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN11_Anm_59
+";;;;;;;;;;;;;;;;;;;;;
+77;"TN11 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"53
+";"A
+";;A3953;"0
+";CPP5 communication error;SR cannot send PDOs on time. GND F interruption to truck chassis.;"CANopen-PDO-Wd TN11 TX (SR->CPP5)
+angesteuerte Verbraucher werden nicht richtig EIN/AUS
+geschaltet
+Im Fehlerfall wird der Teilnehmer automatisch wieder
+angemeldet. Ursache ist der Spannungsumformer 400W,
+der nicht ausreichend Unterspannungsfest ist und dadurch
+im Falle Batterierestladung ca. 0%, die VCC der CPPs zusammen-
+brechen laesst und somit den Fehler verursachen kann.
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN11_TX_85
+";;;;;;;;;;;;;;;;;;;;;
+78;"TN11 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"54
+";"A
+";;A3954;"0
+";CPP5 communication error;SR cannot receive PDOs on time. GND F interruption to truck chassis;"CANopen-PDO-Wd TN11 RX (SR<-CPP5)
+angesteuerte Verbraucher werden nicht richtig EIN/AUS
+geschaltet
+Im Fehlerfall wird der Teilnehmer automatisch wieder
+angemeldet. Ursache ist der Spannungsumformer 400W,
+der nicht ausreichend Unterspannungsfest ist und dadurch
+im Falle Batterierestladung ca. 0%, die VCC der CPPs zusammen-
+brechen laesst und somit den Fehler verursachen kann.
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN11_RX_86
+";;;;;;;;;;;;;;;;;;;;;
+52;"TN12 Anmeldefehler
+";"39
+";"57
+";"A
+";;A3957;"16
+";CPP6 login error;No communication to CPP6. GND F interruption to truck chassis;"CANopen Anmeldung TN12 (CPP6)
+";"SERV1
+";"ab 0.03
+";;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN12_Anm_60
+";;;;;;;;;;;;;;;;;;;;;
+79;"TN12 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"58
+";"A
+";;A3958;"0
+";CPP6 communication error;SR cannot send PDOs on time. GND F interruption to truck chassis.;"CANopen-PDO-Wd TN12 TX (SR->CPP6)
+angesteuerte Verbraucher werden nicht richtig EIN/AUS
+geschaltet
+Im Fehlerfall wird der Teilnehmer automatisch wieder
+angemeldet. Ursache ist der Spannungsumformer 400W,
+der nicht ausreichend Unterspannungsfest ist und dadurch
+im Falle Batterierestladung ca. 0%, die VCC der CPPs zusammen-
+brechen laesst und somit den Fehler verursachen kann.
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN12_TX_87
+";;;;;;;;;;;;;;;;;;;;;
+80;"TN12 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"59
+";"A
+";;A3959;"0
+";CPP6 communication error;SR cannot receive PDOs on time. GND F interruption to truck chassis;"CANopen-PDO-Wd TN12 RX (SR<-CPP6)
+angesteuerte Verbraucher werden nicht richtig EIN/AUS
+geschaltet
+Im Fehlerfall wird der Teilnehmer automatisch wieder
+angemeldet. Ursache ist der Spannungsumformer 400W,
+der nicht ausreichend Unterspannungsfest ist und dadurch
+im Falle Batterierestladung ca. 0%, die VCC der CPPs zusammen-
+brechen laesst und somit den Fehler verursachen kann.
+";"SERV1
+";"ab 0.03
+";Electrical consumers are partially inactive;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN12_RX_88
+";;;;;;;;;;;;;;;;;;;;;
+53;"TN13 Anmeldefehler
+";"39
+";"62
+";"A
+";;A3962;"16
+";FABLI login error;No communication with FABLI;"CANopen Anmeldung TN13 (FrBl)
+Bei Variante Fahrtrichtung via FrBl-Modul erfolgt keine Freigabe des Fahrantriebs.
+";"SERV1
+";"ab 0.03
+";;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN13_Anm_61
+";;;;;;;;;;;;;;;;;;;;;
+81;"TN13 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"63
+";"A
+";;A3963;"0
+";FABLI communication error;SR cannot send PDOs on time;"CANopen-PDO-Wd TN13 TX(SR->FrBl)
+";"SERV1
+";"ab 0.23
+";Drive unit is locked, no drive function;Release accelerator;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN13_TX_89
+";;;;;;;;;;;;;;;;;;;;;
+82;"TN13 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"64
+";"A
+";;A3964;"0
+";FABLI communication error;SR cannot receive PDOs on time;"CANopen-PDO-Wd TN13 RX(SR<-FrBl)
+";"SERV1
+";"ab 0.23
+";Drive unit is locked, no drive function;Release accelerator;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN13_RX_90
+";;;;;;;;;;;;;;;;;;;;;
+54;"TN14 Anmeldefehler
+";"39
+";"67
+";"A
+";;A3967;"16
+";Card reader login error;No communication with card reader;"CANopen Anmeldung TN14 (KLS)
+";"SERV1
+";"ab ?.??
+";Drive unit and hydraulic drive disabled;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN14_Anm_62
+";;;;;;;;;;;;;;;;;;;;;
+83;"TN14 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"68
+";"A
+";;A3968;"0
+";Card reader communication error;SR cannot send PDOs on time;"CANopen-PDO-Wd TN14 TX (SR->KLS)
+Bei Variante Fleetmanager-Zugangskontrolle erfolgt keine Freigabe von
+Fahr- und Hydraulikantrieb.
+";"SERV1
+";"ab 0.23
+";Drive unit and hydraulic drive disabled;Release accelerator;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN14_TX_91
+";;;;;;;;;;;;;;;;;;;;;
+84;"TN14 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"69
+";"A
+";;A3969;"0
+";Card reader communication error;SR cannot receive PDOs on time;"CANopen-PDO-Wd TN14 RX (SR<-KLS)
+Bei Variante Fleetmanager-Zugangskontrolle erfolgt keine Freigabe von
+Fahr- und Hydraulikantrieb.
+";"SERV1
+";"ab 0.23
+";Drive unit and hydraulic drive disabled;Release accelerator;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN14_RX_92
+";;;;;;;;;;;;;;;;;;;;;
+55;"TN15 Anmeldefehler
+";"39
+";"72
+";"A
+";;A3972;"16
+";Acceleration sensor login error;No communication with CAN;"CANopen Anmeldung TN15 (CANS)
+";"SERV1
+";"ab ?.??
+";;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN15_Anm_63
+";;;;;;;;;;;;;;;;;;;;;
+85;"TN15 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"73
+";"A
+";;A3973;"0
+";Acceleration sensor communication error;SR cannot send PDOs on time;"CANopen-PDO-Wd TN15 TX (SR->CANS)
+";"SERV1
+";"ab 0.23
+";;Release accelerator;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN15_TX_93
+";;;;;;;;;;;;;;;;;;;;;
+86;"TN15 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"74
+";"A
+";;A3974;"0
+";Acceleration sensor communication error;SR cannot receive PDOs on time;"CANopen-PDO-Wd TN15 RX (SR<-CANS)
+";"SERV1
+";"ab 0.23
+";;Release accelerator;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN15_RX_94
+";;;;;;;;;;;;;;;;;;;;;
+56;"TN16 Anmeldefehler
+";"39
+";"77
+";"A
+";;A3977;"16
+";DFÜ login error (remote data transfer);No communication with DFÜ component;"CANopen Anmeldung TN16 (MOK)
+";"SERV1
+";"ab ?.??
+";;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN16_Anm_64
+";;;;;;;;;;;;;;;;;;;;;
+87;"TN16 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"78
+";"A
+";;A3978;"0
+";DFÜ (remote data transfer) communication error;SR cannot send PDOs on time;"nicht verwendet
+";"SERV1
+";"ab ?.??
+";;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN16_TX_95
+";;;;;;;;;;;;;;;;;;;;;
+88;"TN16 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"79
+";"A
+";;A3979;"0
+";DFÜ (remote data transfer) communication error;SR cannot receive PDOs on time;"nicht verwendet
+";"SERV1
+";"ab ?.??
+";;Automatically if error is rectified;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN16_RX_96
+";;;;;;;;;;;;;;;;;;;;;
+112;"TN17 Anmeldefehler
+";"39
+";"82
+";"A
+";;A3982;"0
+";RFID login error;No communication with RFID;"CANopen Anmeldung TN17 (RFID)
+";"SERV1
+";"ab 0.72
+";Parameterisable: Limit hydraulics and/or speed;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN17_Anm_120
+";;;;;;;;;;;;;;;;;;;;;
+113;"TN17 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"83
+";"A
+";;A3983;"0
+";RFID communication error;SR cannot send PDOs on time;"CANopen-PDO-Wd TN17 TX(SR->RFID)
+";"SERV1
+";"ab 0.72
+";Parameterisable: Limit hydraulics and/or speed;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN17_TX_121
+";;;;;;;;;;;;;;;;;;;;;
+114;"TN17 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"84
+";"A
+";;A3984;"0
+";RFID communication error;SR cannot receive PDOs on time;"CANopen-PDO-Wd TN17 RX (SR<-RFID)
+";"SERV1
+";"ab 0.72
+";Parameterisable: Limit hydraulics and/or speed;Key switch;Check the CAN bus. Check SU for GND interruption. Flash the truck software. Replace MCU.;"We
+";"ERR_CMC_TN17_RX_122
+";;;;;;;;;;;;;;;;;;;;;
+116;"TN18 Anmeldefehler
+";"39
+";"87
+";"A
+";;A3987;"16
+";Electric parking brake login error;No communication with electric parking brake;"CANopen Anmeldung TN18 (ELF)
+";"SERV1
+";"ab 091
+";Drive unit is disabled;Key switch;Check CAN bus wiring;"We
+";"ERR_CMC_TN18_Anm_124
+";;;;;;;;;;;;;;;;;;;;;
+117;"TN18 PDO-WD: Ger. - TN (Sendef.)
+";"39
+";"88
+";"A
+";;A3988;"16
+";Communication with electric parking brake;SR cannot send PDOs on time;"CANopen-PDO-Wd TN18 TX(SR->ELF)
+";"SERV1
+";"ab 091
+";Truck will not drive, accelerator has no effect;Key switch;Check CAN bus wiring;"We
+";"ERR_CMC_TN18_TX_125
+";;;;;;;;;;;;;;;;;;;;;
+118;"TN18 PDO-WD: Ger. - TN (Empf.-F)
+";"39
+";"89
+";"A
+";;A3989;"16
+";Communication from electric parking brake;SR cannot receive PDOs on time;"CANopen-PDO-Wd TN18 RX (SR<-ELF)
+";"SERV1
+";"ab 091
+";Truck will not drive, accelerator has no effect;Key switch;Check CAN bus wiring;"We
+";"ERR_CMC_TN18_RX_126
+";;;;;;;;;;;;;;;;;;;;;
+167;"Eventgetrieben SDO-Anfrage 2
+";"39
+";"97
+";"A
+";"3997
+";A3997;"0
+";FU1 communication error;Error in SDO communication;"Interne Funktion
+";"SERV1
+";"0.07
+";;;Rectify cause in SDO communication;"FEE/MSch
+";"ERR_QUERY_SDO_TN2_179
+";;;;;;;;;;;;;;;;;;;;;
+168;"Eventgetrieben SDO-Anfrage 3
+";"39
+";"98
+";"A
+";"3998
+";A3998;"0
+";FU1 communication error;Error in SDO communication;"Interne Funktion
+";"SERV1
+";"0.08
+";;;Rectify cause in SDO communication;"FEE/MSch
+";"ERR_QUERY_SDO_TN4_180
+";;;;;;;;;;;;;;;;;;;;;
+179;"Fehler Lenksensor
+";"40
+";"10
+";"A
+";"4010
+";A4010;"0
+";Steering angle sensor error;Steering sensor signals outside of the permitted range;"Keine Lenkdrehzahlerfassung möglich
+";"NORM
+";"0.16
+";Truck will only drive in emergency operation;;Check wiring and replace sensor;"EE/MSch
+";"ERR_LSA_SENSOR_191
+";;;;;;;;;;;;;;;;;;;;;
+180;"Lenksensor Abriss Spur 1
+";"40
+";"12
+";"A
+";"4012
+";A4012;"0
+";Steering angle sensor breakdown;Cables severed;"nicht aktiv
+";"NORM
+";"0.16
+";Truck will only drive in emergency operation;;1.) Check wiring2.) Replace sensor;"EE/MSch
+";"ERR_LSA_ABRISS_SP1_192
+";;;;;;;;;;;;;;;;;;;;;
+181;"Lenksensor Abriss Spur 2
+";"40
+";"14
+";"A
+";"4014
+";A4014;"0
+";Steering angle sensor breakdown;Cables severed;"Keine Lenkdrehzahlerfassung möglich
+";"NORM
+";"0.16
+";Truck will only drive in emergency operation;;1.) Check wiring2.) Replace sensor;"EE/MSch
+";"ERR_LSA_ABRISS_SP2_193
+";;;;;;;;;;;;;;;;;;;;;
+184;"Lenksensor Plausibilitaet
+";"40
+";"16
+";"A
+";"4016
+";A4016;"0
+";Steering angle sensor plausibility error;1.) Sensor defective2.) Sensor incorrectly parameterised;"Keine Lenkdrehzahlerfassung möglich
+";"NORM
+";"0.16
+";Truck will only drive in emergency operation;;1.) Check sensor2.) Replace sensor;"EE/MSch
+";"ERR_LSA_PLAU_196
+";;;;;;;;;;;;;;;;;;;;;
+198;"Datenabgleich ist nicht aktiv
+";"42
+";"00
+";"A
+";;A4200;"0
+";PAN process not activated;PAN switched off via parameter.;"Parameterzugriff ueber ABE nicht moeglich.
+Keine korrekte Funktion beim Komponententausch.
+Parameterabgleich nicht moeglich, aber keine Einschraenkung der Fahrfunktionen
+";"SERV1
+";"ab 0.52
+";Parameter adjustment not possible but drive functions not restricted;;Activate PAN process;"AW,Shli,De
+";"ERR_PAN_OFF_212
+";;;;;;;;;;;;;;;;;;;;;
+212;"DatSet1 Zugr.-F Data/DataSets
+";"42
+";"02
+";"A
+";;A4202;"0
+";MCU - SU compatibility error;Unable to connect to relevant component. May be caused by communication error or incompatible component. May also be caused by faulty access to the EEprom.;"FZG-Parametersatz Zugriffsfehler
+Fehler kann in Verbindung mit CAN-Kommunikationsfehlern
+oder CANopen-Fehlern in Verbindung stehen.
+Bei erforderlichem Datenabgleich wird dieser nicht beendet und
+die Prozessfreigabe fuer Fahr- und Hydraulikantrieb nicht aktiviert.
+Bei einer Aenderung eines Parameters via Diagnosegeraet oder ABE ist
+keine Sicherung erfolgt, dabei kann die Prozessfreigabe fuer Fahr- und
+Hydraulikantrieb bis zum naechsten Reset eingeschaltet sein.
+Beim fehlerhaften Schreiben kann der Fahrantrieb und Hydraulikantrieb
+auch bleiben (hängt von der Fehlersituation ab).
+";"SERV1
+";"ab 0.03
+";Drive unit and hydraulic drive disabled;Key switch;Check the CAN bus. Flash the truck software. Replace MCU or SU.;"We,AW
+";"ERR_PAN_D1_Z_226
+";;;;;;;;;;;;;;;;;;;;;
+213;"DatSet1 kein aut. Abgl.<>DatSets
+";"42
+";"03
+";"A
+";;A4203;"16
+";MCU - SU compatibility error;Both datasets invalid (both devices installed as spare parts).;"FZG-Parametersatz
+Kein automatischer Abgleich moeglich.
+";"SERV1
+";"ab 0.03
+";No contactor activation;;Load original parameters. This will initiate the automatic alignment process after the next reset. Check the CAN bus. Flash the truck software. Replace MCU or ABE.;"We,AW
+";"ERR_PAN_D1_A_227
+";;;;;;;;;;;;;;;;;;;;;
+214;"DatSet2 Zugr.-F Data/DataSets
+";"42
+";"07
+";"A
+";;A4207;"0
+";MCU - ABE compatibility error;Unable to connect to relevant component. May be caused by communication error or incompatible component. May also be caused by faulty access to the EEprom.;"FZG-Kalibrier-Parametersatz Zugriffsfehler
+Fehler kann in Verbindung mit CAN-Kommunikationsfehlern
+oder CANopen-Fehlern in Verbindung stehen.
+Bei erforderlichem Datenabgleich wird dieser nicht beendet und
+die Prozessfreigabe fuer Fahr- und Hydraulikantrieb nicht aktiviert.
+Bei einer Aenderung eines Parameters via Diagnosegeraet oder ABE ist
+keine Sicherung erfolgt, dabei kann die Prozessfreigabe fuer Fahr- und
+Hydraulikantrieb bis zum naechsten Reset eingeschaltet sein.
+Beim fehlerhaften Schreiben kann der Fahrantrieb und Hydraulikantrieb
+auch bleiben (hängt von der Fehlersituation ab).
+";"SERV1
+";"ab 0.03
+";No contactor activation;Key switch;Check the CAN bus. Flash the truck software. Load original parameters. Replace MCU or SU.;"We,AW
+";"ERR_PAN_D2_Z_228
+";;;;;;;;;;;;;;;;;;;;;
+215;"DatSet2 kein aut. Abgl.<>DatSets
+";"42
+";"08
+";"A
+";;A4208;"16
+";MCU - ABE compatibility error;The MCU and the ABE datasets are both invalid. This occurs when both devices are reinstalled as spare parts.;"FZG-Kalibrier-Parametersatz
+Kein automatischer Abgleich moeglich.
+";"SERV1
+";"ab 0.03
+";No contactor activation;;Load original parameters. This will initiate the automatic alignment process after the next reset. Check the CAN bus. Flash the truck software. Replace MCU or ABE.;"We,AW
+";"ERR_PAN_D2_A_229
+";;;;;;;;;;;;;;;;;;;;;
+216;"DatSet3 Zugr.-F Data/DataSets
+";"42
+";"12
+";"A
+";;A4212;"0
+";MCU - FU1 compatibility error;Unable to connect to relevant component. May be caused by communication error or incompatible component. May also be caused by faulty access to the EEprom;"FZG-Kalibrier-Parametersatz Zugriffsfehler
+Fehler kann in Verbindung mit CAN-Kommunikationsfehlern
+oder CANopen-Fehlern in Verbindung stehen.
+Bei erforderlichem Datenabgleich wird dieser nicht beendet und
+die Prozessfreigabe fuer Fahr- und Hydraulikantrieb nicht aktiviert.
+Bei einer Aenderung eines Parameters via Diagnosegeraet oder ABE ist
+keine Sicherung erfolgt, dabei kann die Prozessfreigabe fuer Fahr- und
+Hydraulikantrieb bis zum naechsten Reset eingeschaltet sein.
+Beim fehlerhaften Schreiben kann der Fahrantrieb und Hydraulikantrieb
+auch bleiben (hängt von der Fehlersituation ab).
+";"SERV1
+";"ab 0.03
+";Drive unit and hydraulic drive disabled;Key switch;Check the CAN bus. Flash the truck software. Replace MCU or FU1.;"We,AW
+";"ERR_PAN_D3_Z_230
+";;;;;;;;;;;;;;;;;;;;;
+217;"DatSet3 kein aut. Abgl.<>DatSets
+";"42
+";"13
+";"A
+";;A4213;"0
+";MCU - FU1 compatibility error;The MCU datasets and the FU1 are both invalid. This occurs when both devices are reinstalled as spare parts.;"FZG-Kalibrier-Parametersatz
+Kein automatischer Abgleich moeglich.
+";"SERV1
+";"ab 0.03
+";Drive unit and hydraulic drive disabled;;Load original parameters. This will initiate the automatic alignment process after the next reset. Check the CAN bus. Flash the truck software. Replace MCU or FU1.;"We,AW
+";"ERR_PAN_D3_A_231
+";;;;;;;;;;;;;;;;;;;;;
+218;"DatSet4 Zugr.-F Data/DataSets
+";"42
+";"17
+";"A
+";;A4217;"0
+";MCU - FU2 compatibility error;Unable to connect to relevant component. May be caused by communication error or incompatible component. May also be caused by faulty access to the EEprom;"FZG-Kalibrier-Parametersatz Zugriffsfehler
+Fehler kann in Verbindung mit CAN-Kommunikationsfehlern
+oder CANopen-Fehlern in Verbindung stehen.
+Bei erforderlichem Datenabgleich wird dieser nicht beendet und
+die Prozessfreigabe fuer Fahr- und Hydraulikantrieb nicht aktiviert.
+Bei einer Aenderung eines Parameters via Diagnosegeraet oder ABE ist
+keine Sicherung erfolgt, dabei kann die Prozessfreigabe fuer Fahr- und
+Hydraulikantrieb bis zum naechsten Reset eingeschaltet sein.
+Beim fehlerhaften Schreiben kann der Fahrantrieb und Hydraulikantrieb
+auch bleiben (hängt von der Fehlersituation ab).
+";"SERV1
+";"ab 0.03
+";Drive unit and hydraulic drive disabled;Key switch;Check the CAN bus. Flash the truck software. Load original parameters. Replace MCU or FU2.;"We,AW
+";"ERR_PAN_D4_Z_232
+";;;;;;;;;;;;;;;;;;;;;
+219;"DatSet4 kein aut. Abgl.<>DatSets
+";"42
+";"18
+";"A
+";;A4218;"0
+";MCU - FU2 compatibility error;The MCU datasets and the FU2 are both invalid. This occurs when both devices are reinstalled as spare parts.;"FZG-Kalibrier-Parametersatz
+Kein automatischer Abgleich moeglich.
+";"SERV1
+";"ab 0.03
+";Drive unit and hydraulic drive disabled;;Load original parameters. This will initiate the automatic alignment process after the next reset. Check the CAN bus. Flash the truck software. Replace MCU or FU2.;"We,AW
+";"ERR_PAN_D4_A_233
+";;;;;;;;;;;;;;;;;;;;;
+220;"DatSet5 Zugr.-F Data/DataSets
+";"42
+";"22
+";"A
+";;A4222;"0
+";MCU - PU compatibility error;Unable to connect to relevant component. May be caused by communication error or incompatible component. May also be caused by faulty access to the EEprom;"FZG-Kalibrier-Parametersatz Zugriffsfehler
+Fehler kann in Verbindung mit CAN-Kommunikationsfehlern
+oder CANopen-Fehlern in Verbindung stehen.
+Bei erforderlichem Datenabgleich wird dieser nicht beendet und
+die Prozessfreigabe fuer Fahr- und Hydraulikantrieb nicht aktiviert.
+Bei einer Aenderung eines Parameters via Diagnosegeraet oder ABE ist
+keine Sicherung erfolgt, dabei kann die Prozessfreigabe fuer Fahr- und
+Hydraulikantrieb bis zum naechsten Reset eingeschaltet sein.
+Beim fehlerhaften Schreiben kann der Fahrantrieb und Hydraulikantrieb
+auch bleiben (hängt von der Fehlersituation ab).
+";"SERV1
+";"ab 0.03
+";Drive unit and hydraulic drive disabled;Key switch;Check the CAN bus. Flash the truck software. Load original parameters. Replace MCU or PU.;"We,AW
+";"ERR_PAN_D5_Z_234
+";;;;;;;;;;;;;;;;;;;;;
+221;"DatSet5 kein aut. Abgl.<>DatSets
+";"42
+";"23
+";"A
+";;A4223;"0
+";MCU - PU compatibility error;The MCU datasets and the FU2 are both invalid. This occurs when both devices are reinstalled as spare parts.;"FZG-Kalibrier-Parametersatz
+Kein automatischer Abgleich moeglich.
+";"SERV1
+";"ab 0.03
+";Drive unit and hydraulic drive disabled;;Load original parameters. This will initiate the automatic alignment process after the next reset. Check the CAN bus. Flash the truck software. Replace MCU or PU.;"We,AW
+";"ERR_PAN_D5_A_235
+";;;;;;;;;;;;;;;;;;;;;
+222;"DatSet6 Zugr.-F Data/DataSets
+";"42
+";"27
+";"A
+";;A4227;"0
+";MCU - ABE compatibility error;Unable to connect to relevant component. May be caused by communication error or incompatible component. May also be caused by faulty access to the EEprom;"ABE-Parametersatz Zugriffsfehler
+Fehler kann in Verbindung mit CAN-Kommunikationsfehlern
+oder CANopen-Fehlern in Verbindung stehen.
+";"SERV1
+";"ab 0.23
+";;Key switch;"Check CAN bus wiring (if the CAN driver and CANopen error are set) or check the MCU and ABE; replace if necessary";"We,AW
+";"ERR_PAN_D6_Z_236
+";;;;;;;;;;;;;;;;;;;;;
+223;"DatSet6 kein aut. Abgl.<>DatSets
+";"42
+";"28
+";"A
+";;A4228;"0
+";MCU - ABE compatibility error;Both datasets invalid (both devices installed as spare parts).;"ABE-Parametersatz
+Kein automatischer Abgleich moeglich.
+";"SERV1
+";"ab 0.23
+";;;Check the CAN bus. Flash the truck software. Replace MCU or ABE.;"We,AW
+";"ERR_PAN_D6_A_237
+";;;;;;;;;;;;;;;;;;;;;
+224;"DatSet7 Zugr.-F Data/DataSets
+";"42
+";"32
+";"A
+";;A4232;"0
+";MCU - SU compatibility error;Unable to connect to relevant component. May be caused by communication error or incompatible component. May also be caused by faulty access to the EEprom;"PV-Parametersatz Zugriffsfehler
+Fehler kann in Verbindung mit CAN-Kommunikationsfehlern
+oder CANopen-Fehlern in Verbindung stehen.
+Bei erforderlichem Datenabgleich wird dieser nicht beendet und
+die Prozessfreigabe fuer Hydraulikantrieb nicht aktiviert.
+Bei einer Aenderung eines Parameters via Diagnosegeraet oder ABE ist
+keine Sicherung erfolgt, dabei kann die Prozessfreigabe fuer
+Hydraulikantrieb bis zum naechsten Reset eingeschaltet sein.
+";"SERV1
+";"ab 0.23
+";Hydraulic drive is disabled;Key switch;"Check CAN bus wiring (if the CAN driver and CANopen error are set) or check the MCU and SU; replace if necessary";"We,AW
+";"ERR_PAN_D7_Z_238
+";;;;;;;;;;;;;;;;;;;;;
+225;"DatSet7 kein aut. Abgl.<>DatSets
+";"42
+";"33
+";"A
+";;A4233;"16
+";MCU - SU compatibility error;The MCU and the SU datasets are both invalid. This occurs when both devices are reinstalled as spare parts.;"PV-Parametersatz
+Kein automatischer Abgleich moeglich.
+";"SERV1
+";"ab 0.23
+";Hydraulic drive is disabled;;Load original parameters. This will initiate the automatic alignment process after the next reset. Check the CAN bus. Flash the truck software. Replace MCU or ABE.;"We,AW
+";"ERR_PAN_D7_A_239
+";;;;;;;;;;;;;;;;;;;;;
+229;"DatSet9 Zugr.-F Data/DataSets
+";"42
+";"42
+";"A
+";;A4242;"0
+";Parameter error in STILL identification code;Unable to connect to relevant component. May be caused by communication error or incompatible component. May also be caused by faulty access to the EEprom.;"SIC-Parametersatz Zugriffsfehler
+Fehler kann in Verbindung mit CAN-Kommunikationsfehlern
+oder CANopen-Fehlern in Verbindung stehen.
+Bei erforderlichem Datenabgleich wird dieser nicht beendet.
+Bei einer Aenderung eines Parameters via Diagnosegeraet oder ABE ist
+keine Sicherung erfolgt.
+";"SERV1
+";"ab 0.92
+";;Key switch;"Check CAN bus wiring (if the CAN driver and CANopen error are set) or check the MCU and ABE2; replace if necessary";"We,AW
+";"ERR_PAN_D9_Z_243
+";;;;;;;;;;;;;;;;;;;;;
+230;"DatSet9 kein aut. Abgl.<>DatSets
+";"42
+";"43
+";"A
+";;A4243;"16
+";PAN error in STILL identification code;Both datasets invalid (both devices installed as spare parts).;"SIC-Param. kein autom. Abgleich
+Defaultparameter werden verwendet, der Zugang via SIC kann fehlerhaft sein.
+";"SERV1
+";"ab 0.02
+";;Key switch;Check the CAN bus. Flash the truck software.;"We,AW
+";"ERR_PAN_D9_A_244
+";;;;;;;;;;;;;;;;;;;;;
+192;"Reset EEPROM-WrExt-Flag
+";"42
+";"80
+";"A
+";;A4280;"0
+";Internal MCU error;EEprom error;"Der automatische Parameterabgleich konnte einen Abgleich nicht abschließen.               
+Der automatische Parameterabgleich erkennt den Fehler und versucht diesen zu beheben.
+";"SERV1
+";"ab 0.59
+";;Key switch;Flash the truck software. Replace MCU.;"AW
+";"ERR_PAN_WREXT_206
+";;;;;;;;;;;;;;;;;;;;;
+186;"Fahrmotor(e) Uebertemp. Sammelf.
+";"50
+";"22
+";"A
+";;A5022;"0
+";Overtemperature in traction motor(s);Traction motor(s) too hot;"1. Phase: Abregelung von Beschleunigung und Geschwindigkeit
+2. Phase: Begrenzung des Phasenstromes im Umrichter (Notfahrfunktion bleibt erhalten)
+Das System ist so ausgelegt, dass i.d.R. nur die 1.Phase greift und
+die 2.Phase durch die Abregelung nicht erreicht wird.
+Meldetext: UEBERTEMPERATUR
+Fehler wird automatisch zurueckgenommen, sobald die Temperatur
+kleiner als die Grenze ist
+";"NORM
+";"ab 0.33
+";Drive unit power reduction;Automatically if error is rectified;Check traction motor(s), sensor system and wiring, replacing if necessary.;"We,MSch
+";"ERR_temp_fm_200
+";;;;;;;;;;;;;;;;;;;;;
+204;"PM1: Temp.-Mess. Sammelf.
+";"50
+";"31
+";"A
+";;A5031;"0
+";Pump motor temperature error;Measured value outside range;"z.B. bei Abriss oder Kurzschluss
+Meldetext: ANTRIEB
+";"NORM
+";"ab 0.33
+";;Automatically if error is rectified;Check sensor system and wiring, replacing if necessary.;"We
+";"ERR_tempsen_hm_218
+";;;;;;;;;;;;;;;;;;;;;
+187;"PM1: Uebertemp.
+";"50
+";"34
+";"A
+";;A5034;"0
+";Pump motor overtemperature;Motor is too hot;"Uebertemperatur Pumpenmotor
+Meldetext: UEBERTEMPERATUR
+";"NORM
+";"0.33
+";Limitation of phase current in converter (emergency hydraulic function is retained);The error code automatically disappears once the temperature is lower than the limit.;Check pump motor, sensor system and wiring, replacing if necessary.;"We
+";"ERR_temp_hm_201
+";;;;;;;;;;;;;;;;;;;;;
+202;"FM1: Temp.-Mess. Sammelf.
+";"50
+";"41
+";"A
+";;A5041;"0
+";Traction motor 1 (right) temperature error;Measured value outside range;"z.B. bei Abriss oder Kurzschluss
+Meldetext: ANTRIEB
+";"NORM
+";"ab 0.33
+";;Automatically if error is rectified;Check sensor system and wiring, replacing if necessary.;"We
+";"ERR_tempsen_fm1_216
+";;;;;;;;;;;;;;;;;;;;;
+206;"FM2: Temp.-Mess. Sammelf.
+";"50
+";"46
+";"A
+";;A5046;"0
+";Traction motor 2 (left) temperature error;Measured value outside range;"z.B. bei Abriss oder Kurzschluss
+Meldetext: ANTRIEB
+";"NORM
+";"ab 0.33
+";;Automatically if error is rectified;Check sensor system and wiring, replacing if necessary.;"We
+";"ERR_tempsen_fm2_220
+";;;;;;;;;;;;;;;;;;;;;
+189;"Uebertemp. Sammelf.
+";"53
+";"00
+";"A
+";;A5300;"0
+";Overtemperature in traction converter 1 or 2;Converter is too hot;"Ist Sammelfehler für Fahrumrichter 1 und 2 bei 2-Motorenantrieb.
+Meldetext: UEBERTEMPERATUR
+";"NORM
+";"0.33
+";1st phase: regulation of acceleration and speed2nd phase: limitation of the phase current in the converter (emergency hydraulic function is retained) (see temperature monitoring);Automatically if error is rectified;Check traction converter, sensor system and wiring, replacing if necessary.;"We
+";"ERR_temp_fu_203
+";;;;;;;;;;;;;;;;;;;;;
+203;"St.-Ger1: Stl.Tmp.-Mes. Sammelf.
+";"53
+";"01
+";"A
+";;A5301;"0
+";FU1 temperature error;Measured value outside range;"Temperatursensorfehler FU 1
+z.B. bei Abriss oder Kurzschluss
+Meldetext: ANTRIEB
+";"NORM
+";"ab 0.33
+";;Automatically if error is rectified;Check sensor system and wiring, replacing if necessary.;"We
+";"ERR_tempsen_fu1_217
+";;;;;;;;;;;;;;;;;;;;;
+196;"St.-Ger2: Stl.Tmp.-Mes. Sammelf.
+";"53
+";"31
+";"A
+";;A5331;"0
+";FU2 temperature error;Measured value outside range;"Temperatursensorfehler FU 2
+z.B. bei Abriss oder Kurzschluss
+Meldetext: ANTRIEB
+";"NORM
+";"ab 0.32
+";;;Check sensor system and wiring, replacing if necessary.;"We
+";"ERR_tempsen_fu2_210
+";;;;;;;;;;;;;;;;;;;;;
+205;"St.-Ger3: Stl.Tmp.-Mes. Sammelf.
+";"53
+";"61
+";"A
+";;A5361;"0
+";PU temperature error;Measured value outside range;"Temperatursensorfehler PU
+z.B. bei Abriss oder Kurzschluss
+Meldetext: ANTRIEB
+";"NORM
+";"ab 0.33
+";;Automatically if error is rectified;Check sensor system and wiring, replacing if necessary.;"We
+";"ERR_tempsen_hu_219
+";;;;;;;;;;;;;;;;;;;;;
+190;"St.-Ger.3: Uebertemp.
+";"53
+";"64
+";"A
+";;A5364;"0
+";PU overtemperature;Converter is too hot;"Uebertemperatur Pumpenumrichter
+Meldetext: UEBERTEMPERATUR
+";"NORM
+";"0.33
+";Limitation of phase current in converter (emergency hydraulic function is retained);Automatically if error is rectified;Check pump converter, sensor system and wiring, replacing if necessary.;"We
+";"ERR_temp_hu_204
+";;;;;;;;;;;;;;;;;;;;;
+169;"Drehzahlsensor
+";"54
+";"80
+";"A
+";"5480
+";A5480;"0
+";Rev sensor error;Sensor has broken down or is defective;"
+";"NORM
+";"0.16
+";Truck can only be driven at emergency mode speed;;Check sensor and wiring;"FEE/MSch
+";"ERR_DREHZAHLABRISS_FA_181
+";;;;;;;;;;;;;;;;;;;;;
+183;"Batt.Auszg.: Stuetzrolle
+";"59
+";"10
+";"A
+";;A5910;"16
+";Support roller battery carrier;Battery carrier: Support roller does not extend;"Nur noch Einfahren moeglich. kein Ausfahren moeglich
+Meldetext: BATTERIEAUSZUG
+";"NORM
+";"ab 0.67
+";Drive unit is disabled;Automatically if error is rectified;Check mechanism, sensors and wiring, replacing if necessary. Check parameterising.;"AW
+";"ERR_BAV_STUETZ_197
+";;;;;;;;;;;;;;;;;;;;;
+191;"Batt.Auszg.: Stzrolle n. eingef.
+";"59
+";"11
+";"A
+";;A5911;"16
+";Support roller battery carrier not retracted;Potentiometer value exceeds retract threshold when battery door closed;"verschiedene Fehlerursachen
+1. fehlerhafte Kalibrierung
+2. mechanisches Problem
+";"NORM
+";"ab 0.90
+";Truck can only be driven at emergency mode speed;Automatically if error is rectified;Calibration, check battery carrier mechanics;"AW
+";"ERR_BAV_STUETZ_FA_205
+";;;;;;;;;;;;;;;;;;;;;
+184;"Batt.Auszg.: Motorschutz aktiv
+";"59
+";"20
+";"A
+";;A5920;"0
+";Motor protection battery carrier;Battery carrier: Timeout detected during motor activation;"vereint zwei Fehlerursachen
+1. Kurzzeitschutz: Maximaldauer für das Ausfahren der Batterie oder
+für das Einfahren der Batterie wurden überschritten
+2. Langzeitschutz: Motor war in Summe zu lange aktiv
+";"NORM
+";"ab 0.67
+";Motor lockedPlain text error: BATTERY CARRIER;Short-term protection by driving in the opposite direction;Long-term protection by allowing waiting period to elapse (one retraction possible after switching on);"AW
+";"ERR_BAV_MOTSCHUTZ_198
+";;;;;;;;;;;;;;;;;;;;;
+185;"Batt.Auszg.: Tastenfehler
+";"59
+";"30
+";"A
+";;A5930;"0
+";Battery carrier button;Battery carrier: short circuit detected in push button;"vereint zwei Fehlerursachen
+1. im Hochlauf: mind. ein Eingang kurzgeschlossen
+2. im laufenden Betrieb: gleichzeitige Betätigung bzw.
+Kurzschluss beider Tasteneingänge
+(kann auch durch Fehlbedienung entstehen)
+";"NORM
+";"ab 0.67
+";Motor lockedPlain text error: BATTERY CARRIER;Release buttons;Check button, sensor system and wiring, replacing if necessary.;"AW
+";"ERR_BAV_TASTPLAUS_199
+";;;;;;;;;;;;;;;;;;;;;
+182;"Batt.Auszg.: Plausib. Poti
+";"59
+";"31
+";"A
+";;A5931;"16
+";Battery carrier process error;Battery carrier: Potentiometer voltages do not match.;"kein Ausfahren moeglich, Fahrantrieb ist gesperrt.
+Meldetext: BATTERIEAUSZUG
+";"NORM
+";"ab 0.75
+";Drive unit is disabled;Automatically if error is rectified;Check sensor system and wiring, replacing if necessary.;"AW
+";"ERR_BAV_POTIPLAUS_196
+";;;;;;;;;;;;;;;;;;;;;
+151;"RTC-Pufferbatterie entladen
+";"60
+";"05
+";"A
+";"6005
+";A6005;"0
+";MCU buffer battery error;MCU2 internal buffer battery is discharged;"
+";"SERV1
+";"ab 0.04
+";;Reset;"Change buffer battery when truck is switched on; set time if necessary";"EE/JS
+";"ERR_rtc_battery_low_161
+";;;;;;;;;;;;;;;;;;;;;
+231;"RFID: Allgemeiner Sammelfehler
+";"60
+";"20
+";"A
+";;A6020;"0
+";RFID: General collective fault;Error has occurred in the RFID module;"
+";"NORM
+";"ab 0.80
+";Truck can only be driven at emergency mode speed;Key switch;Read out further errors with exact description;"De
+";"ERR_RFID_AE_245
+";;;;;;;;;;;;;;;;;;;;;
+232;"RFID: Abriss zur Antenne
+";"60
+";"30
+";"A
+";;A6030;"0
+";RFID: Breakage to antenna;A breakage in the wire to the antenna was detected;"
+";"SERV1
+";"ab 0.82
+";Truck can only be driven at emergency mode speed;Key switch;Check wire to antenna, check input configuration;"De
+";"ERR_RFID_ANT_ABRISS_246
+";;;;;;;;;;;;;;;;;;;;;
+239;"FleetManager-Server Timeout
+";"64
+";"52
+";"A
+";;A6452;"0
+";FleetManager server timeout;FleetManager server is not responding within the timeout period. Set to error after 3rd unsuccessful attempt.;"Keine DFÜ-Kommunikation.
+";"SERV1
+";"ab 1.00
+";;Automatically if error is rectified;Have communication server and FleetManager server checked to ensure they are functioning correctly.;"Vo, ReS
+";"ERR_BDD_RemoteTimeout_253
+";;;;;;;;;;;;;;;;;;;;;
+367;"TDM Fehler in Drivertable
+";"64
+";"60
+";"A
+";;A6460;"0
+";TDM error in Driver Table;The Driver Table file is defective.- CRC sum.- Truck serial number does not match.- No drivers.;"Fahrzeug wird ohne Zugangsmedium freigegeben
+";"SERV1
+";"ab 1.14
+";;;Load new Driver Table file. See FleetManager documentation;"EIL/Vo
+";"ERR_TDM_DRVTAB_480
+";;;;;;;;;;;;;;;;;;;;;
+368;"TDM EEProm schreiben
+";"64
+";"61
+";"A
+";;A6461;"0
+";TDM EEprom writing;Failed to write TDM EEprom parameters.;"Unbestimmtes Fehlverhalten der TDM-Funktionen
+";"SERV1
+";"ab 1.14
+";;;;"EIL/Vo
+";"ERR_TDM_CFG_481
+";;;;;;;;;;;;;;;;;;;;;
+369;"TDM Datenverlust DFUE Hauptsp.
+";"64
+";"62
+";"A
+";;A6462;"0
+";DFÜ data loss in TDM main memory;1. TDM main memory overflow.- Not all data could be sent via DFÜ. The oldest data was discarded.2. The internal memory management is in disarray.- All data to be transmitted via DFÜ is deleted.;"
+";"SERV1
+";"ab 1.14
+";;;Check MCU buffer battery.;"EIL/Vo
+";"ERR_TDM_DATALOST_DFUE_482
+";;;;;;;;;;;;;;;;;;;;;
+370;"TDM Datenverlust FMID Hauptsp.
+";"64
+";"63
+";"A
+";;A6463;"0
+";FMID data loss in TDM main memory;1. TDM main memory overflow.- Not all data could be sent to the FMID. The oldest data was discarded.2. The internal memory management is in disarray.- All data to be transferred to the FMID is deleted.;"
+";"SERV1
+";"ab 1.14
+";;;Check MCU buffer battery.;"EIL/Vo
+";"ERR_TDM_DATALOST_FMID_483
+";;;;;;;;;;;;;;;;;;;;;
+371;"TDM Datenverlust Prio-Speicher
+";"64
+";"64
+";"A
+";;A6464;"0
+";Data loss in TDM priority memory;1. TDM priority memory overflow.Not all data could be sent via DFÜ. The oldest data was discarded.2. The internal memory management is in disarray.- All data to be transmitted via DFÜ is deleted.;"
+";"SERV1
+";"ab 1.14
+";;;Check MCU buffer battery.;"EIL/Vo
+";"ERR_TDM_DATALOST_PRIO_484
+";;;;;;;;;;;;;;;;;;;;;
+39;"Einbindung EBG in Elektr. Anlage
+";"65
+";"20
+";"A
+";;A6520;"16
+";Integration of electrical handbrake in electrical system;MCU cannot establish CAN communication with ELF, or communication is cut off;"Der Fehler wird gesetzt, wenn A3987 oder A3988 oder A3989 gesetzt wird.
+";"NORM
+";"0.92
+";Truck will not drive, accelerator has no effect;Key switch;Check wiring, check function of ELF control unit;"We, HR
+";"ERR_ELF_Komm_47
+";;;;;;;;;;;;;;;;;;;;;
+372;"Fatal Error Umrichter D
+";"66
+";"10
+";"A
+";;A6610;"16
+";Fatal error in converter D;The converter reports a fatal error;"
+";"SERV1
+";"ab 1.10
+";Drive unit is locked, no drive function;Key switch;"Check converter; replace if necessary";"R+T/sl
+";"ERR_FatalErrFU1_486
+";;;;;;;;;;;;;;;;;;;;;
+373;"Fatal Error Umrichter E
+";"66
+";"11
+";"A
+";;A6611;"16
+";Fatal error in converter E;The converter reports a fatal error;"
+";"SERV1
+";"ab 1.10
+";Drive unit is locked, no drive function;Key switch;"Check converter; replace if necessary";"R+T/sl
+";"ERR_FatalErrFU2_487
+";;;;;;;;;;;;;;;;;;;;;
+374;"Fatal Error Umrichter F
+";"66
+";"12
+";"A
+";;A6612;"16
+";Fatal error in converter F;The converter reports a fatal error;"
+";"SERV1
+";"ab 1.10
+";Drive unit and hydraulic drive disabled;Key switch;"Check converter; replace if necessary";"R+T/sl
+";"ERR_FatalErrPU_488
+";;;;;;;;;;;;;;;;;;;;;
