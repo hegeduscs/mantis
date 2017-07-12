@@ -1,0 +1,8 @@
+vorne
+vorn
+antriebsreif
+antriebsachse
+antriebsachs
+antriebsachsreif
+antriebsrad
+vorderachse
