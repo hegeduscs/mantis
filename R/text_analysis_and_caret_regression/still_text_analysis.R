@@ -25,8 +25,8 @@ service.reports$service_comments <- with(service.reports, ifelse(is.na(technisch
                                        paste(technischer.Hinweis, interne.Bemerkung, sep = " | "))))
 
 #filter for only the columns with potentially useful information to us
-service.reports <- service.reports %>% dplyr::select(Serialnummer, BauJ, BewArt, Ort, service_comments, Beginn, Ende)
-names(service.reports) <- c("serial_number", "year_of_production", "service_type", "city_of_usage", "service_comments", 
+service.reports <- service.reports %>% dplyr::select(Serialnummer, BauJ, BewArt, Name.1, Ort, service_comments, Beginn, Ende)
+names(service.reports) <- c("serial_number", "year_of_production", "service_type", "client_name", "city_of_usage", "service_comments", 
                             "start_of_service", "end_of_service")
 
 #fixing data types
@@ -179,6 +179,7 @@ service.reports <- cbind(service.reports, sr.tokens.df[, (ncol(sr.tokens.df) - 3
 
 tire.reports <- filter(service.reports, TIRE > 0) %>% filter(!is.na(start_of_service))
 write(tire.reports$service_comments, file = "text_analys/tire_report_comments.txt")
+write.csv2(tire.reports[c(36, 105),], file = "text_analys/questionable_cases.csv")
 tire.replace.reports <- filter(service.reports, TIRE > 0 & REPLACE > 0) %>% filter(!is.na(start_of_service))
 write(tire.replace.reports$service_comments, file = "text_analys/tire_replace_report_comments.txt")
 
@@ -229,7 +230,7 @@ for(i in 1:nrow(tire.reports)){
   tire.reports$fleetmanager_first_date[i] = truck.date$fleetmanager_first_date
   tire.reports$fleetmanager_last_date[i] = truck.date$fleetmanager_last_date
 }
-tire.reports <- tire.reports %>% mutate(service_report_covered = ifelse(fleetmanager_first_date <= start_of_service, 1, 0))
+tire.reports <- tire.reports %>% mutate(service_report_covered = ifelse(fleetmanager_first_date <= end_of_service, 1, 0))
 sum(tire.reports$service_report_covered) #only 55 services have fleetmanager data prior to the servicing :(
 
 # tire.reports$start_of_service <- as.Date(tire.reports$start_of_service)
@@ -260,7 +261,9 @@ filtered.tire.reports$tire_usage_start_date <- as.POSIXct(1:nrow(filtered.tire.r
 for(i in 1:nrow(filtered.tire.reports)){
   truck.sr.list <- tire.reports %>% filter(serial_number == filtered.tire.reports$serial_number[i]) %>% 
     filter(start_of_service < filtered.tire.reports$start_of_service[i]) %>% arrange(start_of_service)
-   filtered.tire.reports$tire_usage_start_date[i] <- as.POSIXct(ifelse(nrow(truck.sr.list) > 0, truck.sr.list$start_of_service[nrow(truck.sr.list)], NA), origin = "1970-01-01")
+  
+   filtered.tire.reports$tire_usage_start_date[i] <- as.POSIXct(ifelse(nrow(truck.sr.list) > 0, truck.sr.list$end_of_service[nrow(truck.sr.list)], NA), origin = "1970-01-01")
+   
    if(is.na(filtered.tire.reports$tire_usage_start_date[i]) & filtered.tire.reports$start_of_service[i] >= filtered.tire.reports$fleetmanager_first_date[i]){
      filtered.tire.reports$tire_usage_start_date[i] <- filtered.tire.reports$fleetmanager_first_date[i]
      filtered.tire.reports$imputed_usage_start[i] <- TRUE
@@ -269,13 +272,13 @@ for(i in 1:nrow(filtered.tire.reports)){
      filtered.tire.reports$imputed_usage_start[i] <- FALSE
    }
 }
-filtered.tire.reports <- filtered.tire.reports %>% mutate(days_passed = as.numeric(start_of_service - tire_usage_start_date))
+filtered.tire.reports <- filtered.tire.reports %>% mutate(days_passed = as.numeric(end_of_service - tire_usage_start_date))
 summary(filtered.tire.reports$days_passed)
 table(filtered.tire.reports$imputed_usage_start)
 
 for(i in 1:nrow(filtered.tire.reports)){
   truck.fm <- fleetmanager.df %>% filter(identifier == filtered.tire.reports$serial_number[i])
-  truck.fm.interval <- truck.fm %>% filter(timestamp >= filtered.tire.reports$tire_usage_start_date[i] & timestamp <= filtered.tire.reports$start_of_service[i])
+  truck.fm.interval <- truck.fm %>% filter(timestamp >= filtered.tire.reports$tire_usage_start_date[i] & timestamp <= filtered.tire.reports$end_of_service[i])
   filtered.tire.reports$service_report_with_1000_fm_entry[i] <- ifelse(nrow(truck.fm.interval) > 1000, 1, 0)
 }
 sum(filtered.tire.reports$service_report_with_1000_fm_entry) #39, but 15 with usage_start_date imputed :(
@@ -287,3 +290,8 @@ sr.imputed <- filtered.tire.reports %>% filter(imputed_usage_start == TRUE) #day
 sr.not.covered <- filter(filtered.tire.reports, service_report_covered == 0 | service_report_with_1000_fm_entry == 0)
 sr.not.covered$start_of_service <- format(sr.not.covered$start_of_service, format="%Y")
 table(sr.not.covered$start_of_service) #2013 - 23, 2014 - 46, 2015 - 12, 2016 - 8
+
+#making a dataframe for Ansgar
+ansgar.df <- service.reports %>% select(serial_number, client_name, city_of_usage) %>% distinct()
+write.csv2(ansgar.df, file = "text_analys/truck_client_city.csv", row.names = FALSE)
+write.csv2(filtered.tire.reports, file = "text_analys/Tire_RUL_service_reports.csv", row.names = FALSE)
