@@ -22,7 +22,7 @@ for(file_name in list.files())
 filename = "800hTestDrive_fast.mat"
 
 #container make
-for()
+for(i in )
   
 temp_list = readMat(filename)
 #glimpse(temp_list)
