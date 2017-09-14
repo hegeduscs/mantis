@@ -18,10 +18,10 @@ for(file_name_i in list.files()){
   #   ,digits = 2
   # )+1)*100)
   print(round(
-              min(
-                  temp_file$Druck.Hubwerk..................................................[,1]
-                  )
-                  ,digits = 2
-              )
-        )
+    min(
+      temp_file$Druck.Hubwerk..................................................[,1]
+    )
+    ,digits = 2
+  )
+  )
 }

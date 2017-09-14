@@ -3,6 +3,7 @@ library(R.matlab)
 library(dplyr)
 library(purrr)
 library(plyr)
+library(lubridate)
 
 #where the files to be boxshorted
 setwd("/home/vasy/RStudioProjects/still_github/RStudio_wd_Can_fp/")
@@ -31,13 +32,13 @@ for(file_name_i in wd_filenames)
   
   #all timestamp possibilites for boxshort (max calculated /file)
   fp_df = data.frame(
-                      0:(round(
-                              max(
-                                  temp_list$Druck.Hubwerk..................................................[,1]
-                                  )
-                              ,digits = 2
-                              )+1)*100 
-                     )
+    0:(round(
+      max(
+        temp_list$Druck.Hubwerk..................................................[,1]
+      )
+      ,digits = 2
+    )+1)*100 
+  )
   names(fp_df) = "ID_count"
   fp_df = mutate(fp_df, time_id = 0 + ID_count * 0.01)
   
@@ -122,11 +123,17 @@ for(file_name_i in wd_filenames)
                           is.na(Torque_Drivemotor_1[Nm]))
   )
   
+  #interpolation
+  
+  #TODO see interpolation file
+  
   #date, time convert with lubridate separeted  (time_ID leave separated, with the lubridate package it can be merged)
+  
+  #TODO lubridate package
   
   #save in export location
   write.csv(fp_df,file=paste(export_location,file_name_i,".csv", sep=""))
-
+  
 }
 
 #a tanszéki PAKS3-mon lefuttatom
