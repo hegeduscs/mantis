@@ -1,11 +1,13 @@
 #Still CAN fingerprint 10m experiments - Vass Bence
 library(R.matlab)
-library(dyplr)
+library(dplyr)
 library(purrr)
 library(plyr)
 
-setwd("/home/vasy/RStudioProjects/STILL_CAN_fp_10m_exp/RStudio_wd_Can_fp")
+#where the files to be boxshorted
+setwd("/home/vasy/RStudioProjects/still_github/RStudio_wd_Can_fp/")
 
+export_location="/home/vasy/RStudioProjects/still_github/cleaned_files/"
 
 #Cut of ".mat" for classification categories
 wd_filenames = list.files()
@@ -23,13 +25,19 @@ for(file_name in list.files())
 for(file_name_i in wd_filenames)
 {
   
-  temp_list = readMat(paste(file_name_i,".mat"))
+  temp_list = readMat(paste(file_name_i,".mat",sep=""))
   #glimpse(temp_list)
   print(names(temp_list))
   
-  #TODO make file lenght calculated!!!
-  #all timestamp possibilites
-  fp_df = data.frame(0:1102200)
+  #all timestamp possibilites for boxshort (max calculated /file)
+  fp_df = data.frame(
+                      0:(round(
+                              max(
+                                  temp_list$Druck.Hubwerk..................................................[,1]
+                                  )
+                              ,digits = 2
+                              )+1)*100 
+                     )
   names(fp_df) = "ID_count"
   fp_df = mutate(fp_df, time_id = 0 + ID_count * 0.01)
   
@@ -115,8 +123,7 @@ for(file_name_i in wd_filenames)
   )
   
   #összevonom az időt egy oszloppá
-  
-  write.csv(fp_df,file=paste(file_name_i,".csv"))
+  write.csv(fp_df,file=paste(export_location,file_name_i,".csv", sep=""))
 
 }
 
