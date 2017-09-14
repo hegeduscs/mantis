@@ -122,7 +122,9 @@ for(file_name_i in wd_filenames)
                           is.na(Torque_Drivemotor_1[Nm]))
   )
   
-  #összevonom az időt egy oszloppá
+  #date, time convert with lubridate separeted  (time_ID leave separated, with the lubridate package it can be merged)
+  
+  #save in export location
   write.csv(fp_df,file=paste(export_location,file_name_i,".csv", sep=""))
 
 }

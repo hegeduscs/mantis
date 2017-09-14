@@ -11,10 +11,17 @@ for(file_name_i in list.files()){
   temp_file = readMat(file_name_i)
   #print(head(temp_file$Druck.Hubwerk..................................................))
   #print(tail(temp_file$Druck.Hubwerk..................................................))
-  print((round(
-    max(
-      temp_file$Druck.Hubwerk..................................................[,1]
-    )
-    ,digits = 2
-  )+1)*100)
+  # print((round(
+  #   max(
+  #     temp_file$Druck.Hubwerk..................................................[,1]
+  #   )
+  #   ,digits = 2
+  # )+1)*100)
+  print(round(
+              min(
+                  temp_file$Druck.Hubwerk..................................................[,1]
+                  )
+                  ,digits = 2
+              )
+        )
 }
