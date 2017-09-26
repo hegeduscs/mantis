@@ -39,8 +39,9 @@ format(1.23,nsmall = 0)
 format(1.83,nsmall = 0)
 
 
+df_test_no_na = mutate(df_test_no_na,date = ymd(paste(A0.Jahr........................................................,A1.Monat.......................................................,A2.Tag.........................................................)))
 
 
-
+df_test_no_na = mutate(df_test_no_na,factor_test = factor("asd"))
 
 
