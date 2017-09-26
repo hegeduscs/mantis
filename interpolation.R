@@ -23,46 +23,22 @@ for(col in names(df_test))
   df_test[[col]][1] = df_test[[col]][min(which(!is.na(df_test[[col]])))]
   df_test[[col]][length(df_test[[col]])] = df_test[[col]][max(which(!is.na(df_test[[col]])))]
 }
-glimpse(df_test)
+#glimpse(df_test)
 
 #switch remaining NA-s to inperpolated values
 df_test_no_na = as.data.frame(na.approx(df_test))
-glimpse(df_test)
 
-#rounding?
+#glimpse(df_test)
 
-df_test = as.data.frame(read.csv("/home/vasy/RStudioProjects/still_github/cleaned_files/first_filtered_boxshort.csv"))
-glimpse(df_test)
-for(col in names(df_test))
-{
-  df_test[[col]][1] = df_test[[col]][min(which(!is.na(df_test[[col]])))]
-  df_test[[col]][length(df_test[[col]])] = df_test[[col]][max(which(!is.na(df_test[[col]])))]
-}
-glimpse(df_test)
+#correct time related values (no value after decimal needed)
+df_test_no_na = mutate(df_test_no_na,Second[s] = floor(Second[s]),Minute[m] = floor(Minute[m]),Hour[h] = floor(Hour[h]),Day[d] = floor(Day[d]),Month[mo] = floor(Month[mo]),Year[y] = floor(Year[y]))
+
+format(round(1.20, 5), nsmall = 0)
+
+format(1.23,nsmall = 0)
+format(1.83,nsmall = 0)
 
 
-df_no_na = as.data.frame(read.csv("/home/vasy/RStudioProjects/still_github/cleaned_files/first_filtered_boxshort.csv"))
-glimpse(df_no_na)
-
-df_no_na = as.data.frame(read.csv("/home/vasy/RStudioProjects/still_github/cleaned_files/first_filtered_boxshort.csv")) %>%
-  mutate(
-    ~{
-      .[1] = .[min(which(!is.na(.)))]
-      .[-1] = .[max(which(!is.na(.)))]
-    }) %>%
-  #na.approx() %>%
-  as.data.frame()
-
-glimpse(df_no_na)
-
-df_no_na = as.data.frame(read.csv("/home/vasy/RStudioProjects/still_github/cleaned_files/first_filtered_boxshort.csv")) %>%
-  map(
-    function(.){
-    print(.[-1])
-    }) %>%
-  as.data.frame(na.approx())
-
-glimpse(df_no_na)
 
 
 

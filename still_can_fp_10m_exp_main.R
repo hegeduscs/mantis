@@ -125,14 +125,28 @@ for(file_name_i in wd_filenames)
   
   #interpolation
   
-  #TODO see interpolation file
+  #look up first and last value for the interpolation
+  for(col in names(df_fp_tidy))
+  {
+    df_fp_tidy[[col]][1] = df_fp_tidy[[col]][min(which(!is.na(df_fp_tidy[[col]])))]
+    df_fp_tidy[[col]][length(df_fp_tidy[[col]])] = df_fp_tidy[[col]][max(which(!is.na(df_fp_tidy[[col]])))]
+  }
+  #glimpse(df_fp_tidy)
+  
+  #switch remaining NA-s to inperpolated values
+  df_fp_tidy_no_na = as.data.frame(na.approx(df_fp_tidy))
+  
+  #glimpse(df_fp_tidy)
+  
+  #correct time related values (no value after decimal needed)
+  df_fp_tidy_no_na = mutate(df_fp_tidy_no_na,Second[s] = floor(Second[s]),Minute[m] = floor(Minute[m]),Hour[h] = floor(Hour[h]),Day[d] = floor(Day[d]),Month[mo] = floor(Month[mo]),Year[y] = floor(Year[y]))
   
   #date, time convert with lubridate separeted  (time_ID leave separated, with the lubridate package it can be merged)
   
   #TODO lubridate package
   
   #save in export location
-  write.csv(fp_df,file=paste(export_location,file_name_i,".csv", sep=""))
+  write.csv(df_fp_tidy_no_na,file=paste(export_location,file_name_i,".csv", sep=""))
   
 }
 
