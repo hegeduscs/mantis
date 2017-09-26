@@ -4,6 +4,7 @@ library(dplyr)
 library(purrr)
 library(plyr)
 library(lubridate)
+library(zoo)
 
 #where the files to be boxshorted
 setwd("/home/vasy/RStudioProjects/still_github/RStudio_wd_Can_fp/")
