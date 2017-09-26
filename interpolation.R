@@ -27,6 +27,7 @@ print(class(na.approx(df_test)))
 
 df_test = map(df_test)
 
+
 #switch remaining NA-s to inperpolated values
 df_test_no_na = as.data.frame(na.approx(df_test))
 
