@@ -74,56 +74,56 @@ for(file_name_i in wd_filenames)
                  -starts_with("Thermo_01_K"))
   
   #name w_columns, short column names 
-  names(fp_df) = c("time_ID[s]",
-                   "Second[s]",
-                   "Minute[m]",
-                   "Hour[h]",
-                   "Day[d]",
-                   "Month[mo]",
-                   "Year[y]",
-                   "Speed_Steering_wheel[U/min]",
-                   "Steering_angle[angle]",
-                   "Speed_pump_motor[U/min]",
-                   "Torque_pump_motor[Nm]",
+  names(fp_df) = c("time_ID_s",
+                   "Second_s",
+                   "Minute_m",
+                   "Hour_h",
+                   "Day_d",
+                   "Month_mo",
+                   "Year_y",
+                   "Speed_Steering_wheel_U-min",
+                   "Steering_angle_angle",
+                   "Speed_pump_motor_U-min",
+                   "Torque_pump_motor_Nm",
                    "Crash_Z_0.01g",
                    "Crash_Y_0.01g",
                    "Crash_X_0.01g",
-                   "Pressure_Hydraulic_main_mast[bar]",
-                   "Lever_position_Add2[mV]_mV_base_4000mV",
-                   "Lever_position_Add1[mV]_mV_base_4000mV",
-                   "Lever_position_tilting[mV]_mV_base_4000mV",
-                   "Lever_position_lifting[mV]_mV_base_4000mV",
-                   "Speed_Drivemotor_2[U/min]",
-                   "Speed_Drivemotor_1[U/min]",
-                   "Torque_Drivemotor_2[Nm]",
-                   "Torque_Drivemotor_1[Nm]")
+                   "Pressure_Hydraulic_main_mast_bar",
+                   "Lever_position_Add2_mV_mV_base_4000mV",
+                   "Lever_position_Add1_mV_mV_base_4000mV",
+                   "Lever_position_tilting_mV_mV_base_4000mV",
+                   "Lever_position_lifting_mV_mV_base_4000mV",
+                   "Speed_Drivemotor_2_U-min",
+                   "Speed_Drivemotor_1_U-min",
+                   "Torque_Drivemotor_2_Nm",
+                   "Torque_Drivemotor_1_Nm")
   
   #filter out fully NA rows () reamainig of the boxshort
   df_fp_tidy = filter(fp_df,
-                      !(is.na(Second[s])&
-                          is.na(Minute[m])&
-                          is.na(Hour[h])&
-                          is.na(Day[d])&
-                          is.na(Month[mo])&
-                          is.na(Year[y])&
-                          is.na(Speed_Steering_wheel[U/min])&
-                          is.na(Steering_angle[angle])&
-                          is.na(Speed_pump_motor[U/min])&
-                          is.na(Torque_pump_motor[Nm])&
+                      !(is.na(Second_s)&
+                          is.na(Minute_m)&
+                          is.na(Hour_h)&
+                          is.na(Day_d)&
+                          is.na(Month_mo)&
+                          is.na(Year_y)&
+                          is.na(Speed_Steering_wheel_U-min)&
+                          is.na(Steering_angle_angle)&
+                          is.na(Speed_pump_motor_U-min)&
+                          is.na(Torque_pump_motor_Nm)&
                           is.na(Crash_Z_0.01g)&
                           is.na(Crash_Y_0.01g)&
                           is.na(Crash_X_0.01g)&
-                          is.na(Pressure_Hydraulic_main_mast[bar])&
+                          is.na(Pressure_Hydraulic_main_mast_bar)&
                           is.na(Lever_position_Add2_mV_base_4000mV)&
                           is.na(Lever_position_Add1_mV_base_4000mV)&
                           is.na(Lever_position_tilting_mV_base_4000mV)&
                           is.na(Lever_position_lifting_mV_base_4000mV)&
-                          is.na(Speed_Drivemotor_2[U/min])&
-                          is.na(Speed_Drivemotor_1[U/min])&
-                          is.na(Torque_Drivemotor_2[Nm])&
-                          is.na(Torque_Drivemotor_1[Nm]))
-  )
-  
+                          is.na(Speed_Drivemotor_2_U-min)&
+                          is.na(Speed_Drivemotor_1_U-min)&
+                          is.na(Torque_Drivemotor_2_Nm)&
+                          is.na(Torque_Drivemotor_1_Nm)
+                        )
+                      )
   #interpolation
   
   #look up first and last value for the interpolation
@@ -134,15 +134,26 @@ for(file_name_i in wd_filenames)
   }
   
   #switch remaining NA-s to inperpolated values
-  df_fp_tidy_no_na = df_fp_tidy %>%
-    na.approx() %>%
+  df_fp_tidy = df_fp_tidy %>%
+    na.approx(df_fp_tidy) %>%
     as.data.frame() %>%
   #correct time related values (no value after decimal needed)
-    mutate(Second[s] = floor(Second[s]),Minute[m] = floor(Minute[m]),Hour[h] = floor(Hour[h]),Day[d] = floor(Day[d]),Month[mo] = floor(Month[mo]),Year[y] = floor(Year[y])) %>%
+    mutate(
+      Second_s = floor(Second_s),
+      Minute_m = floor(Minute_m),
+      Hour_h = floor(Hour_h),
+      Day_d = floor(Day_d),
+      Month_mo = floor(Month_mo),
+      Year_y = floor(Year_y)) %>%
   #date time convert with lubridate separeted  (time_ID leave separated, with the lubridate package it can be merged)
-    mutate(date = ymd(paste(Year[y],Month[mo],Day[d])),time = hms(paste(Hour[h],Minute[m],Second[s]))) %>%
+    mutate(date = ymd(paste(Year_y,Month_mo,Day_d)),time = hms(paste(Hour_h,Minute_m,Second_s))) %>%
   #mutate fingerprint type
     mutate(fingerprint_type = factor(file_name_i))
+  
+  ########################################################################################
+  #TODO Error in while (abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row,  :    #
+  #missing value where TRUE/FALSE needed                                                 #  
+  ########################################################################################
   
   #save in export location
   write.csv(df_fp_tidy_no_na,file=paste(export_location,file_name_i,".csv"))
