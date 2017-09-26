@@ -22,7 +22,7 @@ for(file_name in list.files())
   print(file_name)
 }
 
-#container make #TODO!!!!!!!
+#loop through files in wd
 for(file_name_i in wd_filenames)
 {
   
