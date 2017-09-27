@@ -75,10 +75,11 @@ for(file_name_i in wd_filenames)
     names(fp_df) = gsub("temp_col",w_column,names(fp_df))
   }
   
+  #TODO before boxshort
   #drop meaningless values
   fp_df = select(fp_df,
-                 -Crash_Flag,
-                 -Crash_WD,
+                 -starts_with("Crash_Flag"),
+                 -starts_with("Crash_WD"),
                  -starts_with("Thermo_01_K"))
   
   #name w_columns, short column names 
@@ -157,11 +158,6 @@ for(file_name_i in wd_filenames)
     mutate(date = ymd(paste(Year_y,Month_mo,Day_d)),time = hms(paste(Hour_h,Minute_m,Second_s))) %>%
   #mutate fingerprint type
     mutate(fingerprint_type = factor(file_name_i))
-  
-  ########################################################################################
-  #TODO Error in while (abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row,  :    #
-  #missing value where TRUE/FALSE needed                                                 #  
-  ########################################################################################
   
   #save in export location
   write.csv(df_fp_tidy_no_na,file=paste(export_location,file_name_i,".csv"))
