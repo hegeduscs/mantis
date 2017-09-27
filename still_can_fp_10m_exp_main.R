@@ -7,9 +7,14 @@ library(lubridate)
 library(zoo)
 
 #where the files to be boxshorted
-setwd("/home/vasy/RStudioProjects/still_github/RStudio_wd_Can_fp/")
 
-export_location="/home/vasy/RStudioProjects/still_github/cleaned_files/"
+#PAKS3 (batman)
+setwd("/home/vassb/RStudio_wd_Can_fp/")
+export_location="/home/vassb/cleaned_files/"
+
+#PC
+#setwd("/home/vasy/RStudioProjects/still_github/RStudio_wd_Can_fp/")
+#export_location="/home/vasy/RStudioProjects/still_github/cleaned_files/"
 
 #Cut of ".mat" for classification categories
 wd_filenames = list.files()
