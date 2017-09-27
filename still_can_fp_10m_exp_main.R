@@ -14,54 +14,62 @@ export_location="/home/vasy/RStudioProjects/still_github/cleaned_files/"
 #Cut of ".mat" for classification categories
 wd_filenames = list.files()
 
-for(i in 1:length(wd_filenames))(
+for(i in 1:length(wd_filenames)){
   wd_filenames[i]=gsub(".mat","",c(wd_filenames[i]),fixed = TRUE)
-)
-
-for(file_name in list.files())
-{
-  print(file_name)
 }
+
+# for(file_name in list.files())
+# {
+#   print(file_name)
+# }
 
 #loop through files in wd
 for(file_name_i in wd_filenames)
 {
-  
+  print(file_name_i)
   temp_list = readMat(paste(file_name_i,".mat",sep=""))
   #glimpse(temp_list)
-  print(names(temp_list))
+  #print(names(temp_list))
   
   #all timestamp possibilites for boxshort (max calculated /file)
   fp_df = data.frame(
     0:(round(
       max(
         temp_list$Druck.Hubwerk..................................................[,1]
-      )
+      )*100
       ,digits = 2
-    )+1)*100 
+    )+1)
   )
   names(fp_df) = "ID_count"
   fp_df = mutate(fp_df, time_id = 0 + ID_count * 0.01)
   
   
   #box short all rows (in descending nrow order)
-  fp_i = 1
   for(w_column in names(temp_list))
   {
     print(w_column) #tested
     fp_i = 1
     #make new row in fp_df
     fp_df = mutate(fp_df, temp_col = as.numeric("NA"))
-    
+
     #boxshort one row (round the time in the temp)
-    for(row in 1:length(temp_list[[w_column]][,1]))
+    for(row in 1481:length(temp_list[[w_column]][,1]))
     {
+      # #debug
+      # print("row")
+      # print(row)
+      # print(fp_df$time_id[fp_i])
+      # print(round(temp_list[[w_column]][row, 1],digits = 2))
+      # print(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)))
+      # print(fp_i)
+            
+      #boxshort core      
       while(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)) > 0.005)
       {
         fp_i = fp_i + 1
       }
-      
-      fp_df$temp_col[fp_i] = temp_list[[w_column]][row, 2] 
+
+      fp_df$temp_col[fp_i] = temp_list[[w_column]][row, 2]
     }
     #rename temp_col to actual colname (df ready for the new mutate)
     names(fp_df) = gsub("temp_col",w_column,names(fp_df))
