@@ -1,5 +1,4 @@
 #Still CAN fingerprint 10m experiments - Vass Bence
-install.packages("R.matlab")
 library(R.matlab)
 library(dplyr)
 library(purrr)
