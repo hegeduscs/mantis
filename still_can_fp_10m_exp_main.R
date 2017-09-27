@@ -1,4 +1,5 @@
 #Still CAN fingerprint 10m experiments - Vass Bence
+install.packages("R.matlab")
 library(R.matlab)
 library(dplyr)
 library(purrr)
@@ -53,7 +54,7 @@ for(file_name_i in wd_filenames)
     fp_df = mutate(fp_df, temp_col = as.numeric("NA"))
 
     #boxshort one row (round the time in the temp)
-    for(row in 1481:length(temp_list[[w_column]][,1]))
+    for(row in 1:length(temp_list[[w_column]][,1]))
     {
       # #debug
       # print("row")
@@ -75,7 +76,7 @@ for(file_name_i in wd_filenames)
     names(fp_df) = gsub("temp_col",w_column,names(fp_df))
   }
   
-  #TODO before boxshort
+  #? before boxshort
   #drop meaningless values
   fp_df = select(fp_df,
                  -starts_with("Crash_Flag"),
