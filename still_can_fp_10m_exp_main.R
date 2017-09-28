@@ -31,20 +31,22 @@ for(i in 1:length(wd_filenames)){
 #loop through files in wd
 for(file_name_i in wd_filenames)
 {
-  print(file_name_i)
+  print(paste("file:",file_name_i))
   temp_list = readMat(paste(file_name_i,".mat",sep=""))
   #glimpse(temp_list)
   #print(names(temp_list))
   
   #all timestamp possibilites for boxshort (max calculated /file)
   fp_df = data.frame(
-    0:(round(
-      max(
-        temp_list$Druck.Hubwerk..................................................[,1]
-      )*100
-      ,digits = 2
-    )+1)
-  )
+                    0:(
+                      round(
+                            max(
+                                temp_list$Druck.Hubwerk..................................................[,1]
+                                )*100
+                            ,digits = 2
+                            )
+                    +1000)
+                  )
   names(fp_df) = "ID_count"
   fp_df = mutate(fp_df, time_id = 0 + ID_count * 0.01)
   
