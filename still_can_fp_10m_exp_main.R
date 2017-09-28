@@ -98,6 +98,7 @@ for(file_name_i in wd_filenames)
     #rename temp_col to actual colname (df ready for the new mutate)
     names(fp_df) = gsub("temp_col",w_column,names(fp_df))
   }
+  warnings()
 
   #cleaning solution
   fp_df = fp_df %>% 
@@ -218,7 +219,7 @@ for(file_name_i in wd_filenames)
   
   #save in export location
   write.csv(df_fp_tidy_no_na,file=paste(export_location,file_name_i,".csv",sep=""))
-  
+  warnings()
 }
 
 #a tanszéki PAKS3-mon lefuttatom

@@ -43,12 +43,12 @@ fp_df = mutate(fp_df, time_id = 0 + ID_count * 0.01)
   for(row in 1:length(temp_list[[w_column]][,1]))
   {
     # #debug
-    print("row")
-    print(row)
-    print(fp_df$time_id[fp_i])
-    print(round(temp_list[[w_column]][row, 1],digits = 2))
-    print(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)))
-    print(fp_i)
+    # print("row")
+    # print(row)
+    # print(fp_df$time_id[fp_i])
+    # print(round(temp_list[[w_column]][row, 1],digits = 2))
+    # print(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)))
+    # print(fp_i)
     
     #boxshort core      
     while(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)) > 0.005)
@@ -62,3 +62,4 @@ fp_df = mutate(fp_df, time_id = 0 + ID_count * 0.01)
   }
   #rename temp_col to actual colname (df ready for the new mutate)
   names(fp_df) = gsub("temp_col",w_column,names(fp_df))
+  warnings()
