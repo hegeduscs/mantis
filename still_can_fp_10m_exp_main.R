@@ -52,7 +52,25 @@ for(file_name_i in wd_filenames)
   #box short all rows (in descending nrow order)
   for(w_column in names(temp_list))
   {
-    print(w_column) #tested
+    print(w_column)
+    
+    #drop not usefull columns
+    if(
+        w_column == "Crash.Flag....................................................." |
+        w_column == "Crash.WD......................................................." | 
+        w_column == "Thermo.01.K4..................................................." |
+        w_column == "Thermo.01.K3..................................................." |
+        w_column == "Thermo.01.K2..................................................." |
+        w_column == "Thermo.01.K1..................................................." |
+        w_column == "Thermo.01.K8..................................................." |
+        w_column == "Thermo.01.K7..................................................." |
+        w_column == "Thermo.01.K6..................................................." |
+        w_column == "Thermo.01.K5..................................................." 
+      )
+    {
+      print(paste(w_column," is skipped"))
+      next()
+    }
     fp_i = 1
     #make new row in fp_df
     fp_df = mutate(fp_df, temp_col = as.numeric("NA"))
@@ -79,17 +97,12 @@ for(file_name_i in wd_filenames)
     #rename temp_col to actual colname (df ready for the new mutate)
     names(fp_df) = gsub("temp_col",w_column,names(fp_df))
   }
-  print(names(fp_df))
-  print(1)
+
   #? before boxshort
   #drop meaningless values
   fp_df = select(fp_df,
-                 -starts_with("ID_count"),
-                 -starts_with("Crash.Flag"),
-                 -starts_with("Crash.WD"),
-                 -starts_with("Thermo.01.K"))
-  print(names(fp_df))
-  print(2)
+                 -starts_with("ID_count")
+                 )
   #name w_columns, short column names 
   names(fp_df) = c("time_ID_s",
                    "Second_s",
@@ -114,8 +127,7 @@ for(file_name_i in wd_filenames)
                    "Speed_Drivemotor_1_U-min",
                    "Torque_Drivemotor_2_Nm",
                    "Torque_Drivemotor_1_Nm")
-  print(names(fp_df))
-  print(3)
+
   #filter out fully NA rows () reamainig of the boxshort
   df_fp_tidy = filter(fp_df,
                       !(is.na(Second_s)&
@@ -143,7 +155,7 @@ for(file_name_i in wd_filenames)
                         )
                       )
   #interpolation
-  print(names(fp_df))
+  
   #look up first and last value for the interpolation
   for(col in names(df_fp_tidy))
   {
@@ -153,7 +165,7 @@ for(file_name_i in wd_filenames)
   
   #switch remaining NA-s to inperpolated values
   df_fp_tidy = df_fp_tidy %>%
-    na.approx(df_fp_tidy) %>%
+    na.approx() %>%
     as.data.frame() %>%
   #correct time related values (no value after decimal needed)
     mutate(
