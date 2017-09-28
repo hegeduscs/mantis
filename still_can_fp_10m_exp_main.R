@@ -97,11 +97,37 @@ for(file_name_i in wd_filenames)
     names(fp_df) = gsub("temp_col",w_column,names(fp_df))
   }
 
-  #? before boxshort
-  #drop meaningless values
-  fp_df = select(fp_df,
-                 -starts_with("ID_count")
-                 )
+  #cleaning solution
+  fp_df = fp_df %>% 
+  #drop meaningless values  
+    select(-starts_with("ID_count")) %>%
+  #rearrenge columns to properly rename them  
+    select(
+           time_id,
+           A5.Sekunde.....................................................,
+           A4.Minute......................................................,
+           A3.Stunde......................................................,
+           A2.Tag.........................................................,
+           A1.Monat.......................................................,
+           A0.Jahr........................................................,
+           SR.DAC.3.Drehzahl.Lenkrad......................................,
+           SR.DAC.2.Lenkwinkel............................................,
+           SR.DAC.1.Drehzahl.PM...........................................,
+           SR.DAC.0.Drehmoment.PM.........................................,
+           Crash.Z........................................................,
+           Crash.Y........................................................,
+           Crash.X........................................................,
+           Druck.Hubwerk..................................................,
+           SR.DAC.7.Auslenkung.Zusatz.2...................................,
+           SR.DAC.6.Auslenkung.Zusatz.1...................................,
+           SR.DAC.5.Auslenkung.Neigen.....................................,
+           SR.DAC.4.Auslenkung.Heben......................................,
+           UE.DAC.3.Drehzahl.FM.2.........................................,
+           UE.DAC.2.Drehzahl.FM.1.........................................,
+           UE.DAC.1.Drehmoment.FM.2.......................................,
+           UE.DAC.0.Drehmoment.FM.1.......................................
+           )
+  
   #name w_columns, short column names 
   names(fp_df) = c("time_ID_s",
                    "Second_s",
