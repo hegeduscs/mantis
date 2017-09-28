@@ -66,7 +66,7 @@ for(file_name_i in wd_filenames)
         w_column == "Thermo.01.K5..................................................." 
       )
     {
-      print(paste(w_column," is skipped"))
+      print(paste(w_column," is skipped",sep=""))
       next()
     }
     print(w_column)
@@ -176,11 +176,20 @@ for(file_name_i in wd_filenames)
       Year_y = floor(Year_y)) %>%
   #date time convert with lubridate separeted  (time_ID leave separated, with the lubridate package it can be merged)
     mutate(date = ymd(paste(Year_y,Month_mo,Day_d)),time = hms(paste(Hour_h,Minute_m,Second_s))) %>%
-  #mutate fingerprint type
-    mutate(fingerprint_type = factor(file_name_i))
+  #drop redundant values
+    select(
+            -Second_s,
+            -Minute_m,
+            -Hour_h,
+            -Day_d,
+            -Month_mo,
+            -Year_y
+          ) %>%
+    #mutate fingerprint type
+    mutate(fingerprint_type = factor(file_name_i)) 
   
   #save in export location
-  write.csv(df_fp_tidy_no_na,file=paste(export_location,file_name_i,".csv"))
+  write.csv(df_fp_tidy_no_na,file=paste(export_location,file_name_i,".csv",sep=""))
   
 }
 
