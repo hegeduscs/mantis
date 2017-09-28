@@ -52,8 +52,6 @@ for(file_name_i in wd_filenames)
   #box short all rows (in descending nrow order)
   for(w_column in names(temp_list))
   {
-    print(w_column)
-    
     #drop not usefull columns
     if(
         w_column == "Crash.Flag....................................................." |
@@ -71,6 +69,7 @@ for(file_name_i in wd_filenames)
       print(paste(w_column," is skipped"))
       next()
     }
+    print(w_column)
     fp_i = 1
     #make new row in fp_df
     fp_df = mutate(fp_df, temp_col = as.numeric("NA"))
