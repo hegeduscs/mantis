@@ -163,7 +163,7 @@ for(file_name_i in wd_filenames)
   }
   
   #switch remaining NA-s to inperpolated values
-  df_fp_tidy = df_fp_tidy %>%
+  df_fp_tidy_no_na = df_fp_tidy %>%
     na.approx() %>%
     as.data.frame() %>%
   #correct time related values (no value after decimal needed)
