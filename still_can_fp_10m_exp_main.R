@@ -111,9 +111,9 @@ for(file_name_i in wd_filenames)
                    "Day_d",
                    "Month_mo",
                    "Year_y",
-                   "Speed_Steering_wheel_U-min",
+                   "Speed_Steering_wheel_U.min",
                    "Steering_angle_angle",
-                   "Speed_pump_motor_U-min",
+                   "Speed_pump_motor_U.min",
                    "Torque_pump_motor_Nm",
                    "Crash_Z_0.01g",
                    "Crash_Y_0.01g",
@@ -123,8 +123,8 @@ for(file_name_i in wd_filenames)
                    "Lever_position_Add1_mV_mV_base_4000mV",
                    "Lever_position_tilting_mV_mV_base_4000mV",
                    "Lever_position_lifting_mV_mV_base_4000mV",
-                   "Speed_Drivemotor_2_U-min",
-                   "Speed_Drivemotor_1_U-min",
+                   "Speed_Drivemotor_2_U.min",
+                   "Speed_Drivemotor_1_U.min",
                    "Torque_Drivemotor_2_Nm",
                    "Torque_Drivemotor_1_Nm")
 
@@ -136,9 +136,9 @@ for(file_name_i in wd_filenames)
                           is.na(Day_d)&
                           is.na(Month_mo)&
                           is.na(Year_y)&
-                          is.na(Speed_Steering_wheel_U-min)&
+                          is.na(Speed_Steering_wheel_U.min)&
                           is.na(Steering_angle_angle)&
-                          is.na(Speed_pump_motor_U-min)&
+                          is.na(Speed_pump_motor_U.min)&
                           is.na(Torque_pump_motor_Nm)&
                           is.na(Crash_Z_0.01g)&
                           is.na(Crash_Y_0.01g)&
@@ -148,8 +148,8 @@ for(file_name_i in wd_filenames)
                           is.na(Lever_position_Add1_mV_base_4000mV)&
                           is.na(Lever_position_tilting_mV_base_4000mV)&
                           is.na(Lever_position_lifting_mV_base_4000mV)&
-                          is.na(Speed_Drivemotor_2_U-min)&
-                          is.na(Speed_Drivemotor_1_U-min)&
+                          is.na(Speed_Drivemotor_2_U.min)&
+                          is.na(Speed_Drivemotor_1_U.min)&
                           is.na(Torque_Drivemotor_2_Nm)&
                           is.na(Torque_Drivemotor_1_Nm)
                         )
