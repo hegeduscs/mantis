@@ -79,14 +79,16 @@ for(file_name_i in wd_filenames)
     #rename temp_col to actual colname (df ready for the new mutate)
     names(fp_df) = gsub("temp_col",w_column,names(fp_df))
   }
-  
+  print(names(fp_df))
+  print(1)
   #? before boxshort
   #drop meaningless values
   fp_df = select(fp_df,
                  -starts_with("Crash_Flag"),
                  -starts_with("Crash_WD"),
                  -starts_with("Thermo_01_K"))
-  
+  print(names(fp_df))
+  print(2)
   #name w_columns, short column names 
   names(fp_df) = c("time_ID_s",
                    "Second_s",
@@ -111,7 +113,8 @@ for(file_name_i in wd_filenames)
                    "Speed_Drivemotor_1_U-min",
                    "Torque_Drivemotor_2_Nm",
                    "Torque_Drivemotor_1_Nm")
-  
+  print(names(fp_df))
+  print(3)
   #filter out fully NA rows () reamainig of the boxshort
   df_fp_tidy = filter(fp_df,
                       !(is.na(Second_s)&
@@ -139,7 +142,7 @@ for(file_name_i in wd_filenames)
                         )
                       )
   #interpolation
-  
+  print(names(fp_df))
   #look up first and last value for the interpolation
   for(col in names(df_fp_tidy))
   {
