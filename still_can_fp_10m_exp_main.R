@@ -84,9 +84,10 @@ for(file_name_i in wd_filenames)
   #? before boxshort
   #drop meaningless values
   fp_df = select(fp_df,
-                 -starts_with("Crash_Flag"),
-                 -starts_with("Crash_WD"),
-                 -starts_with("Thermo_01_K"))
+                 -starts_with("ID_count"),
+                 -starts_with("Crash.Flag"),
+                 -starts_with("Crash.WD"),
+                 -starts_with("Thermo.01.K"))
   print(names(fp_df))
   print(2)
   #name w_columns, short column names 
