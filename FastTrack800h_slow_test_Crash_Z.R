@@ -5,8 +5,8 @@ library(plyr)
 library(lubridate)
 library(zoo)
 
-setwd("/home/vasy/RStudioProjects/still_github/RStudio_wd_Can_fp/")
-temp_list = readMat("FastTrack800h_slow.mat",sep="")
+setwd("/home/vasy/RStudioProjects/still_github/")
+temp_list = readMat("Part 01  STILL Versand MultiTimeChannel.mat",sep="")
 
 
 fp_df = data.frame(0:(round(max(temp_list$Druck.Hubwerk..................................................[,1])*100,digits = 2)+1000))

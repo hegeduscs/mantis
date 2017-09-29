@@ -219,6 +219,7 @@ for(file_name_i in wd_filenames)
   
   #save in export location
   write.csv(df_fp_tidy_no_na,file=paste(export_location,file_name_i,".csv",sep=""))
+  print(paste(file_name_i,".csv is saved to: ",export_location,sep = ""))
   warnings()
 }
 
