@@ -28,14 +28,19 @@ for(file_name_i in list.files())
   }
 }
 
-glimpse(df_container)
 df_container$fingerprint_type = factor(df_container$fingerprint_type)
 levels(df_container$fingerprint_type)
-
 df_container$time = hms(df_container$time)
+glimpse(df_container)
 
 hist(df_container$Speed_Steering_wheel_U.min)
 #Steering_angle_angle
 hist(df_container$Steering_angle_angle)
 
-ggplot(df_container,aes())+geom_density() + facet_wrap(~variable, scales = 'free_x')
+#GGSAVE ?
+ggplot(df_container,aes(x = Speed_Steering_wheel_U.min))+geom_density() + facet_wrap(~fingerprint_type, scales = 'free_x')
+ggplot(df_container,aes(x = Speed_Steering_wheel_U.min))+geom_density() + facet_wrap(~fingerprint_type, scales = 'free_x')
+ggplot(df_container,aes(Speed_Drivemotor_2_U.min,Torque_Drivemotor_2_Nm))+geom_point(alpha = 0.1, shape = 21, size = 1.5) + facet_wrap(~fingerprint_type, scales = 'free_x')
+ggplot(df_container,aes(as.numeric(time),Steering_angle_angle))+geom_point(alpha = 0.4, shape = 21, size = 1.5) + facet_wrap(~fingerprint_type, scales = 'free_x')
+
+
