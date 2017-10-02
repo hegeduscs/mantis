@@ -12,3 +12,4 @@ head(Ramp_wl_fast_mat$SR.DAC.3.Drehzahl.Lenkrad.................................
 tail(Ramp_wl_fast_mat$SR.DAC.3.Drehzahl.Lenkrad......................................)
 head(Ramp_wl_fast_mat$SR.DAC.2.Lenkwinkel............................................)
 tail(Ramp_wl_fast_mat$SR.DAC.2.Lenkwinkel............................................)
+
