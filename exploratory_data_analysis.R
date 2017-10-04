@@ -7,6 +7,7 @@ library(lubridate)
 library(zoo)
 library(ggplot2)
 library(stringr)
+library(GGally)
 
 #PC
 setwd("/home/vasy/RStudioProjects/still_github/cleaned_files/cleaned_files/")
@@ -29,8 +30,8 @@ for(file_name_i in list.files())
 }
 
 df_container = df_container %>%
-  mutate(fast.slow = str_detect(fingerprint_type,"fast")) %>%
-  mutate(wl.wol = str_detect(fingerprint_type,"_wl_")) %>%
+  mutate(fast.slow = factor(str_detect(fingerprint_type,"fast"))) %>%
+  mutate(wl.wol = factor(str_detect(fingerprint_type,"_wl_"))) %>%
   mutate(time = hms(time)) %>%
   mutate(fingerprint_type = factor(fingerprint_type))
 glimpse(df_container)
@@ -39,7 +40,17 @@ glimpse(df_container)
 # #Steering_angle_angle
 # hist(df_container$Steering_angle_angle)
 
+df_con_pairs = df_container %>%
+  mutate(time = as.numeric(time)) %>%
+  #delete when running on batman
+  filter(X1%%10000 == 0) %>%  
+  
+  select(-X1,-fingerprint_type,-date) %>%
+  select(Torque_Drivemotor_1_Nm,Torque_Drivemotor_2_Nm,Speed_Drivemotor_1_U.min,Speed_Drivemotor_2_U.min,fast.slow,wl.wol,time)
 
+ggpairs(df_con_pairs,aes(alpha = 0.1)
+        #,aes(alpha = 0.1, size = 1.5)
+        ,cardinality_threshold = 22)
 #GGSAVE ?
 # ggplot(df_container,aes(x = Speed_Steering_wheel_U.min))+geom_density() + facet_wrap(~fingerprint_type, scales = 'free_x')
 # ggplot(df_container,aes(x = Speed_Steering_wheel_U.min))+geom_density() + facet_wrap(~fingerprint_type, scales = 'free_x')
