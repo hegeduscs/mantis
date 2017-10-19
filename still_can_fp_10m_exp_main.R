@@ -194,6 +194,8 @@ for(file_name_i in wd_filenames)
   #switch remaining NA-s to inperpolated values
   df_fp_tidy_no_na = df_fp_tidy %>%
     na.approx() %>%
+  #when the is to much NA value (time related columns) last observation carried forward  
+    na.locf(fromLast = TRUE) %>%
     as.data.frame() %>%
   #correct time related values (no value after decimal needed)
     mutate(
