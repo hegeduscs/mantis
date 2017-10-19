@@ -52,9 +52,13 @@ tdf_attributes = mutate(
 
 #changing direction
 tdf_attributes = mutate(tdf_attributes,
-                        direction_changed = Speed_Drivemotor_2_U.min
+                        direction_changed = sign(Speed_Drivemotor_1_U.min) != sign(lag(Speed_Drivemotor_1_U.min,default = 0)) 
                         )
 
+#speed torque matrix
+#speed and torque change to total range
+#left, right 90 degree turn (moving average)
+#ramp event (crash Z, torque, speed,)
 
 summary(tdf_attributes)
 # length(tdfsum$Pressure_Hydraulic_main_mast_bar)
