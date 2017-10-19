@@ -29,6 +29,11 @@ for(file_name_i in list.files())
   }
 }
 
+# na.locf tested
+# summary(df_container)
+# df_container2 = na.locf(df_container,fromLast = TRUE)
+# summary(df_container2)
+
 df_container = df_container %>%
   mutate(fast.slow = factor(str_detect(fingerprint_type,"fast"))) %>%
   mutate(wl.wol = factor(str_detect(fingerprint_type,"_wl_"))) %>%
