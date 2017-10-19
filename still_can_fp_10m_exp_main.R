@@ -196,7 +196,7 @@ for(file_name_i in wd_filenames)
     na.approx() %>%
     as.data.frame() %>%
   #when the is to much NA value (time related columns) last observation carried forward  
-    ddply( .(fx_code), function(x) replace(x, TRUE, lapply(x, na.locf0, TRUE))) %>%
+    colwise(na.locf)() %>%
   #correct time related values (no value after decimal needed)
     mutate(
       Second_s = floor(Second_s),
