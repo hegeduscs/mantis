@@ -49,13 +49,49 @@ tdf_attributes = mutate(
                   ),
   is.weight = weight_mean > 50 #contans from plots
                 )
-
+#check direction change
+direction_check <- function(value,next_value){
+  return(sign(value) != sign(next_value))
+}
 #changing direction
-tdf_attributes = mutate(tdf_attributes,
-                        direction_changed = sign(Speed_Drivemotor_1_U.min) != sign(lag(Speed_Drivemotor_1_U.min,default = 0)) 
-                        )
-
+tdf_attributes = mutate(
+  tdf_attributes,
+  speed_1_direction_changed = direction_check(Speed_Drivemotor_1_U.min,lag(Speed_Drivemotor_1_U.min,default = 0)),
+  speed_2_direction_changed = direction_check(Speed_Drivemotor_2_U.min,lag(Speed_Drivemotor_2_U.min,default = 0)),
+  torque_1_direction_changed = direction_check(Torque_Drivemotor_1_Nm,lag(Torque_Drivemotor_1_Nm,default = 0)),
+  torque_2_direction_changed = direction_check(Torque_Drivemotor_2_Nm,lag(Torque_Drivemotor_2_Nm,default = 0))
+)
+  
 #speed torque matrix
+#resolution for factor matrix
+reso_m = 9 #must be odd!!!
+if(reso_m%%2!=1)
+  print("Must be odd!")
+speed_max = 5000
+torque_max = 80
+
+#categorise speed and drivemotor profiles, to future comparison using not linear intervall search not binary search but modulo calculation
+drivemotor_category_modulo_calc <- function(value_to_cat,real_scale_max,resolution_m){
+  return(
+    #cut down decimals, for more resolution, increase reso_m
+    floor(
+      (
+        #(rescale to positive region)  #calc binning
+        (value_to_cat+real_scale_max)/(2*real_scale_max/resolution_m)
+      #calc the correct binning
+      )%%resolution_m
+    )
+  )
+}
+
+tdf_attributes = mutate(
+  tdf_attributes, 
+  speed_1_modulo_factor = drivemotor_category_modulo_calc(Speed_Drivemotor_1_U.min,speed_max,reso_m), 
+  speed_2_modulo_factor = drivemotor_category_modulo_calc(Speed_Drivemotor_2_U.min,speed_max,reso_m),
+  torque_1_modulo_factor = drivemotor_category_modulo_calc(Torque_Drivemotor_1_Nm,torque_max,reso_m),
+  torque_2_modulo_factor = drivemotor_category_modulo_calc(Torque_Drivemotor_2_Nm,torque_max,reso_m)
+)
+
 #speed and torque change to total range
 #left, right 90 degree turn (moving average)
 #ramp event (crash Z, torque, speed,)
