@@ -53,13 +53,17 @@ tdf_attributes = mutate(
 direction_check <- function(value,next_value){
   return(sign(value) != sign(next_value))
 }
-#changing direction
+#smoohting used in direction and derivatives
+smoothing = 1
+#changing x and y direction
 tdf_attributes = mutate(
   tdf_attributes,
-  speed_1_direction_changed = direction_check(Speed_Drivemotor_1_U.min,lag(Speed_Drivemotor_1_U.min,default = 0)),
-  speed_2_direction_changed = direction_check(Speed_Drivemotor_2_U.min,lag(Speed_Drivemotor_2_U.min,default = 0)),
-  torque_1_direction_changed = direction_check(Torque_Drivemotor_1_Nm,lag(Torque_Drivemotor_1_Nm,default = 0)),
-  torque_2_direction_changed = direction_check(Torque_Drivemotor_2_Nm,lag(Torque_Drivemotor_2_Nm,default = 0))
+  speed_1_direction_changed = direction_check(Speed_Drivemotor_1_U.min,lag(Speed_Drivemotor_1_U.min,n=smoothing,default = 0)),
+  speed_2_direction_changed = direction_check(Speed_Drivemotor_2_U.min,lag(Speed_Drivemotor_2_U.min,n=smoothing,default = 0)),
+  torque_1_direction_changed = direction_check(Torque_Drivemotor_1_Nm,lag(Torque_Drivemotor_1_Nm,n=smoothing,default = 0)),
+  torque_2_direction_changed = direction_check(Torque_Drivemotor_2_Nm,lag(Torque_Drivemotor_2_Nm,n=smoothing,default = 0)),
+  is.changed_y_direction = direction_check(Steering_angle_angle,lag(Steering_angle_angle,n=smoothing,default = 0)),
+  is.y_direction_0 = Steering_angle_angle == 0
 )
   
 #speed torque matrix
@@ -114,11 +118,17 @@ tdf_attributes = mutate(
   is.speed_torque_factor_equal = speed_torque_1_factor == speed_torque_2_factor
   )
   
+#derivatives
+tdf_attributes = mutate(
+  tdf_attributes,
+  steer_wheel_deg_t_deriv = (lag(Steering_angle_angle,n=smoothing) - Steering_angle_angle)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+  s_1_t_deriv = (lag(Speed_Drivemotor_1_U.min,n=smoothing,default = 0) - Speed_Drivemotor_1_U.min)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+  s_2_t_deriv = (lag(Speed_Drivemotor_2_U.min,n=smoothing,default = 0) - Speed_Drivemotor_2_U.min)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+  t_1_t_deriv = (lag(Torque_Drivemotor_1_Nm,n=smoothing,default = 0) - Torque_Drivemotor_1_Nm)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+  t_2_t_deriv = (lag(Torque_Drivemotor_2_Nm,n=smoothing,default = 0) - Torque_Drivemotor_2_Nm)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s) 
+)
 
-#steering angle derivative
-
-
-#speed and torque change to total range
+#events:
 #left, right 90 degree turn (moving average)
 #ramp event (crash Z, torque, speed,)
 
