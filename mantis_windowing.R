@@ -84,16 +84,40 @@ drivemotor_category_modulo_calc <- function(value_to_cat,real_scale_max,resoluti
   )
 }
 
+#make all factor variations for comparsion
+factor_variations <- function(resolution_m){
+  
+  temp_m = expand.grid(0:resolution_m,0:resolution_m)
+  
+  for(i in 1:(resolution_m+1)**2){
+    if(i == 1)
+      factor_variations_string = paste(temp_m[i,1],temp_m[i,2],sep = ",")
+    else
+      factor_variations_string = c(factor_variations_string,paste(temp_m[i,1],temp_m[i,2],sep = ","))
+  }
+  return(temp_string)
+}
+
 tdf_attributes = mutate(
   tdf_attributes, 
   speed_1_modulo_factor = drivemotor_category_modulo_calc(Speed_Drivemotor_1_U.min,speed_max,reso_m), 
   speed_2_modulo_factor = drivemotor_category_modulo_calc(Speed_Drivemotor_2_U.min,speed_max,reso_m),
   torque_1_modulo_factor = drivemotor_category_modulo_calc(Torque_Drivemotor_1_Nm,torque_max,reso_m),
-  torque_2_modulo_factor = drivemotor_category_modulo_calc(Torque_Drivemotor_2_Nm,torque_max,reso_m)
-)
-#factor from previous
+  torque_2_modulo_factor = drivemotor_category_modulo_calc(Torque_Drivemotor_2_Nm,torque_max,reso_m),
+  
+  speed_torque_1_factor = paste(speed_1_modulo_factor,torque_1_modulo_factor,sep=","),
+  speed_torque_2_factor = paste(speed_2_modulo_factor,torque_2_modulo_factor,sep=","),
+  
+  speed_torque_1_factor = as.factor(speed_torque_1_factor,levels = factor_variations(reso_m)),
+  speed_torque_2_factor = as.factor(speed_torque_2_factor,levels = factor_variations(reso_m)),
+  
+  is.speed_torque_factor_equal = speed_torque_1_factor == speed_torque_2_factor
+  )
+  
 
 #steering angle derivative
+
+
 #speed and torque change to total range
 #left, right 90 degree turn (moving average)
 #ramp event (crash Z, torque, speed,)
