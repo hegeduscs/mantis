@@ -75,11 +75,11 @@ drivemotor_category_modulo_calc <- function(value_to_cat,real_scale_max,resoluti
   return(
     #cut down decimals, for more resolution, increase reso_m
     floor(
-      (
-        #(rescale to positive region)  #calc binning
-        (value_to_cat+real_scale_max)/(2*real_scale_max/resolution_m)
-      #calc the correct binning
-      )%%resolution_m
+            (
+              #(rescale to positive region)  #calc binning
+              (value_to_cat+real_scale_max)/(2*real_scale_max/resolution_m)
+              #calc the correct binning
+            )%%resolution_m
     )
   )
 }
@@ -91,7 +91,9 @@ tdf_attributes = mutate(
   torque_1_modulo_factor = drivemotor_category_modulo_calc(Torque_Drivemotor_1_Nm,torque_max,reso_m),
   torque_2_modulo_factor = drivemotor_category_modulo_calc(Torque_Drivemotor_2_Nm,torque_max,reso_m)
 )
+#factor from previous
 
+#steering angle derivative
 #speed and torque change to total range
 #left, right 90 degree turn (moving average)
 #ramp event (crash Z, torque, speed,)
