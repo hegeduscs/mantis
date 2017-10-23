@@ -16,6 +16,7 @@ export_location="/home/vasy/RStudioProjects/still_github/exploratory_files/"
 
 tdf1 = read_csv("FastTrackEight_wl_slow.csv")
 tdf2 = read_csv("FastTrackEight_wol_slow.csv")
+
 tdfsum = bind_rows(tdf1,tdf2)
 
 tdfsum = tdfsum %>%
@@ -118,18 +119,24 @@ tdf_attributes = mutate(
   is.speed_torque_factor_equal = speed_torque_1_factor == speed_torque_2_factor
   )
   
-#derivatives
+#derivatives speed, torque, steering angle and steering speed
 tdf_attributes = mutate(
   tdf_attributes,
-  steer_wheel_deg_t_deriv = (lag(Steering_angle_angle,n=smoothing) - Steering_angle_angle)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+  
   s_1_t_deriv = (lag(Speed_Drivemotor_1_U.min,n=smoothing,default = 0) - Speed_Drivemotor_1_U.min)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
   s_2_t_deriv = (lag(Speed_Drivemotor_2_U.min,n=smoothing,default = 0) - Speed_Drivemotor_2_U.min)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+ 
   t_1_t_deriv = (lag(Torque_Drivemotor_1_Nm,n=smoothing,default = 0) - Torque_Drivemotor_1_Nm)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
-  t_2_t_deriv = (lag(Torque_Drivemotor_2_Nm,n=smoothing,default = 0) - Torque_Drivemotor_2_Nm)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s) 
+  t_2_t_deriv = (lag(Torque_Drivemotor_2_Nm,n=smoothing,default = 0) - Torque_Drivemotor_2_Nm)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+  
+  speed_steering_deriv = (lag(Speed_Steering_wheel_U.min,n=smoothing,default = 0) - Speed_Steering_wheel_U.min)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s),
+  steer_wheel_deg_t_deriv = (lag(Steering_angle_angle,n=smoothing) - Steering_angle_angle)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s)
 )
 
+
 #events:
-#left, right 90 degree turn (moving average)
+
+
 #ramp event (crash Z, torque, speed,)
 
 summary(tdf_attributes)
