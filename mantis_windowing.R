@@ -40,6 +40,9 @@ summary(tdfsum)
 w_width = 10
 if(w_width%%2!=0)
   print("Must be even!")
+is.weight_limit = 50
+big_resonation_limit_plus = 300
+big_resonation_limit_minus = 250
 
 #is.weight on the truck
 tdf_attributes = mutate(
@@ -48,8 +51,14 @@ tdf_attributes = mutate(
                   roll_mean(Pressure_Hydraulic_main_mast_bar,w_width,fill = numeric(0),align = "center"),
                   rep(0,w_width/2-1)
                   ),
-  is.weight = weight_mean > 50 #contans from plots
-                )
+  is.weight = weight_mean > is.weight_limit, #contans from plots
+                
+  resonation_mean = c(rep(0,w_width/2),
+                      roll_mean(Crash_Z_0.01g,w_width,fill = numeric(0),align = "center"),
+                      rep(0,w_width/2-1),
+  big_resonation_event = resonation_mean > big_resonation_event_plus | resonation_mean < big_resonation_limit_minus
+  )
+)
 #check direction change
 direction_check <- function(value,next_value){
   return(sign(value) != sign(next_value))
@@ -119,18 +128,19 @@ tdf_attributes = mutate(
   is.speed_torque_factor_equal = speed_torque_1_factor == speed_torque_2_factor
   )
   
-#derivatives speed, torque, steering angle and steering speed
+#derivatives speed, torque, steering angle and steering speed + resonation calculated from Crash_Z
 tdf_attributes = mutate(
   tdf_attributes,
   
-  s_1_t_deriv = (lag(Speed_Drivemotor_1_U.min,n=smoothing,default = 0) - Speed_Drivemotor_1_U.min)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
-  s_2_t_deriv = (lag(Speed_Drivemotor_2_U.min,n=smoothing,default = 0) - Speed_Drivemotor_2_U.min)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+  s_1_t_deriv = abs((lag(Speed_Drivemotor_1_U.min,n=smoothing,default = 0) - Speed_Drivemotor_1_U.min))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+  s_2_t_deriv = abs((lag(Speed_Drivemotor_2_U.min,n=smoothing,default = 0) - Speed_Drivemotor_2_U.min))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
  
-  t_1_t_deriv = (lag(Torque_Drivemotor_1_Nm,n=smoothing,default = 0) - Torque_Drivemotor_1_Nm)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
-  t_2_t_deriv = (lag(Torque_Drivemotor_2_Nm,n=smoothing,default = 0) - Torque_Drivemotor_2_Nm)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+  t_1_t_deriv = abs((lag(Torque_Drivemotor_1_Nm,n=smoothing,default = 0) - Torque_Drivemotor_1_Nm))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+  t_2_t_deriv = abs((lag(Torque_Drivemotor_2_Nm,n=smoothing,default = 0) - Torque_Drivemotor_2_Nm))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
   
-  speed_steering_deriv = (lag(Speed_Steering_wheel_U.min,n=smoothing,default = 0) - Speed_Steering_wheel_U.min)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s),
-  steer_wheel_deg_t_deriv = (lag(Steering_angle_angle,n=smoothing) - Steering_angle_angle)/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s)
+  speed_steering_deriv = abs((lag(Speed_Steering_wheel_U.min,n=smoothing,default = 0) - Speed_Steering_wheel_U.min))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s),
+  steer_wheel_deg_t_deriv = abs((lag(Steering_angle_angle,n=smoothing) - Steering_angle_angle))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s),
+  resonation_t_deriv = abs((lag(Crash_Z_0.01g,n=smoothing) - Crash_Z_0.01g))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s)  
 )
 
 
@@ -138,6 +148,7 @@ tdf_attributes = mutate(
 
 
 #ramp event (crash Z, torque, speed,)
+ggplot(tdf_attributes,aes(time_ID_s,resonation_mean)) + geom_point() + facet_wrap(~factor(fingerprint_type))
 
 summary(tdf_attributes)
 # length(tdfsum$Pressure_Hydraulic_main_mast_bar)
