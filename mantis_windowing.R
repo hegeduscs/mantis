@@ -24,7 +24,6 @@ tdfsum = tdfsum %>%
 
 summary(colwise(na.locf)(tdfsum))
 
-
 summary(tdfsum)
 # tdf = mutate(tdf,time = hms(time))
 # head(tdf$time)
