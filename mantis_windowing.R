@@ -14,7 +14,7 @@ library(RcppRoll)
 setwd("/home/vasy/RStudioProjects/still_github/cleaned_files/cleaned_files/")
 export_location="/home/vasy/RStudioProjects/still_github/exploratory_files/"
 
-tdf1 = read_csv("FastTrackEight_wl_slow.csv")
+tdf1 = read_csv("FastTrackEight_wl_fast.csv")
 tdf2 = read_csv("FastTrackEight_wol_slow.csv")
 
 tdfsum = bind_rows(tdf1,tdf2)
@@ -22,7 +22,7 @@ tdfsum = bind_rows(tdf1,tdf2)
 tdfsum = tdfsum %>%
   colwise(na.locf)() 
 
-summary(colwise(na.locf)(tdfsum))
+#summary(colwise(na.locf)(tdfsum))
 
 summary(tdfsum)
 # tdf = mutate(tdf,time = hms(time))
@@ -36,7 +36,7 @@ summary(tdfsum)
 #windowing search
 
 #window width
-w_width = 10
+w_width = 11
 if(w_width%%2!=0)
   print("Must be even!")
 is.weight_limit = 50
@@ -48,15 +48,16 @@ tdf_attributes = mutate(
   tdfsum,
   weight_mean = c(rep(0,w_width/2),
                   roll_mean(Pressure_Hydraulic_main_mast_bar,w_width,fill = numeric(0),align = "center"),
-                  rep(0,w_width/2-1)
+                  rep(0,w_width/2)
                   ),
-  is.weight = weight_mean > is.weight_limit, #contans from plots
-                
+   is.weight = weight_mean > is.weight_limit, #contans from plots
+
   resonation_mean = c(rep(0,w_width/2),
-                      roll_mean(Crash_Z_0.01g,w_width,fill = numeric(0),align = "center"),
-                      rep(0,w_width/2-1),
-  big_resonation_event = resonation_mean > big_resonation_event_plus | resonation_mean < big_resonation_limit_minus
-  )
+                       roll_mean(Crash_Z_0.01g,w_width,fill = numeric(0),align = "center"),
+                    rep(0,w_width/2)
+                    ),
+  big_resonation_event = resonation_mean > big_resonation_limit_plus | resonation_mean < big_resonation_limit_minus
+  
 )
 #check direction change
 direction_check <- function(value,next_value){
@@ -128,6 +129,7 @@ tdf_attributes = mutate(
   )
   
 #derivatives speed, torque, steering angle and steering speed + resonation calculated from Crash_Z
+
 tdf_attributes = mutate(
   tdf_attributes,
   
@@ -138,19 +140,48 @@ tdf_attributes = mutate(
   t_2_t_deriv = abs((lag(Torque_Drivemotor_2_Nm,n=smoothing,default = 0) - Torque_Drivemotor_2_Nm))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
   
   speed_steering_deriv = abs((lag(Speed_Steering_wheel_U.min,n=smoothing,default = 0) - Speed_Steering_wheel_U.min))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s),
-  steer_wheel_deg_t_deriv = abs((lag(Steering_angle_angle,n=smoothing) - Steering_angle_angle))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s),
-  resonation_t_deriv = abs((lag(Crash_Z_0.01g,n=smoothing) - Crash_Z_0.01g))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s)  
+  steer_wheel_deg_t_deriv = abs((lag(Steering_angle_angle,n=smoothing,default = 0) - Steering_angle_angle))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s),
+  resonation_t_deriv = abs((lag(Crash_Z_0.01g,n=smoothing,default = 0) - Crash_Z_0.01g))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s)
+  
 )
-
+#+ travelled dsitance smooting correction
+#speed convert from U/min to m/s still max speed is 20km/h so 3.6km/h / 1m/s 5.55 m/s, the max U is 3453 so speed_m/s = speedU*5.555/3453 and 
+smoothing = 5
+tdf_attributes = mutate(
+  tdf_attributes,
+  speed_d1 = (Speed_Drivemotor_1_U.min * 5.555)/4000,
+  speed_d2 = (Speed_Drivemotor_2_U.min * 5.555)/4000,
+  #delta distance
+  abs_trav_distance_dt = abs(
+    #delta velocity
+    mean(c(lag(speed_d1,n=smoothing,default = 0),lag(speed_d2,n=smoothing,default = 0)))
+    -
+      mean(c(speed_d1,speed_d2))
+  )
+  *
+    #delta time
+    (lag(time_ID_s,n=smoothing,default = 0)-time_ID_s)
+  +
+    #delta acceleration
+    abs(lag(Crash_X_0.01g,n=smoothing,default = 0) - Crash_X_0.01g)
+  *
+    (lag(time_ID_s,n=smoothing,default = 0)-time_ID_s)^2/2
+  
+)
+summary(tdf_attributes)
+sum(tdf_attributes$abs_trav_distance_dt)
+                                      
 
 #events:
 
 
 #ramp event (crash Z, torque, speed,)
-ggplot(tdf_attributes,aes(time_ID_s,resonation_mean)) + geom_point() + facet_wrap(~factor(fingerprint_type))
+#ggplot(tdf_attributes,aes(time_ID_s,resonation_mean)) + geom_point() + facet_wrap(~factor(fingerprint_type))
 
 summary(tdf_attributes)
 # length(tdfsum$Pressure_Hydraulic_main_mast_bar)
 # length(roll_mean(tdfsum$Pressure_Hydraulic_main_mast_bar,10,fill = numeric(0),align = "center"))
 #coerce nulls
 
+sum(tdf_attributes$abs_trav_distance_dt)
+ggplot(tdf_attributes,aes(time_ID_s,abs_trav_distance_dt)) + geom_point() + facet_wrap(~factor(fingerprint_type))
