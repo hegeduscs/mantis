@@ -5,6 +5,10 @@ library(purrr)
 library(plyr)
 library(lubridate)
 library(zoo)
+library(readr)
+library(ggplot2)
+library(stringr)
+library(RcppRoll)
 
 #contans
 w_width = 10
