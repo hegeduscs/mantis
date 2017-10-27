@@ -6,6 +6,14 @@ library(plyr)
 library(lubridate)
 library(zoo)
 
+#contans
+w_width = 11
+if(w_width%%2!=0)
+  print("Must be even!")
+is.weight_limit = 50
+big_resonation_limit_plus = 300
+big_resonation_limit_minus = 250
+
 #where the files to be boxshorted
 
 #PAKS3 (batman)
