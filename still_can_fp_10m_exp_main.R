@@ -217,7 +217,8 @@ for(file_name_i in wd_filenames)
             -Year_y
           ) %>%
     #mutate fingerprint type
-    mutate(fingerprint_type = factor(file_name_i)) 
+    mutate(fingerprint_type = factor(file_name_i)) %>%
+    colwise(na.locf)() 
   
   #save in export location
   #RDS?
