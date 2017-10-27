@@ -7,7 +7,7 @@ library(lubridate)
 library(zoo)
 
 #contans
-w_width = 11
+w_width = 10
 if(w_width%%2!=0)
   print("Must be even!")
 is.weight_limit = 50
