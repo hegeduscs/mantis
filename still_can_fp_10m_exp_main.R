@@ -257,13 +257,13 @@ for(file_name_i in wd_filenames)
     df_fp_tidy_no_na,
     weight_mean = c(rep(0,w_width/2),
                     roll_mean(Pressure_Hydraulic_main_mast_bar,w_width,fill = numeric(0),align = "center"),
-                    rep(0,w_width/2- length(df_fp_tidy_no_na)%%1 )
+                    rep(0,w_width/2 - length(df_fp_tidy_no_na)%%1 )
     ),
     is.weight = weight_mean > is.weight_limit, #contans from plots
     
     resonation_mean = c(rep(0,w_width/2),
                         roll_mean(Crash_Z_0.01g,w_width,fill = numeric(0),align = "center"),
-                        rep(0,w_width/2)
+                        rep(0,w_width/2 - length(df_fp_tidy_no_na)%%1)
     ),
     big_resonation_event = resonation_mean > big_resonation_limit_plus | resonation_mean < big_resonation_limit_minus
     
