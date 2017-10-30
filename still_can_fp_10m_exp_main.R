@@ -18,6 +18,15 @@ is.weight_limit = 50
 big_resonation_limit_plus = 300
 big_resonation_limit_minus = 250
 
+#resolution for factor matrix
+reso_m = 9 #must be odd!!!
+if(reso_m%%2!=1)
+  print("Must be odd!")
+speed_max = 5000
+torque_max = 80
+
+smoothing = 1 # changed for travelled distance calc
+
 #where the files to be boxshorted
 
 #PAKS3 (batman)
