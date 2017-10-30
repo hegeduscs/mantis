@@ -1,4 +1,4 @@
-#new still files 201710 boxshort, clean, windowing and attributes calc
+#new still files 201710 boxshort, clean, windowing and attributes calc - Vass Bence
 library(R.matlab)
 library(dplyr)
 library(purrr)

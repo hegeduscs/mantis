@@ -209,6 +209,9 @@ for(file_name_i in wd_filenames)
     as.data.frame() %>%
   #when the is to much NA value (time related columns) last observation carried forward  
     colwise(na.locf)() %>%
+ 
+  
+
   #correct time related values (no value after decimal needed)
     mutate(
       Second_s = floor(Second_s),
@@ -229,8 +232,11 @@ for(file_name_i in wd_filenames)
             -Year_y
           ) %>%
     #mutate fingerprint type
-    mutate(fingerprint_type = factor(file_name_i)) %>%
-    colwise(na.locf)() 
+    #shorten the dataframe, drop not usefull data
+    mutate(date_time = as.POSIXct(ymd_hms(paste(date,hms(time),sep = ",") ))) %>%
+    group_by(date_time) %>%
+    summarise_all(mean,na.rm = TRUE) %>%
+    mutate(fingerprint_type = factor(file_name_i)) 
   
   #save in export location
   #csv
