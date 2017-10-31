@@ -5,11 +5,17 @@ library(purrr)
 library(plyr)
 library(lubridate)
 library(zoo)
-Ramp_wl_fast <- read_csv("~/RStudioProjects/still_github/cleaned_files/cleaned_files/Ramp_wl_fast.csv")
-Ramp_wl_fast_mat = readMat("~/RStudioProjects/still_github/RStudio_wd_Can_fp/Ramp_wl_fast.mat")
 
-head(Ramp_wl_fast_mat$SR.DAC.3.Drehzahl.Lenkrad......................................)
-tail(Ramp_wl_fast_mat$SR.DAC.3.Drehzahl.Lenkrad......................................)
-head(Ramp_wl_fast_mat$SR.DAC.2.Lenkwinkel............................................)
-tail(Ramp_wl_fast_mat$SR.DAC.2.Lenkwinkel............................................)
+  setwd("/home/vasy/RStudioProjects/still_github/rds_files/")
 
+
+
+df = read_rds("WorkCycle_slow_att.rds")
+
+glimpse(df)
+tail(df)
+head(df$date_time,100)
+min(diff(df$abs_trav_distance_dt))
+min(df$abs_trav_distance_dt)
+max(df$abs_trav_distance_dt)
+head(df$abs_trav_distance_dt,100)

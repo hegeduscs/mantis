@@ -358,7 +358,7 @@ for(file_name_i in wd_filenames)
   )
   #+ travelled dsitance smooting correction
   #speed convert from U/min to m/s still max speed is 20km/h so 3.6km/h / 1m/s 5.55 m/s, the max U is 3453 so speed_m/s = speedU*5.555/3453 and 
-  smoothing = 5
+  smoothing = 1
   tdf_attributes = mutate(
     tdf_attributes,
     speed_d1 = (Speed_Drivemotor_1_U.min * 5.555)/4000,
