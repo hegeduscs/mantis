@@ -9,7 +9,7 @@ library(zoo)
 
 setwd("/home/vasy/RStudioProjects/still_github/RStudio_wd_Can_fp/")
 
-temp_list = readMat("800hTestDrive_slow.mat")
+temp_list = readMat("FastTrack800h_fast.mat")
 
 #boxshort replace, strech and interpolate in one step
 strech_and_interpolate <- function(list_to_short,list_to_match) {

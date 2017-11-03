@@ -386,6 +386,7 @@ for(file_name_i in wd_filenames)
   smoothing = 1
   tdf_attributes = mutate(
     tdf_attributes,
+    #check
     speed_d1 = (Speed_Drivemotor_1_U.min * 5.555)/4000,
     speed_d2 = (Speed_Drivemotor_2_U.min * 5.555)/4000,
     #delta distance
