@@ -11,6 +11,17 @@ setwd("/home/vasy/RStudioProjects/still_github/RStudio_wd_Can_fp/")
 
 temp_list = readMat("Ramp_wl_slow.mat")
 
+#boxshort replace, strech and interpolate in one step
+strech_and_interpolate <- function(list_to_short,list_to_match) {
+  
+  approx_list = approx(list_to_short[,1],
+                       list_to_short[,2], 
+                       n = round(max(diff(list_to_short[,1])),
+                                 digits = 2)/0.01*length(list_to_short[,1]))
+  
+  return(c(rep(as.numeric("NA"),approx_list[1,1]/0.01),approx_list,rep(as.numeric("NA"),length(list_to_match)-length(approx_list[,2])-approx_list[1,1]/0.01)))
+}
+
 fp_df = data.frame(
   0:(
     round(
@@ -44,52 +55,18 @@ for(w_column in names(temp_list))
     next()
   }
   print(w_column)
- 
-  #TODO
-  boxshort_2 <- function(list_to_short,list_to_match) {
-    return(c(rep(as.numeric("NA"),x),
-             approx(temp_list[[w_column]][,1],
-                    temp_list[[w_column]][,2], 
-                    n = round(max(diff(temp_list$Druck.Hubwerk..................................................[,1])),
-                              digits = 2)/0.01*length(temp_list[[w_column]][,1])
-             ),rep(as.numeric("NA"),x)
-    ))
-  }
   
-  fp_df = mutate(fp_df, !!w_column =  boxshort_2(temp_list[[w_column]],time_id))
-  # c(rep(0,w_width/2),
-  #   roll_mean(Pressure_Hydraulic_main_mast_bar,w_width,fill = numeric(0),align = "center"),
-  #   rep(0,w_width/2 - 1)
   
-  #fp_i = 1
-  #make new row in fp_df
-  #fp_df = mutate(fp_df, temp_col = as.numeric("NA"))
-  
-  #boxshort one row (round the time in the temp)
-  # for(row in 1:length(temp_list[[w_column]][,1]))
-  # {
-  #   # #debug
-  #   # print("row")
-  #   # print(row)
-  #   # print(fp_df$time_id[fp_i])
-  #   # print(round(temp_list[[w_column]][row, 1],digits = 2))
-  #   # print(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)))
-  #   # print(fp_i)
-  #   
-  #   #boxshort core      
-  #   while(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)) > 0.005)
-  #   {
-  #     fp_i = fp_i + 1
-  #   }
-  #   
-  #   fp_df$temp_col[fp_i] = temp_list[[w_column]][row, 2]
-  # }
-  # #rename temp_col to actual colname (df ready for the new mutate)
-  # names(fp_df) = gsub("temp_col",w_column,names(fp_df))
+  #fp_df = mutate(fp_df, !!w_column := strech_and_interpolate(temp_list[[w_column]],time_id)) 
+  fp_df = mutate(fp_df,  temp_col = strech_and_interpolate(temp_list[[w_column]],time_id)) 
+  names(fp_df)[names(fp_df) == "temp_col"] <- w_column
 }
 warnings()
 
 #dynamic variables in mutate
+
+
+fp_df = mutate(fp_df,  temp_col = "NA")
 
 # library(dplyr)
 # multipetalN <- function(df, n){
