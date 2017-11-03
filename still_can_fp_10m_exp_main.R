@@ -105,10 +105,10 @@ for(file_name_i in wd_filenames)
         w_column == "Thermo.01.K5..................................................." 
       )
     {
-      print(paste(w_column," is skipped",sep=""))
+      #print(paste(w_column," is skipped",sep=""))
       next()
     }
-    print(w_column)
+    #print(w_column)
     
     fp_df = mutate(fp_df,  temp_col = strech_and_interpolate(temp_list[[w_column]],time_id)) 
     names(fp_df)[names(fp_df) == "temp_col"] <- w_column
@@ -281,40 +281,10 @@ for(file_name_i in wd_filenames)
   #windowing and attributes
   ##################################################################################################################################################################################################################
   
-  #is.weight on the truck
-  tdf_attributes = mutate(
-    df_fp_tidy_no_na,
-    weight_mean = c(rep(0,w_width/2),
-                    roll_mean(Pressure_Hydraulic_main_mast_bar,w_width,fill = numeric(0),align = "center"),
-                    rep(0,w_width/2 - 1 )
-    ),
-    is.weight = weight_mean > is.weight_limit, #contans from plots
-    
-    resonation_mean = c(rep(0,w_width/2),
-                        roll_mean(Crash_Z_0.01g,w_width,fill = numeric(0),align = "center"),
-                        rep(0,w_width/2 - 1)
-    ),
-    big_resonation_event = resonation_mean > big_resonation_limit_plus | resonation_mean < big_resonation_limit_minus
-    
-  )
   #check direction change
   direction_check <- function(value,next_value){
     return(sign(value) != sign(next_value))
   }
-  #smoohting used in direction and derivatives
-  
-  #changing x and y direction
-  tdf_attributes = mutate(
-    tdf_attributes,
-    speed_1_direction_changed = direction_check(Speed_Drivemotor_1_U.min,lag(Speed_Drivemotor_1_U.min,n=smoothing,default = 0)),
-    speed_2_direction_changed = direction_check(Speed_Drivemotor_2_U.min,lag(Speed_Drivemotor_2_U.min,n=smoothing,default = 0)),
-    torque_1_direction_changed = direction_check(Torque_Drivemotor_1_Nm,lag(Torque_Drivemotor_1_Nm,n=smoothing,default = 0)),
-    torque_2_direction_changed = direction_check(Torque_Drivemotor_2_Nm,lag(Torque_Drivemotor_2_Nm,n=smoothing,default = 0)),
-    is.changed_y_direction = direction_check(Steering_angle_angle,lag(Steering_angle_angle,n=smoothing,default = 0)),
-    is.y_direction_0 = Steering_angle_angle == 0
-  )
-  
-  #speed torque matrix
   
   #categorise speed and drivemotor profiles, to future comparison using not linear intervall search not binary search but modulo calculation
   drivemotor_category_modulo_calc <- function(value_to_cat,real_scale_max,resolution_m){
@@ -330,7 +300,6 @@ for(file_name_i in wd_filenames)
     )
   }
   
-  #make all factor variations for comparsion
   factor_variations <- function(resolution_m){
     
     temp_m = expand.grid(0:resolution_m,0:resolution_m)
@@ -344,7 +313,43 @@ for(file_name_i in wd_filenames)
     return(temp_string)
   }
   
+  #is.weight on the truck
   tdf_attributes = mutate(
+    df_fp_tidy_no_na,
+    weight_mean = c(rep(0,w_width/2),
+                    roll_mean(Pressure_Hydraulic_main_mast_bar,w_width,fill = numeric(0),align = "center"),
+                    rep(0,w_width/2 - 1 )
+    ),
+    is.weight = weight_mean > is.weight_limit, #contans from plots
+    
+    resonation_mean = c(rep(0,w_width/2),
+                        roll_mean(Crash_Z_0.01g,w_width,fill = numeric(0),align = "center"),
+                        rep(0,w_width/2 - 1)
+    ),
+    big_resonation_event = resonation_mean > big_resonation_limit_plus | resonation_mean < big_resonation_limit_minus
+    
+  ) %>%
+  
+  #smoohting used in direction and derivatives
+  
+  #changing x and y direction
+  mutate(
+    tdf_attributes,
+    speed_1_direction_changed = direction_check(Speed_Drivemotor_1_U.min,lag(Speed_Drivemotor_1_U.min,n=smoothing,default = 0)),
+    speed_2_direction_changed = direction_check(Speed_Drivemotor_2_U.min,lag(Speed_Drivemotor_2_U.min,n=smoothing,default = 0)),
+    torque_1_direction_changed = direction_check(Torque_Drivemotor_1_Nm,lag(Torque_Drivemotor_1_Nm,n=smoothing,default = 0)),
+    torque_2_direction_changed = direction_check(Torque_Drivemotor_2_Nm,lag(Torque_Drivemotor_2_Nm,n=smoothing,default = 0)),
+    is.changed_y_direction = direction_check(Steering_angle_angle,lag(Steering_angle_angle,n=smoothing,default = 0)),
+    is.y_direction_0 = Steering_angle_angle == 0
+  ) %>%
+  
+  #speed torque matrix
+  
+ 
+  
+  #make all factor variations for comparsion
+ 
+  mutate(
     tdf_attributes, 
     speed_1_modulo_factor = drivemotor_category_modulo_calc(Speed_Drivemotor_1_U.min,speed_max,reso_m), 
     speed_2_modulo_factor = drivemotor_category_modulo_calc(Speed_Drivemotor_2_U.min,speed_max,reso_m),
@@ -358,11 +363,11 @@ for(file_name_i in wd_filenames)
     speed_torque_2_factor = as.factor(speed_torque_2_factor,levels = factor_variations(reso_m)),
     
     is.speed_torque_factor_equal = speed_torque_1_factor == speed_torque_2_factor
-  )
+  ) %>%
   
   #derivatives speed, torque, steering angle and steering speed + resonation calculated from Crash_Z
   
-  tdf_attributes = mutate(
+  mutate(
     tdf_attributes,
     
     s_1_t_deriv = abs((lag(Speed_Drivemotor_1_U.min,n=smoothing,default = 0) - Speed_Drivemotor_1_U.min))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
@@ -401,7 +406,7 @@ for(file_name_i in wd_filenames)
     
   )
   
-  sum(tdf_attributes$abs_trav_distance_dt)
+  print(sum(tdf_attributes$abs_trav_distance_dt))
   
   #savaRDS to attributes
   saveRDS(tdf_attributes,file=paste(export_location,file_name_i,"_att.rds",sep=""))
