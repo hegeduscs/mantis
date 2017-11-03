@@ -16,10 +16,16 @@ strech_and_interpolate <- function(list_to_short,list_to_match) {
   
   approx_list = approx(list_to_short[,1],
                        list_to_short[,2], 
-                       n = round(max(diff(list_to_short[,1])),
+                       n = round(mean(diff(list_to_short[,1])),
                                  digits = 2)/0.01*length(list_to_short[,1]))
   
-  return(c(rep(as.numeric("NA"),approx_list[1,1]/0.01),approx_list,rep(as.numeric("NA"),length(list_to_match)-length(approx_list[,2])-approx_list[1,1]/0.01)))
+  return(
+        c(
+          rep(as.numeric("NA"),round(approx_list$x[1],digits = 2)/0.01),
+          approx_list$y,
+          rep(as.numeric("NA"),length(list_to_match)-length(approx_list$y)-round(approx_list$x[1],digits = 2)/0.01)
+          )
+        )
 }
 
 fp_df = data.frame(
@@ -58,71 +64,24 @@ for(w_column in names(temp_list))
   
   
   #fp_df = mutate(fp_df, !!w_column := strech_and_interpolate(temp_list[[w_column]],time_id)) 
+  #fp_df = mutate(fp_df,  temp_col = "NA")
+  
   fp_df = mutate(fp_df,  temp_col = strech_and_interpolate(temp_list[[w_column]],time_id)) 
   names(fp_df)[names(fp_df) == "temp_col"] <- w_column
 }
 warnings()
 
-#dynamic variables in mutate
+#approx return test
 
-
-fp_df = mutate(fp_df,  temp_col = "NA")
-
-# library(dplyr)
-# multipetalN <- function(df, n){
-#   varname <- paste0("petal.", n)
-#   df %>%
-#     mutate(!!varname := Petal.Width * n)
-# }
+t_prox = approx(temp_list$Druck.Hubwerk..................................................[,1],temp_list$Druck.Hubwerk..................................................[,2],n = 3*length(temp_list$Druck.Hubwerk..................................................[,2]))
 # 
-# data(iris)
-# iris1 <- tbl_df(iris)
-# iris2 <- tbl_df(iris)
-# for(i in 2:5) {
-#   iris2 <- multipetalN(df=iris2, n=i)
-# }   
+# glimpse(t_prox)
+# head(t_prox)
 
-df_test = data.frame()
-df_test = names(temp_list)
-names(df_test)
-names(temp_list)
+x = length(fp_df$time_id)-length(t_prox$y)-round(t_prox$x[1],digits = 2)/0.01
 
-head(temp_list$Druck.Hubwerk..................................................)
+rep(as.numeric("NA"),length(fp_df$time_id)-length(t_prox$y)-round(t_prox$x[1],digits = 2)/0.01)
 
-round(max(diff(temp_list$Druck.Hubwerk..................................................[,1])),digits = 2)
-tail(diff(temp_list$Druck.Hubwerk..................................................))
-
-# x <- 1:10
-# y <- rnorm(10)
-# par(mfrow = c(2,1))
-# plot(x, y, main = "approx(.) and approxfun(.)")
-# points(approx(x, y, n = 30), col = 2, pch = "*")
-# #points(approx(x, y, method = "constant"), col = 4, pch = "*")
-# 
-# f <- approxfun(x, y)
-# curve(f(x), 0, 10, col = "green")
-# points(x, y)
-# is.function(fc <- approxfun(x, y, method = "const")) # TRUE
-# curve(fc(x), 0, 10, col = "darkblue", add = TRUE)
-# 
-# ## Show treatment of 'ties' :
-# 
-# x <- c(2,2:4,4,4,5,5,7,7,7)
-# y <- c(1:6, 5:4, 3:1)
-# approx(x,y, xout=x)$y # warning
-# (ay <- approx(x,y, xout=x, ties = "ordered")$y)
-# stopifnot(ay == c(2,2,3,6,6,6,4,4,1,1,1))
-# approx(x,y, xout=x, ties = min)$y
-# approx(x,y, xout=x, ties = max)$y
-
-# plot(temp_list$Druck.Hubwerk..................................................[1:30000,1], temp_list$Druck.Hubwerk..................................................[1:30000,2], main = "Vasyteszt")
-
-#######
-head(approx(temp_list$Druck.Hubwerk..................................................[,1],
-            temp_list$Druck.Hubwerk..................................................[,2], n = 3*length(temp_list$Druck.Hubwerk..................................................[,1])))
-######
-length(temp_list$Druck.Hubwerk..................................................[,1])
-length(temp_list$Druck.Hubwerk..................................................[,2])
-
-mean(diff(temp_list$Druck.Hubwerk..................................................[,1]))
-nrow(temp_list$Druck.Hubwerk..................................................)
+length(fp_df$time_id)
+length(t_prox$y)
+round(t_prox$x[1],digits = 2)/0.01
