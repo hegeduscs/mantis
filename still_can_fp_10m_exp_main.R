@@ -27,6 +27,23 @@ torque_max = 80
 
 smoothing = 1 # changed for travelled distance calc
 
+#boxshort replace, strech and interpolate in one step
+strech_and_interpolate <- function(list_to_short,list_to_match) {
+  
+  approx_list = approx(list_to_short[,1],
+                       list_to_short[,2], 
+                       n = round(mean(diff(list_to_short[,1])),
+                                 digits = 2)/0.01*length(list_to_short[,1]))
+  
+  return(
+    c(
+      rep(as.numeric("NA"),round(approx_list$x[1],digits = 2)/0.01),
+      approx_list$y,
+      rep(as.numeric("NA"),length(list_to_match)-length(approx_list$y)-round(approx_list$x[1],digits = 2)/0.01)
+    )
+  )
+}
+
 #where the files to be boxshorted
 
 #PAKS3 (batman)
@@ -93,31 +110,35 @@ for(file_name_i in wd_filenames)
       next()
     }
     print(w_column)
-    fp_i = 1
-    #make new row in fp_df
-    fp_df = mutate(fp_df, temp_col = as.numeric("NA"))
-
-    #boxshort one row (round the time in the temp)
-    for(row in 1:length(temp_list[[w_column]][,1]))
-    {
-      # #debug
-      # print("row")
-      # print(row)
-      # print(fp_df$time_id[fp_i])
-      # print(round(temp_list[[w_column]][row, 1],digits = 2))
-      # print(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)))
-      # print(fp_i)
-            
-      #boxshort core      
-      while(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)) > 0.005)
-      {
-        fp_i = fp_i + 1
-      }
-
-      fp_df$temp_col[fp_i] = temp_list[[w_column]][row, 2]
-    }
-    #rename temp_col to actual colname (df ready for the new mutate)
-    names(fp_df) = gsub("temp_col",w_column,names(fp_df))
+    
+    fp_df = mutate(fp_df,  temp_col = strech_and_interpolate(temp_list[[w_column]],time_id)) 
+    names(fp_df)[names(fp_df) == "temp_col"] <- w_column
+    
+    # fp_i = 1
+    # #make new row in fp_df
+    # fp_df = mutate(fp_df, temp_col = as.numeric("NA"))
+    # 
+    # #boxshort one row (round the time in the temp)
+    # for(row in 1:length(temp_list[[w_column]][,1]))
+    # {
+    #   # #debug
+    #   # print("row")
+    #   # print(row)
+    #   # print(fp_df$time_id[fp_i])
+    #   # print(round(temp_list[[w_column]][row, 1],digits = 2))
+    #   # print(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)))
+    #   # print(fp_i)
+    #         
+    #   #boxshort core      
+    #   while(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)) > 0.005)
+    #   {
+    #     fp_i = fp_i + 1
+    #   }
+    # 
+    #   fp_df$temp_col[fp_i] = temp_list[[w_column]][row, 2]
+    # }
+    # #rename temp_col to actual colname (df ready for the new mutate)
+    # names(fp_df) = gsub("temp_col",w_column,names(fp_df))
   }
   warnings()
 
