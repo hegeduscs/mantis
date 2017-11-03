@@ -25,7 +25,9 @@ if(reso_m%%2!=1)
 speed_max = 5000
 torque_max = 80
 
-smoothing = 1 # changed for travelled distance calc
+smoothing = 1 # window size
+
+deriv_dist = 1 # changed for travelled distance calc
 
 #boxshort replace, strech and interpolate in one step
 strech_and_interpolate <- function(list_to_short,list_to_match) {
@@ -380,11 +382,11 @@ for(file_name_i in wd_filenames)
     steer_wheel_deg_t_deriv = abs((lag(Steering_angle_angle,n=smoothing,default = 0) - Steering_angle_angle))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s),
     resonation_t_deriv = abs((lag(Crash_Z_0.01g,n=smoothing,default = 0) - Crash_Z_0.01g))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s)
     
-  )
+  ) %>%
   #+ travelled dsitance smooting correction
   #speed convert from U/min to m/s still max speed is 20km/h so 3.6km/h / 1m/s 5.55 m/s, the max U is 3453 so speed_m/s = speedU*5.555/3453 and 
-  smoothing = 1
-  tdf_attributes = mutate(
+  
+  mutate(
     tdf_attributes,
     #check
     speed_d1 = (Speed_Drivemotor_1_U.min * 5.555)/4000,
@@ -392,21 +394,21 @@ for(file_name_i in wd_filenames)
     #delta distance
     abs_trav_distance_dt = abs(
       #delta velocity
-      mean(c(lag(speed_d1,n=smoothing,default = 0),lag(speed_d2,n=smoothing,default = 0)))
+      mean(c(lag(speed_d1,n=deriv_dist,default = 0),lag(speed_d2,n=deriv_dist,default = 0)))
       -
         mean(c(speed_d1,speed_d2))
     )
     *
       #delta time
-      (lag(time_ID_s,n=smoothing,default = 0)-time_ID_s)
+      (lag(time_ID_s,n=deriv_dist,default = 0)-time_ID_s)
     +
       #delta acceleration
-      abs(lag(Crash_X_0.01g,n=smoothing,default = 0) - Crash_X_0.01g)
+      abs(lag(Crash_X_0.01g,n=deriv_dist,default = 0) - Crash_X_0.01g)
     *
-      (lag(time_ID_s,n=smoothing,default = 0)-time_ID_s)^2/2
+      (lag(time_ID_s,n=deriv_dist,default = 0)-time_ID_s)^2/2
     
   )
-  
+  # calc avg speed
   print(sum(tdf_attributes$abs_trav_distance_dt))
   
   #savaRDS to attributes
