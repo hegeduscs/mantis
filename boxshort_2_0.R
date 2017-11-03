@@ -9,15 +9,14 @@ library(zoo)
 
 setwd("/home/vasy/RStudioProjects/still_github/RStudio_wd_Can_fp/")
 
-temp_list = readMat("Ramp_wl_slow.mat")
+temp_list = readMat("800hTestDrive_slow.mat")
 
 #boxshort replace, strech and interpolate in one step
 strech_and_interpolate <- function(list_to_short,list_to_match) {
   
   approx_list = approx(list_to_short[,1],
                        list_to_short[,2], 
-                       n = round(mean(diff(list_to_short[,1])),
-                                 digits = 2)/0.01*length(list_to_short[,1]))
+                       n = trunc(median(diff(list_to_short[,1]))*10^2)*length(list_to_short[,1]))
   
   return(
         c(
@@ -36,7 +35,8 @@ fp_df = data.frame(
       )*100
       ,digits = 2
     )
-    +1000)
+    +100
+    )
 )
 names(fp_df) = "ID_count"
 fp_df = mutate(fp_df, time_id = 0 + ID_count * 0.01)
@@ -69,6 +69,7 @@ for(w_column in names(temp_list))
   fp_df = mutate(fp_df,  temp_col = strech_and_interpolate(temp_list[[w_column]],time_id)) 
   names(fp_df)[names(fp_df) == "temp_col"] <- w_column
 }
+summary(fp_df)
 warnings()
 
 #approx return test
@@ -78,9 +79,23 @@ t_prox = approx(temp_list$Druck.Hubwerk.........................................
 # glimpse(t_prox)
 # head(t_prox)
 
+round(median(diff(temp_list$SR.DAC.3.Drehzahl.Lenkrad......................................[,1])),digits = 2)/0.01
+round(mean(diff(temp_list$SR.DAC.3.Drehzahl.Lenkrad......................................[,1])),digits = 2)/0.01
+trunc(median(diff(temp_list$A0.Jahr........................................................[,1]))*10^2)
+
+median(diff(temp_list$A0.Jahr........................................................[,1]))
+
+
+trunc(0.048*10^2)/10^2
+
+round(median(diff(temp_list$Druck.Hubwerk..................................................[,1])),
+      digits = 2)/0.01*length(temp_list$Druck.Hubwerk..................................................[,1])
+
 x = length(fp_df$time_id)-length(t_prox$y)-round(t_prox$x[1],digits = 2)/0.01
 
 rep(as.numeric("NA"),length(fp_df$time_id)-length(t_prox$y)-round(t_prox$x[1],digits = 2)/0.01)
+
+summary(diff(temp_list$A0.Jahr........................................................))
 
 length(fp_df$time_id)
 length(t_prox$y)

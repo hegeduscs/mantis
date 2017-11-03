@@ -32,8 +32,7 @@ strech_and_interpolate <- function(list_to_short,list_to_match) {
   
   approx_list = approx(list_to_short[,1],
                        list_to_short[,2], 
-                       n = round(mean(diff(list_to_short[,1])),
-                                 digits = 2)/0.01*length(list_to_short[,1]))
+                       n = trunc(median(diff(list_to_short[,1]))*10^2)*length(list_to_short[,1]))
   
   return(
     c(
