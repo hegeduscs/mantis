@@ -33,8 +33,8 @@ deriv_dist = 1 # changed for travelled distance calc
 #where the files to be boxshorted
 
 #PAKS3 (batman)
-setwd("/home/vassb/RStudio_wd_Can_fp/")
-export_location="/home/vassb/cleaned_files/"
+setwd("/home/vassb/ephemeral-account/")
+export_location="/home/vassb/box_window_att_files/"
 
 #PC
 # setwd("/home/vasy/RStudioProjects/still_github/RStudio_wd_Can_fp/")
