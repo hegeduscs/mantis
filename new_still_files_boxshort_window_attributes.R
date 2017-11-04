@@ -66,7 +66,7 @@ for(file_name_i in wd_filenames)
       max(
         temp_list$Druck.Hubwerk..................................................[,1]
       )
-      + 10
+      + 1
     )
   )
   names(fp_df) = "time_ID"
