@@ -29,22 +29,6 @@ smoothing = 1 # window size
 
 deriv_dist = 1 # changed for travelled distance calc
 
-#boxshort replace, strech and interpolate in one step
-strech_and_interpolate <- function(list_to_short,list_to_match) {
-  
-  approx_list = approx(list_to_short[,1],
-                       list_to_short[,2], 
-                       n = trunc(median(diff(list_to_short[,1]))*10^2)*length(list_to_short[,1]))
-  
-  return(
-    c(
-      rep(as.numeric("NA"),round(approx_list$x[1],digits = 2)/0.01),
-      approx_list$y,
-      rep(as.numeric("NA"),length(list_to_match)-length(approx_list$y)-round(approx_list$x[1],digits = 2)/0.01)
-    )
-  )
-}
-
 #where the files to be boxshorted
 
 #PAKS3 (batman)
@@ -77,19 +61,15 @@ for(file_name_i in wd_filenames)
   
   #all timestamp possibilites for boxshort (max calculated /file)
   fp_df = data.frame(
-                    0:(
-                      round(
-                            max(
-                                temp_list$Druck.Hubwerk..................................................[,1]
-                                )*100
-                            ,digits = 2
-                            )
-                    +1000)
-                  )
-  names(fp_df) = "ID_count"
-  fp_df = mutate(fp_df, time_id = 0 + ID_count * 0.01)
-  
-  
+    0:(
+      max(
+        temp_list$Druck.Hubwerk..................................................[,1]
+      )
+      + 10
+    )
+  )
+  names(fp_df) = "time_ID"
+
   #box short all rows (in descending nrow order)
   for(w_column in names(temp_list))
   {
@@ -110,46 +90,29 @@ for(file_name_i in wd_filenames)
       #print(paste(w_column," is skipped",sep=""))
       next()
     }
-    #print(w_column)
+    print(w_column)
     
-    fp_df = mutate(fp_df,  temp_col = strech_and_interpolate(temp_list[[w_column]],time_id)) 
-    names(fp_df)[names(fp_df) == "temp_col"] <- w_column
+    #make new column in fp_df
+    fp_df = mutate(fp_df, temp_col = as.numeric("NA"))
     
-    # fp_i = 1
-    # #make new row in fp_df
-    # fp_df = mutate(fp_df, temp_col = as.numeric("NA"))
-    # 
-    # #boxshort one row (round the time in the temp)
-    # for(row in 1:length(temp_list[[w_column]][,1]))
-    # {
-    #   # #debug
-    #   # print("row")
-    #   # print(row)
-    #   # print(fp_df$time_id[fp_i])
-    #   # print(round(temp_list[[w_column]][row, 1],digits = 2))
-    #   # print(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)))
-    #   # print(fp_i)
-    #         
-    #   #boxshort core      
-    #   while(abs(fp_df$time_id[fp_i] - round(temp_list[[w_column]][row, 1],digits = 2)) > 0.005)
-    #   {
-    #     fp_i = fp_i + 1
-    #   }
-    # 
-    #   fp_df$temp_col[fp_i] = temp_list[[w_column]][row, 2]
-    # }
-    # #rename temp_col to actual colname (df ready for the new mutate)
-    # names(fp_df) = gsub("temp_col",w_column,names(fp_df))
+    temp_df = temp_list[[w_column]] %>%
+    as.data.frame() %>%
+    mutate(V1 = round(V1)) %>%
+    group_by(V1) %>%
+    summarise_all(mean,na.rm = TRUE)
+    
+    fp_df = left_join(fp_df,temp_df, by = c("time_ID" = "V1"))
+    
+    #rename temp_col to actual colname (df ready for the new mutate)
+    names(fp_df) = gsub("V2",w_column,names(fp_df))
   }
   warnings()
 
   #cleaning solution
   fp_df = fp_df %>% 
-  #drop meaningless values  
-    select(-starts_with("ID_count")) %>%
   #rearrenge columns to properly rename them  
     select(
-           time_id,
+           time_ID,
            A5.Sekunde.....................................................,
            A4.Minute......................................................,
            A3.Stunde......................................................,
@@ -264,10 +227,7 @@ for(file_name_i in wd_filenames)
           ) %>%
     #mutate fingerprint type
     #shorten the dataframe, drop not usefull data
-    mutate(date_time = as.POSIXct(ymd_hms(paste(date,hms(time),sep = ",") ))) %>%
-    group_by(date_time) %>%
-    summarise_all(mean,na.rm = TRUE) %>%
-    mutate(fingerprint_type = factor(file_name_i)) 
+    mutate(date_time = as.POSIXct(ymd_hms(paste(date,hms(time),sep = ",") ))) 
   
   #save in export location
   #csv
