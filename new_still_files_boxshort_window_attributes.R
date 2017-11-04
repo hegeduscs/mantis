@@ -112,10 +112,9 @@ for(file_name_i in wd_filenames)
   #cleaning solution
   fp_df = fp_df %>% 
     #drop meaningless values  
-    select(-starts_with("ID_count")) %>%
     #rearrenge columns to properly rename them  
     select(
-      time_id,
+      time_ID,
       A5.Sekunde.....................................................,
       A4.Minute......................................................,
       A3.Stunde......................................................,
