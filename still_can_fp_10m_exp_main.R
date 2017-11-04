@@ -17,6 +17,7 @@ if(w_width%%2!=0)
 is.weight_limit = 50
 big_resonation_limit_plus = 300
 big_resonation_limit_minus = 250
+r_wheel = 0.467 # from catalog
 
 #resolution for factor matrix
 reso_m = 9 #must be odd!!!
@@ -145,9 +146,9 @@ for(file_name_i in wd_filenames)
                    "Day_d",
                    "Month_mo",
                    "Year_y",
-                   "Speed_Steering_wheel_U.min",
+                   "Speed_Steering_wheel_RPM",
                    "Steering_angle_angle",
-                   "Speed_pump_motor_U.min",
+                   "Speed_pump_motor_RPM",
                    "Torque_pump_motor_Nm",
                    "Crash_Z_0.01g",
                    "Crash_Y_0.01g",
@@ -157,8 +158,8 @@ for(file_name_i in wd_filenames)
                    "Lever_position_Add1_mV_base_4000mV",
                    "Lever_position_tilting_mV_base_4000mV",
                    "Lever_position_lifting_mV_base_4000mV",
-                   "Speed_Drivemotor_2_U.min",
-                   "Speed_Drivemotor_1_U.min",
+                   "Speed_Drivemotor_2_RPM",
+                   "Speed_Drivemotor_1_RPM",
                    "Torque_Drivemotor_2_Nm",
                    "Torque_Drivemotor_1_Nm")
 
@@ -170,9 +171,9 @@ for(file_name_i in wd_filenames)
                           is.na(Day_d)&
                           is.na(Month_mo)&
                           is.na(Year_y)&
-                          is.na(Speed_Steering_wheel_U.min)&
+                          is.na(Speed_Steering_wheel_RPM)&
                           is.na(Steering_angle_angle)&
-                          is.na(Speed_pump_motor_U.min)&
+                          is.na(Speed_pump_motor_RPM)&
                           is.na(Torque_pump_motor_Nm)&
                           is.na(Crash_Z_0.01g)&
                           is.na(Crash_Y_0.01g)&
@@ -182,8 +183,8 @@ for(file_name_i in wd_filenames)
                           is.na(Lever_position_Add1_mV_base_4000mV)&
                           is.na(Lever_position_tilting_mV_base_4000mV)&
                           is.na(Lever_position_lifting_mV_base_4000mV)&
-                          is.na(Speed_Drivemotor_2_U.min)&
-                          is.na(Speed_Drivemotor_1_U.min)&
+                          is.na(Speed_Drivemotor_2_RPM)&
+                          is.na(Speed_Drivemotor_1_RPM)&
                           is.na(Torque_Drivemotor_2_Nm)&
                           is.na(Torque_Drivemotor_1_Nm)
                         )
@@ -297,8 +298,8 @@ for(file_name_i in wd_filenames)
   #changing x and y direction
   mutate(
     tdf_attributes,
-    speed_1_direction_changed = direction_check(Speed_Drivemotor_1_U.min,lag(Speed_Drivemotor_1_U.min,n=smoothing,default = 0)),
-    speed_2_direction_changed = direction_check(Speed_Drivemotor_2_U.min,lag(Speed_Drivemotor_2_U.min,n=smoothing,default = 0)),
+    speed_1_direction_changed = direction_check(Speed_Drivemotor_1_RPM,lag(Speed_Drivemotor_1_RPM,n=smoothing,default = 0)),
+    speed_2_direction_changed = direction_check(Speed_Drivemotor_2_RPM,lag(Speed_Drivemotor_2_RPM,n=smoothing,default = 0)),
     torque_1_direction_changed = direction_check(Torque_Drivemotor_1_Nm,lag(Torque_Drivemotor_1_Nm,n=smoothing,default = 0)),
     torque_2_direction_changed = direction_check(Torque_Drivemotor_2_Nm,lag(Torque_Drivemotor_2_Nm,n=smoothing,default = 0)),
     is.changed_y_direction = direction_check(Steering_angle_angle,lag(Steering_angle_angle,n=smoothing,default = 0)),
@@ -313,8 +314,8 @@ for(file_name_i in wd_filenames)
  
   mutate(
     tdf_attributes, 
-    speed_1_modulo_factor = drivemotor_category_modulo_calc(Speed_Drivemotor_1_U.min,speed_max,reso_m), 
-    speed_2_modulo_factor = drivemotor_category_modulo_calc(Speed_Drivemotor_2_U.min,speed_max,reso_m),
+    speed_1_modulo_factor = drivemotor_category_modulo_calc(Speed_Drivemotor_1_RPM,speed_max,reso_m), 
+    speed_2_modulo_factor = drivemotor_category_modulo_calc(Speed_Drivemotor_2_RPM,speed_max,reso_m),
     torque_1_modulo_factor = drivemotor_category_modulo_calc(Torque_Drivemotor_1_Nm,torque_max,reso_m),
     torque_2_modulo_factor = drivemotor_category_modulo_calc(Torque_Drivemotor_2_Nm,torque_max,reso_m),
     
@@ -332,13 +333,13 @@ for(file_name_i in wd_filenames)
   mutate(
     tdf_attributes,
     
-    s_1_t_deriv = abs((lag(Speed_Drivemotor_1_U.min,n=smoothing,default = 0) - Speed_Drivemotor_1_U.min))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
-    s_2_t_deriv = abs((lag(Speed_Drivemotor_2_U.min,n=smoothing,default = 0) - Speed_Drivemotor_2_U.min))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+    s_1_t_deriv = abs((lag(Speed_Drivemotor_1_RPM,n=smoothing,default = 0) - Speed_Drivemotor_1_RPM))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
+    s_2_t_deriv = abs((lag(Speed_Drivemotor_2_RPM,n=smoothing,default = 0) - Speed_Drivemotor_2_RPM))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
     
     t_1_t_deriv = abs((lag(Torque_Drivemotor_1_Nm,n=smoothing,default = 0) - Torque_Drivemotor_1_Nm))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
     t_2_t_deriv = abs((lag(Torque_Drivemotor_2_Nm,n=smoothing,default = 0) - Torque_Drivemotor_2_Nm))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s), 
     
-    speed_steering_deriv = abs((lag(Speed_Steering_wheel_U.min,n=smoothing,default = 0) - Speed_Steering_wheel_U.min))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s),
+    speed_steering_deriv = abs((lag(Speed_Steering_wheel_RPM,n=smoothing,default = 0) - Speed_Steering_wheel_RPM))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s),
     steer_wheel_deg_t_deriv = abs((lag(Steering_angle_angle,n=smoothing,default = 0) - Steering_angle_angle))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s),
     resonation_t_deriv = abs((lag(Crash_Z_0.01g,n=smoothing,default = 0) - Crash_Z_0.01g))/(lag(time_ID_s,n=smoothing,default = 0)-time_ID_s)
     
@@ -349,8 +350,9 @@ for(file_name_i in wd_filenames)
   mutate(
     tdf_attributes,
     #check
-    speed_d1 = (Speed_Drivemotor_1_U.min * 5.555)/4000,
-    speed_d2 = (Speed_Drivemotor_2_U.min * 5.555)/4000,
+    #v = r × RPM × 0.10472
+    speed_d1 = (r_wheel * Speed_Drivemotor_1_RPM * 0.10472),
+    speed_d2 = (r_wheel * Speed_Drivemotor_2_RPM * 0.10472),
     #delta distance
     abs_trav_distance_dt = abs(
       #delta velocity
