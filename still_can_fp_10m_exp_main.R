@@ -17,7 +17,7 @@ if(w_width%%2!=0)
 is.weight_limit = 50
 big_resonation_limit_plus = 300
 big_resonation_limit_minus = 250
-r_wheel = 0.467 # from catalog
+d_wheel = 0.467 # from catalog
 
 #resolution for factor matrix
 reso_m = 9 #must be odd!!!
@@ -351,8 +351,8 @@ for(file_name_i in wd_filenames)
     tdf_attributes,
     #check
     #v = r × RPM × 0.10472
-    speed_d1 = (r_wheel * Speed_Drivemotor_1_RPM * 0.10472),
-    speed_d2 = (r_wheel * Speed_Drivemotor_2_RPM * 0.10472),
+    speed_d1 = (d_wheel * Speed_Drivemotor_1_RPM * 0.0524),
+    speed_d2 = (d_wheel * Speed_Drivemotor_2_RPM * 0.0524),
     #delta distance
     abs_trav_distance_dt = abs(
       #delta velocity
