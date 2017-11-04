@@ -353,8 +353,8 @@ for(file_name_i in wd_filenames)
       tdf_attributes,
       #check
       #v = r × RPM × 0.10472
-      speed_d1 = (d_wheel * Speed_Drivemotor_1_RPM * 0.0524),
-      speed_d2 = (d_wheel * Speed_Drivemotor_2_RPM * 0.0524),
+      speed_d1 = (d_wheel * Speed_Drivemotor_1_RPM * 2*pi/60/2),
+      speed_d2 = (d_wheel * Speed_Drivemotor_2_RPM * 2*pi/60/2),
       #delta distance
       abs_trav_distance_dt = abs(
         #delta velocity

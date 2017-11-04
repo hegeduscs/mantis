@@ -345,14 +345,12 @@ for(file_name_i in wd_filenames)
     
   ) %>%
   #+ travelled dsitance smooting correction
-  #speed convert from U/min to m/s still max speed is 20km/h so 3.6km/h / 1m/s 5.55 m/s, the max U is 3453 so speed_m/s = speedU*5.555/3453 and 
-  
+ 
   mutate(
     tdf_attributes,
-    #check
     #v = r × RPM × 0.10472
-    speed_d1 = (d_wheel * Speed_Drivemotor_1_RPM * 0.0524),
-    speed_d2 = (d_wheel * Speed_Drivemotor_2_RPM * 0.0524),
+    speed_d1 = (d_wheel * Speed_Drivemotor_1_RPM * 2*pi/60/2),
+    speed_d2 = (d_wheel * Speed_Drivemotor_2_RPM * 2*pi/60/2),
     #delta distance
     abs_trav_distance_dt = abs(
       #delta velocity
