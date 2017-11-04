@@ -91,7 +91,7 @@ for(file_name_i in wd_filenames)
       #print(paste(w_column," is skipped",sep=""))
       next()
     }
-    print(w_column)
+    #print(w_column)
     
     #make new column in fp_df
     fp_df = mutate(fp_df, temp_col = as.numeric("NA"))
