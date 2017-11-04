@@ -374,7 +374,7 @@ for(file_name_i in wd_filenames)
   print(sum(tdf_attributes$abs_trav_distance_dt))
   print(min(tdf_attributes$date_time))
   print(max(tdf_attributes$date_time))
-  print("\n")
+  cat("\n")
   #savaRDS to attributes
   saveRDS(tdf_attributes,file=paste(export_location,file_name_i,"_att.rds",sep=""))
   print(paste(file_name_i,"_att.rds is saved to: ",export_location,sep = ""))
