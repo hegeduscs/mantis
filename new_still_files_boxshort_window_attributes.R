@@ -62,12 +62,11 @@ for(file_name_i in wd_filenames)
   
   #all timestamp possibilites for boxshort (max calculated /file)
   fp_df = data.frame(
-    seq(0,
+    0:(
       max(
-        temp_list$Druck.Hubwerk..................................................[,1]
+        temp_list$UE.DAC.6.Auslenkung.Z.prop.....................................[,1]
       )
       + 1
-    ,by = 1
     )
   )
   names(fp_df) = "time_ID"
