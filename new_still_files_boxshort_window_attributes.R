@@ -110,7 +110,7 @@ for(file_name_i in wd_filenames)
   warnings()
   
   #cleaning solution
-  fp_df = fp_df %>% 
+  df_fp_tidy = fp_df %>% 
     #drop meaningless values  
     #rearrenge columns to properly rename them  
     select(
@@ -140,7 +140,7 @@ for(file_name_i in wd_filenames)
     )
   
   #name w_columns, short column names 
-  names(fp_df) = c("time_ID_s",
+  names(df_fp_tidy) = c("time_ID_s",
                    "Second_s",
                    "Minute_m",
                    "Hour_h",
@@ -165,7 +165,7 @@ for(file_name_i in wd_filenames)
                    "Torque_Drivemotor_1_Nm")
   
   #filter out fully NA rows () reamainig of the boxshort
-  # df_fp_tidy = filter(fp_df,
+  # df_fp_tidy = filter(df_fp_tidy,
   #                     !(is.na(Second_s)&
   #                         is.na(Minute_m)&
   #                         is.na(Hour_h)&
