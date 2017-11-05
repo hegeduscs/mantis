@@ -281,7 +281,7 @@ for(file_name_i in wd_filenames)
   tdf_attributes = mutate(
     df_fp_tidy_no_na,
     weight_mean = c(rep(0,w_width/2),
-                    roll_mean(Pressure_Hydraulic_main_mast_bar,w_width,fill = numeric(0),align = "center"),
+                    roll_mean(Lever_position_lifting_mV_base_4000mV,w_width,fill = numeric(0),align = "center"),
                     rep(0,w_width/2 - 1 )
     ),
     is.weight = weight_mean > is.weight_limit, #contans from plots
