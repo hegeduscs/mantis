@@ -107,3 +107,4 @@ summary(temp_df)
 glimpse(temp_list$Druck.Hubwerk..................................................)
 summary(temp_list$Druck.Hubwerk..................................................)
 
+seq(0,9,1)

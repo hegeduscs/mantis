@@ -62,11 +62,12 @@ for(file_name_i in wd_filenames)
   
   #all timestamp possibilites for boxshort (max calculated /file)
   fp_df = data.frame(
-    0:(
+    seq(0,
       max(
         temp_list$Druck.Hubwerk..................................................[,1]
       )
       + 1
+    ,by = 1
     )
   )
   names(fp_df) = "time_ID"
@@ -165,31 +166,31 @@ for(file_name_i in wd_filenames)
                    "Torque_Drivemotor_1_Nm")
   
   #filter out fully NA rows () reamainig of the boxshort
-  df_fp_tidy = filter(fp_df,
-                      !(is.na(Second_s)&
-                          is.na(Minute_m)&
-                          is.na(Hour_h)&
-                          is.na(Day_d)&
-                          is.na(Month_mo)&
-                          is.na(Year_y)&
-                          is.na(Speed_Steering_wheel_RPM)&
-                          is.na(Steering_angle_angle)&
-                          is.na(Speed_pump_motor_RPM)&
-                          is.na(Torque_pump_motor_Nm)&
-                          is.na(Crash_Z_0.01g)&
-                          is.na(Crash_Y_0.01g)&
-                          is.na(Crash_X_0.01g)&
-                          is.na(Crash_W_0.01g)&
-                          is.na(Lever_position_Add2_mV_base_4000mV)&
-                          is.na(Lever_position_Add1_mV_base_4000mV)&
-                          is.na(Lever_position_tilting_mV_base_4000mV)&
-                          is.na(Lever_position_lifting_mV_base_4000mV)&
-                          is.na(Speed_Drivemotor_2_RPM)&
-                          is.na(Speed_Drivemotor_1_RPM)&
-                          is.na(Torque_Drivemotor_2_Nm)&
-                          is.na(Torque_Drivemotor_1_Nm)
-                      )
-  )
+  # df_fp_tidy = filter(fp_df,
+  #                     !(is.na(Second_s)&
+  #                         is.na(Minute_m)&
+  #                         is.na(Hour_h)&
+  #                         is.na(Day_d)&
+  #                         is.na(Month_mo)&
+  #                         is.na(Year_y)&
+  #                         is.na(Speed_Steering_wheel_RPM)&
+  #                         is.na(Steering_angle_angle)&
+  #                         is.na(Speed_pump_motor_RPM)&
+  #                         is.na(Torque_pump_motor_Nm)&
+  #                         is.na(Crash_Z_0.01g)&
+  #                         is.na(Crash_Y_0.01g)&
+  #                         is.na(Crash_X_0.01g)&
+  #                         is.na(Crash_W_0.01g)&
+  #                         is.na(Lever_position_Add2_mV_base_4000mV)&
+  #                         is.na(Lever_position_Add1_mV_base_4000mV)&
+  #                         is.na(Lever_position_tilting_mV_base_4000mV)&
+  #                         is.na(Lever_position_lifting_mV_base_4000mV)&
+  #                         is.na(Speed_Drivemotor_2_RPM)&
+  #                         is.na(Speed_Drivemotor_1_RPM)&
+  #                         is.na(Torque_Drivemotor_2_Nm)&
+  #                         is.na(Torque_Drivemotor_1_Nm)
+  #                     )
+  # )
   #interpolation
   
   #look up first and last value for the interpolation
